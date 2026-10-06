@@ -8,8 +8,8 @@ Both anonymous calls are rate limited per network address and per code, and a co
 
 | Name | Type | Input | Result |
 |---|---|---|---|
-| check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data |
-| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | confirmation email sent, or error. In test mode (server setting, honored only in development and test projects) the account is created confirmed, no email is sent, and the result is `confirmed`; otherwise the result is `check_email` |
+| check_invite | SQL | code | status only: valid, expired, revoked, disabled, invalid. No inviter or user data |
+| register | Edge | invite code, handle, email, password, terms version, age confirmation. The avatar is added after the first sign-in from Me, Edit profile | confirmation email sent, or error. In test mode (server setting, honored only in development and test projects) the account is created confirmed, no email is sent, and the result is `confirmed`; otherwise the result is `check_email` |
 
 On a valid invite and handle, `register` always answers the same way ("check your email") whether or not the email is already registered. If the email already has an account, the email that is sent says so and links to sign in and reset. Attempts count against the rate limit either way. Test mode is the exception: it returns `email_in_use` for a used email, since test projects are private. Invite and handle errors stay distinct because they reveal nothing about emails.
 
@@ -18,10 +18,10 @@ On a valid invite and handle, `register` always answers the same way ("check you
 | Name | Type | Notes |
 |---|---|---|
 | update_profile | SQL | handle (once per 30 days) and avatar path |
-| list_sessions | Edge | the user's signed-in devices |
-| revoke_session | Edge | one session, or all others |
-| change_password | Edge | verifies the current password, sets the new one, revokes other sessions |
-| after_password_reset | Edge | called right after a successful reset; revokes the user's other sessions |
+| list_sessions | SQL | the user's signed-in devices (reads the auth sessions table; the caller's own rows only) |
+| revoke_session | SQL | one session |
+| revoke_other_sessions | SQL | every session except the caller's; the app calls it right after a successful password reset |
+| change_password | Edge | verifies the current password, sets the new one, signs the caller in again, returns that fresh session, and revokes every other session |
 | delete-account | Edge | full deletion path in architecture.md |
 
 ## Referral
@@ -51,7 +51,7 @@ On a valid invite and handle, `register` always answers the same way ("check you
 | Name | Type | Notes |
 |---|---|---|
 | start_session | SQL | crew ids; returns session id |
-| checkpoint_session | SQL | session id, week segment values, updates last_seen_at |
+| checkpoint_session | SQL | session id and the values for the current week segment, cumulative and restarted from zero by the app when the Toronto week changes; updates last_seen_at. NaN and Infinity are rejected |
 | end_session | SQL | sets ended_at |
 
 Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id>` channels.
@@ -64,7 +64,7 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 

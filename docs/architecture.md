@@ -81,7 +81,7 @@ Decision 0004 (location only within crews) is a database rule, not a convention.
 4. The user confirms the email, then signs in. The app stores the session in the platform secure store.
 5. Database scheduled jobs (pg_cron, no external secret) remove any auth user without a profile one hour after it was created, and remove accounts whose email is still unconfirmed 24 hours after creation, freeing their handle. Invites have no limits, so retrying costs nothing.
 
-Sending the confirmation email from an admin-created user is not assumed to work out of the box; it is the first build spike. Planned method: admin create of an unconfirmed user plus a resend of the signup confirmation. Fallback: leave Supabase signup on but gate it with an Auth hook that rejects any signup without a valid invite code in its metadata.
+Confirmed by the build: with public signup disabled, an admin-created unconfirmed user plus a resend of the signup confirmation sends the confirmation email, and the confirmation link works. The Auth hook fallback was not needed.
 
 Confirmation and password reset emails go through an SMTP provider. The provider and sending domain are deferred (see Open).
 
@@ -96,8 +96,8 @@ Email links go to the link domain on Cloudflare Pages. The confirmation link com
 ### Sign in, recovery, and devices
 
 - Sign in is email and password through Supabase Auth. Sessions stay until sign out or revoke.
-- Forgot password sends a reset link by email. Supabase does not sign out other devices on a reset, so right after a successful reset the app calls `after_password_reset`, which revokes the user's other sessions.
-- Change password goes through the `change_password` Edge Function, which verifies the current password, sets the new one, and revokes other sessions.
+- Forgot password sends a reset link by email. Supabase does not sign out other devices on a reset, so right after a successful reset the app calls `revoke_other_sessions`.
+- Change password goes through the `change_password` Edge Function, which verifies the current password, sets the new one, signs the caller in again (Supabase can end the caller's own session on a password change), returns that fresh session to the app, and revokes every other session.
 - Settings, Devices lists active sessions with platform and last seen time; any can be revoked, or all others.
 - Suspension bans the auth user in Supabase Auth, which revokes sessions and blocks sign-in; the sign-in screen shows the `suspended` message. Policies also require an active profile.
 - Unconfirmed accounts can resend the confirmation email from the Confirm email screen.
