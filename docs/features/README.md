@@ -6,15 +6,15 @@ iPhone first (see decision 0005). One spec per feature in this folder; each link
 
 | Feature | Spec | Summary |
 |---|---|---|
-| Invites and onboarding | invites.md | Join by invite code or link; per-user invite quota; referral chain |
+| Invites and onboarding | invites.md | Join by invite code or link; unlimited personal link; referral chain |
 | Accounts | accounts.md | User creation and management in our own database |
-| Profile | profile.md | Handle, avatar, home area; minimal in v1 |
+| Profile | profile.md (planned) | Handle, avatar, home area; minimal in v1 |
 | Crews | crews.md | Create and join private crews; roles; member limits; leave and remove |
 | Live map | live-map.md | Crew members live on a shared map; follow mode while driving; pause and ghost controls |
-| RDVs | rdvs.md | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP |
-| Maps handoff | maps-handoff.md | Tap an RDV to open Apple Maps, Google Maps, or Waze |
+| RDVs | rdvs.md (planned) | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP |
+| Maps handoff | maps-handoff.md (planned) | Tap an RDV to open Apple Maps, Google Maps, or Waze |
 | Stats and streaks | stats.md | Distance driven, meets attended, streaks |
-| Notifications | notifications.md | RDV drops, RSVPs, member arriving, invites |
+| Notifications | notifications.md (planned) | RDV drops, RSVPs, member arriving, invites |
 | Privacy controls | privacy.md | Per-crew sharing, pause, ghost mode, sharing window per RDV |
 
 ## iOS integrations
@@ -28,15 +28,15 @@ iPhone first (see decision 0005). One spec per feature in this folder; each link
 
 | Feature | Spec | Summary |
 |---|---|---|
-| Car profiles | car-profiles.md | Garage of cars per user with specs and photos |
-| Event galleries | galleries.md | Photos per RDV, crew-only |
+| Car profiles | car-profiles.md (planned) | Garage of cars per user with specs and photos |
+| Event galleries | galleries.md (planned) | Photos per RDV, crew-only |
 
 ## Phase 3
 
 | Feature | Spec | Summary |
 |---|---|---|
-| Convoy mode | convoy.md | Ordered convoy with lead and tail, gap alerts |
-| Minigames | minigames.md | Location-based games within crews |
+| Convoy mode | convoy.md (planned) | Ordered convoy with lead and tail, gap alerts |
+| Minigames | minigames.md (planned) | Location-based games within crews |
 
 ## Next
 

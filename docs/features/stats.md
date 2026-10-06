@@ -19,6 +19,12 @@
 - A missed week resets the streak. Grace rules are open.
 - Stats are visible to the user and to their crews; crew leaderboards are open.
 
+## iOS
+
+- Distance comes from Core Location during live sessions only.
+- Arrival checks use region monitoring around the RDV.
+- Needs Always authorization; same purpose strings as privacy.md.
+
 ## Open questions
 
 - Whether non-live driving counts toward distance (it can't if we never collect it)

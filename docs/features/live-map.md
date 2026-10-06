@@ -11,7 +11,7 @@ See crew members on a shared map as they drive; the map follows the user.
 - Follow mode: the map centers on the user and rotates with heading while driving. Panning exits follow mode; a recenter button returns to it.
 - Each member marker shows avatar, handle, crew color, and a car icon when car profiles ship.
 - RDV pins appear on the map for the selected crews.
-- Tapping a member shows a card: handle, crew, speed, last update. Speed display is optional and off by default.
+- Tapping a member shows a card: handle, crew, last update. Speed is never shown live (decision 0007).
 - Tapping an RDV pin opens its detail with a Directions button (maps handoff).
 
 ## Rules
@@ -30,4 +30,3 @@ See crew members on a shared map as they drive; the map follows the user.
 ## Open questions
 
 - Position update cadence versus battery
-- Whether speed is shown at all

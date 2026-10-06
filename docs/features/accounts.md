@@ -20,7 +20,7 @@ Owning the user database (decision 0008) means we build user creation and manage
 | Sessions | List and revoke other devices (stretch) |
 | Edit profile | Change avatar; change handle at most once per 30 days |
 | Regenerate invite link | Old link dies immediately |
-| Delete account | In-app, required by App Review. Removes profile and location data; leaves crews; referral chain keeps a tombstone node so the chain stays intact |
+| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed |
 | Recover access | Depends on credential method; Sign in with Apple needs none |
 
 ## Operator tools in 0.0.1
@@ -39,6 +39,12 @@ Suspended users are signed out everywhere and removed from live maps.
 - Suspension and deletion emit events so other modules (crews, live location, leaderboard) clean up without Accounts knowing them.
 - Passwords, if used, are hashed with a modern algorithm and never logged.
 - All personal data is exportable and deletable.
+
+## iOS
+
+- In-app Delete account in Settings with confirmation.
+- Sessions stored in Keychain.
+- Credential flow per decision 0008.
 
 ## Not in 0.0.1
 

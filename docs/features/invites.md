@@ -7,11 +7,13 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 ## Behavior
 
 - Every member has one personal invite link, reusable and unlimited.
-- Opening the link on iPhone goes to the app, or to the App Store then into onboarding with the invite preserved.
+- Opening the link on iPhone goes straight into the app if installed.
+- If the app is not installed, the link opens a landing page that copies the invite code to the clipboard and sends the user to the App Store. iOS does not carry link data through an install, so on first launch the app reads the pasted code, and the user can always type the code manually.
+- Onboarding includes an Enter invite code screen.
 - Signup requires a valid invite link. No link, no account.
 - Each account records who invited it. The referral chain is stored.
 - A member can regenerate their link at any time; the old link stops working.
-- A member can be removed by whoever invited them or by an admin; removal cascades only if an admin chooses.
+- In 0.0.1 an invited member can be suspended or deleted only by the operator (see accounts.md). In-app removal from the app is not available; crew owners can remove members from their own crew (see crews.md).
 
 ## Onboarding flow
 
@@ -29,6 +31,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 ## iOS
 
 - Universal links for invite URLs.
+- Clipboard read on first launch needs the user's paste permission prompt; handle denial by falling back to manual code entry.
 - Credential method is open (decision 0008). Sign in with Apple is the recommended credential, stored against our own user record.
 
 ## Open questions
