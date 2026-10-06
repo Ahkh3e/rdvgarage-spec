@@ -2,12 +2,16 @@
 
 Phase summary only. Status, progress, and completion live in GitHub issues, grouped by milestone (one per phase).
 
+## 0.0.1
+
+Invite link, accounts, crews, map, live location, weekly top speed leaderboard. See `docs/releases/0.0.1.md`.
+
 ## Phase 1 - MVP
 
 - Invite-only onboarding
 - Crews
 - Live crew map with follow mode
-- RDVs with live ETA and maps-app handoff (ETA blocked on the ETA source decision, see `docs/product.md` open questions)
+- RDVs with maps-app handoff
 - Stats: distance, meets attended, streaks
 
 ## Phase 2
