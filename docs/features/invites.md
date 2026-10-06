@@ -16,7 +16,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 ## Onboarding flow
 
 1. Open invite link
-2. Sign in with Apple
+2. Register an account in our own user database
 3. Choose handle and avatar
 4. Grant location permission (explained, not forced)
 5. Land on My Crews, prompted to create or join a crew
@@ -29,7 +29,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 ## iOS
 
 - Universal links for invite URLs.
-- Sign in with Apple is the only auth method in v1.
+- Credential method is open (decision 0008). Sign in with Apple is the recommended credential, stored against our own user record.
 
 ## Open questions
 
