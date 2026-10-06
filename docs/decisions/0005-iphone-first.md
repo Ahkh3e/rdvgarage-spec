@@ -4,7 +4,7 @@ Status: accepted
 
 ## Decision
 
-RDV Garage is an iPhone app first. Android and web are out of scope until iPhone ships.
+RDV Garage ships on iPhone first and supports Android afterward from the same codebase (decision 0011). Web is out of scope.
 
 ## Rationale
 
@@ -12,7 +12,7 @@ Focused scope for the Toronto launch. Lets the product lean on iOS capabilities:
 
 ## Consequences
 
-- Feature specs include an iOS section covering permissions, background modes, and system integrations.
+- Feature specs include an iOS section covering permissions, background modes, and system integrations, and an Android note once Android work begins.
 - Location uses Core Location with Always authorization; battery and App Store review wording need design.
 - Maps handoff offers Apple Maps first, with Google Maps and Waze as options.
 

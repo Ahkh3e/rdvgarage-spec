@@ -27,8 +27,8 @@ Owning the user database (decision 0008) means we build user creation and manage
 | Sessions | List and revoke other devices (stretch) |
 | Edit profile | Change avatar; change handle at most once per 30 days |
 | Share invite | Creates a new invite link active for 24 hours; the user can revoke it earlier |
-| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed. All of the user's active invites are revoked. Invite records are kept for the referral chain. If the credential is Sign in with Apple, the Apple token is revoked on delete |
-| Recover access | Depends on credential method; Sign in with Apple needs none |
+| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed. All of the user's active invites are revoked. Invite records are kept for the referral chain |
+| Recover access | Sign in again with the email one-time code; a lost email address needs operator help |
 
 Suspending a user also revokes all their active invites with reason suspension. Reinstating the user does not restore them; they create new invites. Suspending a crew owner transfers ownership the same way deletion does. Operator hard delete follows the full deletion path: ownership transfer, leaderboard purge, token revocation.
 

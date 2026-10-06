@@ -6,15 +6,16 @@ Goal: run 0.0.1 with as little operational work as possible, on free SaaS tiers,
 
 | Concern | Choice | Why |
 |---|---|---|
-| iOS app | SwiftUI, Swift packages per module | Matches the module design; no cost |
-| Map | MapKit | Built in, no API key, no usage billing |
+| Mobile app | React Native with Expo (TypeScript), one codebase for iPhone and Android, feature modules in a monorepo | iPhone first, Android follows without a rewrite (decision 0011); no cost |
+| Map | react-native-maps | Apple Maps on iPhone, Google Maps on Android; no map usage billing for display |
 | Database, auth, realtime, files | Supabase, Canada (Central) region | One free SaaS covers Postgres, Auth, Realtime, Storage, and server functions; Canadian data residency |
-| Invite landing and universal links | Cloudflare Pages (static) | Free static hosting; serves the apple-app-site-association file and the expired-invite page |
+| Invite landing and deep links | Cloudflare Pages (static) | Free static hosting; serves the apple-app-site-association file (iPhone), the assetlinks.json file (Android), and the expired-invite page |
+| Sign-in email | Supabase Auth with a free-tier SMTP provider | Email one-time code, no passwords (decision 0012); the built-in email sender is too limited for real use, so a separate sender is needed |
 | Code, issues, scheduled jobs | GitHub (this repo, `rdv-garage`, GitHub Actions) | Already in use |
-| Build and TestFlight | Xcode Cloud | Included with the Apple Developer Program |
-| Crash and diagnostics | Xcode Organizer and TestFlight feedback | Free, no SDK |
+| Builds and distribution | EAS Build (Expo), TestFlight, later Google Play testing tracks | Free build allowance; check current limits |
+| Crash and diagnostics | App Store Connect and Play Console reports | Free, no SDK |
 
-Not free and unavoidable: Apple Developer Program membership. A custom domain is optional; universal links can run on a Cloudflare `pages.dev` address first.
+Not free and unavoidable: Apple Developer Program membership, and a Google Play developer registration when Android ships. A custom domain is optional; deep links can run on a Cloudflare `pages.dev` address first.
 
 Free-tier limits change. Figures below came from public pricing summaries and must be checked against the provider's pricing page before relying on them.
 
@@ -34,10 +35,10 @@ Decision 0008 says RDV Garage owns its user database. That still holds: users li
 ## System overview
 
 ```
-iPhone app (SwiftUI modules)
+Mobile app (React Native feature modules; iPhone first, Android next)
    |-- HTTPS (REST / RPC) --> Supabase Postgres  (accounts, referral, crews, live, leaderboard schemas)
    |-- Realtime Broadcast + Presence --> per-crew private channels
-   |-- Auth (Sign in with Apple) --> Supabase Auth
+   |-- Auth (email one-time code) --> Supabase Auth
    |-- Storage --> avatars
    '-- Universal link --> Cloudflare Pages (landing, expired page, AASA)
 GitHub Actions: scheduled keep-alive and database export
@@ -75,7 +76,7 @@ This is the main reason for choosing Postgres with RLS: decision 0004 (location 
 ### Register (referral and accounts)
 
 1. The app opens an invite link or reads the pasted code.
-2. User signs in with Apple through Supabase Auth, creating an auth user with no access.
+2. User enters an email and confirms a one-time code through Supabase Auth, creating an auth user with no access.
 3. The app calls `register(invite_code, handle)`, one Postgres function that, in a single transaction, validates the invite (active, not expired unless already redeemed, not full, inviter active), reserves or consumes a slot, creates the profile, and records the referral.
 4. Failure leaves no profile, so no access. A database scheduled job (pg_cron, no external secret) removes auth users that never registered, after a grace period (value to be decided).
 
@@ -108,7 +109,7 @@ A server function (the one place an external secret is needed) runs the full acc
 2. Revoke the user's active invites and keep the invite records.
 3. Delete session segments, session crews, and avatar files.
 4. Turn the profile into a tombstone (status deleted, personal fields cleared) so the referral chain stays intact. The profile row is not deleted.
-5. Revoke the Apple token and delete the auth user.
+5. Delete the auth user.
 
 No database cascade is relied on for these steps.
 
@@ -120,12 +121,12 @@ No database cascade is relied on for these steps.
 - Database-side jobs (orphan cleanup, stale session sweep) use pg_cron and need no external secrets.
 - The service key never goes into CI. It stays on the operator's machine.
 - Operator tools: SQL scripts or a small CLI run with the service key from the operator's machine; no admin UI.
-- Secrets live in GitHub Actions secrets and Xcode Cloud environment variables, never in the repo.
+- Secrets live in GitHub Actions secrets and EAS environment secrets, never in the repo.
 - Environments: one Supabase project for development and one for production, within the two free projects.
 
 ## Modularity mapping
 
-| App module (Swift package) | Backend schema |
+| App module (workspace package) | Backend schema |
 |---|---|
 | Referral | referral |
 | Accounts | accounts |
@@ -134,7 +135,15 @@ No database cascade is relied on for these steps.
 | LiveLocation | live, realtime channels |
 | Leaderboard | leaderboard |
 
-Removing the leaderboard means removing one Swift package registration and dropping the `leaderboard` schema. Nothing else depends on it.
+Removing the leaderboard means removing one module registration and dropping the `leaderboard` schema. Nothing else depends on it.
+
+## Cross-platform notes
+
+- Background location: `expo-location` with a background task, in a development build (not Expo Go). iPhone needs Always authorization with the When In Use first, then upgrade flow. Android needs foreground and background location permission and shows a persistent notification while live, which doubles as the live indicator.
+- Deep links: iPhone uses universal links; Android uses App Links. Android can carry the invite code through install with the Play Install Referrer, so the clipboard paste fallback is iPhone-only.
+- Push notifications, when added, go through Expo's push service over APNs and FCM.
+- iPhone-only capabilities (Live Activity and Dynamic Island, CarPlay) and Android equivalents (ongoing notification, Android Auto) are platform-specific modules added later behind the same module registry.
+- Maps handoff offers each platform's default maps app plus Google Maps and Waze.
 
 ## Known risks
 
@@ -142,8 +151,9 @@ Removing the leaderboard means removing one Swift package registration and dropp
 - Realtime message ceiling, mitigated by adaptive cadence and a paid plan if usage grows.
 - Client-reported speed can be spoofed.
 - Vendor dependence on Supabase, limited by the Backend wrapper and plain Postgres.
+- Background location through cross-platform plugins is the hardest part to get reliable; it is built and tested first, with a native module as the fallback for a platform that misbehaves.
 
 ## Open
 
-- Credential method: Sign in with Apple through Supabase Auth is recommended and fits this design
+- Credential: email one-time code (decision 0012), pending confirmation of the free SMTP provider choice
 - Custom domain for invite links

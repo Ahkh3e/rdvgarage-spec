@@ -28,7 +28,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 ## Onboarding flow
 
 1. Open invite link
-2. Register an account in our own user database
+2. Enter an email and confirm the one-time code, then register in our own user database
 3. Choose handle and avatar
 4. Grant When In Use location permission (explained, not forced); the upgrade to Always happens on first Go live (privacy.md)
 5. Land on My Crews, prompted to create or join a crew
@@ -43,7 +43,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 
 - Universal links for invite URLs.
 - Clipboard read on first launch needs the user's paste permission prompt; handle denial by falling back to manual code entry.
-- Credential method is open (decision 0008). Sign in with Apple is the recommended credential, stored against our own user record.
+- Sign-in is an email one-time code (decision 0012). Android parity notes are in `docs/architecture.md`.
 
 ## Open questions
 

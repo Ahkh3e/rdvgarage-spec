@@ -7,7 +7,7 @@ Spec, design, and issue tracking for https://github.com/Ahkh3e/rdv-garage. No ap
 - Location is shared only within crews, never publicly.
 - Not a navigation app; RDV tap hands off to the user's own maps app.
 - Referral-only; no open signup.
-- iPhone-first; Android and web are out of scope until iPhone ships.
+- iPhone first, Android eventually, one cross-platform codebase (React Native with Expo). Web is out of scope. No Sign in with Apple; email one-time code sign-in.
 - Brand: dark, minimal, exclusive; Toronto car scene.
 - "RDV" is always said R-D-V; write "an RDV".
 
