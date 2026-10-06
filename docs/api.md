@@ -9,9 +9,9 @@ Both anonymous calls are rate limited per network address and per code, and a co
 | Name | Type | Input | Result |
 |---|---|---|---|
 | check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data |
-| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | confirmation email sent, or error |
+| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | confirmation email sent, or error. In test mode (server setting, honored only in development and test projects) the account is created confirmed, no email is sent, and the result is `confirmed`; otherwise the result is `check_email` |
 
-On a valid invite and handle, `register` always answers the same way ("check your email") whether or not the email is already registered. If the email already has an account, the email that is sent says so and links to sign in and reset. Attempts count against the rate limit either way. Invite and handle errors stay distinct because they reveal nothing about emails.
+On a valid invite and handle, `register` always answers the same way ("check your email") whether or not the email is already registered. If the email already has an account, the email that is sent says so and links to sign in and reset. Attempts count against the rate limit either way. Test mode is the exception: it returns `email_in_use` for a used email, since test projects are private. Invite and handle errors stay distinct because they reveal nothing about emails.
 
 ## Accounts
 
@@ -64,7 +64,7 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 

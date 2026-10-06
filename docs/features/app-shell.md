@@ -20,7 +20,7 @@ The app opens on Map when the user is live, otherwise on Crews.
 | Welcome, Sign in, Forgot password, Enter invite code | accounts | Shown with no session |
 | Invite expired | accounts | Expired, revoked, or disabled invite |
 | Create account | accounts | Handle, email, password, optional avatar, disclaimers and age acceptance; creates the account |
-| Confirm email | accounts | Shown after the form until the email is confirmed; Resend button; says unconfirmed accounts expire after 24 hours |
+| Confirm email | accounts | Shown after the form until the email is confirmed (skipped in test mode); Resend button; says unconfirmed accounts expire after 24 hours |
 | Reset password | accounts | Opened by the reset link; sets a new password |
 | My Crews | crews | List, selection toggles, live status |
 | Crew detail | crews | Members, link, owner actions |
