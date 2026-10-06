@@ -17,6 +17,7 @@ Postgres on Supabase. One schema per module (see `docs/architecture.md`). All ti
 | terms_version, terms_accepted_at | disclaimers acceptance |
 | email | not stored here; it lives only in the auth table and is never exposed to other users |
 | handle_changed_at | nullable |
+| is_synthetic | true for users made by the operator toolkit; default false |
 | created_at | |
 
 A deleted profile is a tombstone: status deleted, handle freed or reserved per the open question, avatar and personal fields cleared, row kept so the referral chain holds.
@@ -45,6 +46,7 @@ Who joined an invite is `accounts.profiles.invite_id`.
 | owner_id | |
 | link_code | reusable, no expiry, regenerable |
 | status | active, dissolved |
+| is_synthetic | true for crews made by the operator toolkit; default false |
 | created_at | |
 
 `crews.members`: `crew_id`, `user_id`, `role` (owner, member), `joined_at`; primary key (crew_id, user_id). Exactly one owner per active crew.

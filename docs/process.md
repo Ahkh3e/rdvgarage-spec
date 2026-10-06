@@ -13,6 +13,7 @@ Keep it simple and consistent. One fact lives in one place; everything else link
 | Callable surface | `docs/api.md` |
 | Visual rules | `docs/design.md` |
 | Safety and legal wording | `docs/disclaimers.md` |
+| Operator tooling and synthetic data | `docs/ops.md` |
 | Why a choice was made | `docs/decisions/NNNN-*.md` |
 | Scope of a release | `docs/releases/<version>.md` |
 | Work to do or done | GitHub Issues and milestones |

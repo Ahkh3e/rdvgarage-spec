@@ -1,6 +1,6 @@
 # 0010 Supabase and free SaaS for 0.0.1
 
-Status: accepted, amended by decisions 0011 (cross-platform client) and 0013 (email and password accounts)
+Status: accepted, amended by decisions 0011 (cross-platform client), 0013 (email and password accounts), and 0015 (operator server for tooling and scheduled jobs)
 
 ## Decision
 
@@ -16,7 +16,7 @@ Amends decision 0008, which is updated to allow a managed host. Data ownership i
 
 ## Consequences
 
-- No servers to run; logic lives in Postgres functions and one deletion function.
+- No application servers to run; logic lives in Postgres functions and Edge Functions. The owner's hosted server runs only operator tooling and scheduled jobs (decision 0015).
 - Free-tier limits shape the design (realtime messages, pause on inactivity, no backups); see `docs/architecture.md`.
 - A Backend wrapper in the Core package keeps the provider replaceable.
 - Hosting and region are resolved: Canada (Central).

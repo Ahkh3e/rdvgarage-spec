@@ -9,6 +9,7 @@ Spec, design, and work tracking for RDV Garage. Code lives in [Ahkh3e/rdv-garage
 - `docs/design.md` - brand and design system
 - `docs/architecture.md` - system design and stack
 - `docs/data-model.md`, `docs/api.md` - tables, policies, callable surface
+- `docs/ops.md` - operator toolkit for the server
 - `docs/disclaimers.md` - safety and legal wording
 - `docs/store-submission.md` - notes for later
 - `docs/process.md` - how we work and keep docs consistent
