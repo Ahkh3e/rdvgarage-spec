@@ -1,26 +1,23 @@
 # API
 
-The callable surface for 0.0.1. The app reaches all of it through the Backend contract in the core package. SQL functions run in Postgres and are called over RPC; Edge Functions run server side with the service role. Every call needs a signed-in active profile unless marked anonymous.
+The callable surface for 0.0.1. The app reaches all of it through the Backend contract in the core package. SQL functions run in Postgres and are called over RPC; Edge Functions run server side with the service role. Every call needs a signed-in active profile unless marked anonymous. Sign-in, password reset, and password change use Supabase Auth directly through the Backend contract.
 
 ## Anonymous
 
-All three anonymous calls are rate limited per network address and per code, and a code is locked after repeated failed attempts. Codes are random and long enough to be unguessable: invite codes are 12 characters from a 32-character alphabet, sign-in link codes are 24 characters, and sign-in link codes are stored only as hashes.
+Both anonymous calls are rate limited per network address and per code, and a code is locked after repeated failed attempts. Invite codes are random and long enough to be unguessable: 12 characters from a 32-character alphabet.
 
 | Name | Type | Input | Result |
 |---|---|---|---|
-| check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data. Rate limited |
-| register | Edge | invite code, handle, avatar (optional), terms version | session, or error |
-| redeem-device-link | Edge | code | session, or error |
+| check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data |
+| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | account created and confirmation email sent, or error |
 
 ## Accounts
 
 | Name | Type | Notes |
 |---|---|---|
 | update_profile | SQL | handle (once per 30 days) and avatar path |
-| create_device_link | SQL | returns a code once; 24 hours, single use |
-| revoke_device_link | SQL | creator only, unused links |
 | list_sessions | Edge | the user's signed-in devices |
-| revoke_session | Edge | any of the user's sessions |
+| revoke_session | Edge | any of the user's sessions, or all |
 | delete-account | Edge | full deletion path in architecture.md |
 
 ## Referral
@@ -63,8 +60,10 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, link_not_found, link_used, link_expired, link_revoked, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_taken, password_too_short, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
+
+An email already in use returns a generic registration failure to the caller instead of confirming that the email exists; `email_taken` is for operator logs only.
 
 ## Operator only (service role, operator machine)
 
-view user and referral chain, suspend, restore, hard delete, list and disable invites, issue recovery sign-in link.
+view user and referral chain, suspend, restore, hard delete, list and disable invites.

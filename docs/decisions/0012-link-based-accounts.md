@@ -1,6 +1,6 @@
 # 0012 Link-based accounts: no password, no email
 
-Status: accepted
+Status: superseded by decision 0013 (email and password accounts)
 
 ## Decision
 

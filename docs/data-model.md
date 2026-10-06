@@ -15,19 +15,11 @@ Postgres on Supabase. One schema per module (see `docs/architecture.md`). All ti
 | invite_id | nullable invite id used to join |
 | status | active, suspended, deleted |
 | terms_version, terms_accepted_at | disclaimers acceptance |
+| email | not stored here; it lives only in the auth table and is never exposed to other users |
 | handle_changed_at | nullable |
 | created_at | |
 
 A deleted profile is a tombstone: status deleted, handle freed or reserved per the open question, avatar and personal fields cleared, row kept so the referral chain holds.
-
-`accounts.device_links`
-
-| Column | Notes |
-|---|---|
-| id, user_id | |
-| code_hash | the code itself is shown once and stored only as a hash |
-| created_at, expires_at | 24 hours |
-| used_at, revoked_at | nullable; single use |
 
 ## referral
 
@@ -78,7 +70,6 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 | Table | Read | Write |
 |---|---|---|
 | accounts.profiles | the user; members of a shared crew (limited columns) | the user, for avatar and handle only, via function |
-| accounts.device_links | no direct access | functions only |
 | referral.invites | the inviter for their own invites | functions only |
 | crews.crews | members | owner, via function |
 | crews.members | members of the crew | functions only (join, leave, remove, transfer) |
@@ -91,4 +82,4 @@ Every policy also requires the caller's profile to be active. Realtime channel `
 
 ## Retention
 
-Everything above is kept while the account exists. Deleting the account removes sessions, session_crews, segments, device links, and avatar files; invite records and the profile tombstone remain for the referral chain.
+Everything above is kept while the account exists. Deleting the account removes sessions, session_crews, segments, the auth user with its email, and avatar files; invite records and the profile tombstone remain for the referral chain.

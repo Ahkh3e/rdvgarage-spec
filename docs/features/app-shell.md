@@ -9,7 +9,7 @@ Bottom tabs, each contributed by a module through the registry:
 | Map | map (with live-location) | Shared map of selected crews; follow mode; Go live button |
 | Crews | crews | My Crews home, crew detail, create and join |
 | Board | leaderboard | Weekly top speed per crew |
-| Me | accounts (with referral) | Profile, Share invite, Devices, Legal, Delete account |
+| Me | accounts (with referral) | Profile, Change password, Share invite, Devices, Legal, Delete account |
 
 The app opens on Map when the user is live, otherwise on Crews.
 
@@ -17,18 +17,18 @@ The app opens on Map when the user is live, otherwise on Crews.
 
 | Screen | Module | Notes |
 |---|---|---|
-| Welcome, Enter invite code | accounts | Shown with no session |
+| Welcome, Sign in, Forgot password, Enter invite code | accounts | Shown with no session |
 | Invite expired | accounts | Expired, revoked, or disabled invite |
-| Disclaimers and age | accounts | Must accept to continue |
-| Handle and avatar | accounts | Creates the account |
+| Create account | accounts | Handle, email, password, optional avatar, disclaimers and age acceptance; creates the account |
+| Confirm email | accounts | Shown after the form until the email is confirmed |
 | My Crews | crews | List, selection toggles, live status |
 | Crew detail | crews | Members, link, owner actions |
 | Create crew, Join crew | crews | Join opens from a crew link |
 | Map | map | Selected crews' live members; recenter |
 | Go live sheet | live-location | Pick crews, start, stop; shows who can see you |
 | Board | leaderboard | Crew selector, ranked list, disclaimer footer |
-| Me | accounts | Profile edit, Share invite, My invites |
-| Devices | accounts | Sessions, Add a device (link and QR), revoke |
+| Me | accounts | Profile edit, Change password, Share invite, My invites |
+| Devices | accounts | Signed-in devices, revoke, sign out everywhere |
 | Legal | accounts | Full disclaimers text |
 
 ## Core contracts

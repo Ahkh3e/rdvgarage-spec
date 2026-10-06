@@ -27,7 +27,6 @@ Keep it simple and consistent. One fact lives in one place; everything else link
 ## Canonical terms
 
 - Share invite: a 24-hour invite link a member creates. Not "referral link" or "personal link".
-- Sign-in link: a single-use 24-hour link that signs another device in.
 - Crew link: the reusable link that adds an existing member to a crew.
 - Go live: starting a live session for chosen crews.
 - Session, segment: a live session; its per-week summary.
@@ -36,10 +35,10 @@ Keep it simple and consistent. One fact lives in one place; everything else link
 
 ## Superseded terms to search for
 
-Sign in with Apple, email and password, password reset, one-time code, SMTP, quota, signup limit, active-invite limit, ETA, MapKit, Core Location, Swift package, iOS-only wording in shared specs.
+Sign in with Apple, sign-in link, device link, recovery link, no password or email, one-time code, quota, signup limit, active-invite limit, ETA, MapKit, Core Location, Swift package, iOS-only wording in shared specs.
 
 ```
-grep -rniE "sign in with apple|email and password|password reset|one-time code|smtp|quota|signup limit|active-invite|mapkit|core location|swift" docs CLAUDE.md README.md
+grep -rniE "sign in with apple|sign-in link|device link|recovery link|no password|one-time code|quota|signup limit|active-invite|mapkit|core location|swift" docs CLAUDE.md README.md
 grep -rnwE "ETA|ETAs" docs CLAUDE.md README.md
 ```
 

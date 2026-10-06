@@ -15,7 +15,8 @@ Not needed for 0.0.1 development. Recorded here so nothing is missed later.
 - Privacy nutrition labels for precise location and user content.
 - Purpose strings for When In Use and Always location, matching privacy.md wording.
 - Background location mode justification; the app uses it only while a Go live session is active.
-- No Sign in with Apple needed because there is no third-party login (decision 0012).
+- No Sign in with Apple needed because there is no third-party login (decision 0013).
+- Privacy labels list email address (account confirmation and recovery) as well as precise location and user content.
 
 ## Google Play
 

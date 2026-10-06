@@ -14,7 +14,7 @@ Goal: run 0.0.1 with as little operational work as possible, on free SaaS tiers,
 | Builds and distribution | EAS Build (Expo), TestFlight, later Google Play testing tracks | Free build allowance; check current limits |
 | Crash and diagnostics | App Store Connect and Play Console reports | Free, no SDK |
 
-Not free and unavoidable: Apple Developer Program membership, and a Google Play developer registration when Android ships. A custom domain is optional; links can run on a Cloudflare `pages.dev` address first. There is no email provider in this design (decision 0012).
+Not free and unavoidable: Apple Developer Program membership, and a Google Play developer registration when Android ships. A custom domain is optional; links can run on a Cloudflare `pages.dev` address first. Email for confirmation and password reset needs an SMTP provider and a sending domain, both deferred (see Open).
 
 Free-tier limits change. Figures below came from public pricing summaries and must be checked against the provider's pricing page before relying on them.
 
@@ -29,7 +29,7 @@ Free-tier limits change. Figures below came from public pricing summaries and mu
 
 ## Decision on user data
 
-Decision 0008 says RDV Garage owns its user data. Users live in our own Postgres database on Supabase, which is standard Postgres and fully exportable. Supabase Auth issues sessions but does not hold the only copy of any user. See decisions 0010 and 0012.
+Decision 0008 says RDV Garage owns its user data. Users live in our own Postgres database on Supabase, which is standard Postgres and fully exportable. Supabase Auth issues sessions but does not hold the only copy of any user. See decisions 0010 and 0013.
 
 ## System overview
 
@@ -51,7 +51,7 @@ One Postgres schema per app module. Schemas share only identity (`accounts.profi
 
 | Schema | Owns | Notes |
 |---|---|---|
-| accounts | profiles, device_links | A profile row is the account. No profile, no access to anything |
+| accounts | profiles | A profile row is the account. No profile, no access to anything |
 | referral | invites | Invite validity and creation live in Postgres functions |
 | crews | crews, members | Owner and member roles |
 | live | sessions, session_crews, segments | Ephemeral positions are never stored; only session checkpoints |
@@ -63,7 +63,7 @@ Privacy is enforced in the database, not the app:
 
 - A user reads another user's profile only if they share a crew and both profiles are active.
 - A suspended or deleted profile has no access to anything; policies check for an active profile.
-- Invite checks and invite creation run as SECURITY DEFINER functions. Registration, sign-in link redemption, and deletion run as Edge Functions with the service role, since the caller has no profile or session yet. Operator tools use the service role from the operator's machine only.
+- Invite checks and invite creation run as SECURITY DEFINER functions. Registration and deletion run as Edge Functions with the service role, since the caller has no profile or session yet. Operator tools use the service role from the operator's machine only.
 - A segment is readable only by members of the crews in `session_crews`.
 - Realtime channels are private, one per crew; authorization checks `crews.members`.
 - Everything requires an existing active profile.
@@ -74,21 +74,20 @@ Decision 0004 (location only within crews) is a database rule, not a convention.
 
 ### Register
 
-1. The app opens an invite link or reads the invite code. The user accepts the disclaimers (`docs/disclaimers.md`), confirms they are 18 or older, and chooses a handle and optional avatar.
-2. The app calls the `register` Edge Function with the invite code, handle, and the accepted terms version. Public signup is disabled in Supabase Auth, so this is the only way an account is created.
-3. The function validates the invite (see invites.md), creates the Supabase Auth user through the admin API with an internal placeholder identity that is never shown or used by people, creates the profile with the referral and terms acceptance, and issues a session. If any step fails it undoes the earlier ones, so a failure leaves neither an auth user nor a profile.
-4. The app stores the session in the platform secure store.
+1. The app opens an invite link or reads the invite code, then shows the account form: handle, email, password, optional avatar, acceptance of the disclaimers (`docs/disclaimers.md`), and confirmation of being 18 or older.
+2. The app calls the `register` Edge Function with the invite code and form values. Public signup is disabled in Supabase Auth, so this is the only way an account is created.
+3. The function validates the invite (see invites.md), creates the Supabase Auth user through the admin API with the email and password, creates the profile with the referral and terms acceptance, and triggers the confirmation email. If any step fails it undoes the earlier ones, so a failure leaves neither an auth user nor a profile.
+4. The user confirms the email, then signs in. The app stores the session in the platform secure store.
 5. A database scheduled job (pg_cron, no external secret) removes any auth user without a profile as a safety net, one hour after it was created.
 
-How the function issues a session without an email is verified during build. The planned method uses an admin-generated sign-in token that the app exchanges for a session. If that does not work, the function signs a session token itself with the project's JWT secret. The Backend contract hides which.
+Confirmation and password reset emails go through an SMTP provider. The provider and sending domain are deferred (see Open); development uses Supabase's built-in sender.
 
-### Sign in on another device
+### Sign in, recovery, and devices
 
-1. On a signed-in device, Settings, Devices, Add a device creates a sign-in link (a code with a `device` type) valid for 24 hours, single use, shown as a link and QR with a warning.
-2. The new device opens the link, or scans the QR. If the app is not installed, the landing page routes to the store using the same carry-the-code methods as invites.
-3. The `redeem-device-link` Edge Function validates the code, marks it used, and issues a session for that user.
-4. Settings, Devices lists active sessions with last seen time and platform, and any can be revoked. The creator can revoke an unused sign-in link.
-5. If every device is lost and no link exists, the operator can issue a recovery sign-in link after confirming identity out of band. No recovery is guaranteed.
+- Sign in is email and password through Supabase Auth. Sessions stay until sign out or revoke.
+- Forgot password sends a reset link by email; setting a new password signs out other devices.
+- Settings, Devices lists active sessions with platform and last seen time; any can be revoked, or sign out everywhere.
+- Rate limits and lockout on sign-in and reset are Supabase Auth's own.
 
 ### Live location
 
@@ -112,7 +111,7 @@ Message budget, worked example: a driver broadcasting every 3 seconds sends abou
 The `delete-account` Edge Function (service role key in function secrets) runs the full accounts.md deletion path in order:
 
 1. Transfer each owned crew to its longest-standing member, or dissolve it and kill its link if it has no other members.
-2. Revoke the user's active invites and sign-in links, and keep the invite records.
+2. Revoke the user's active invites and keep the invite records.
 3. Delete sessions, session crews, segments, and avatar files.
 4. Turn the profile into a tombstone (status deleted, personal fields cleared) so the referral chain stays intact. The profile row is not deleted.
 5. Delete the auth user.
@@ -156,12 +155,12 @@ Removing the leaderboard means removing one module registration and dropping the
 - Free-tier pause and missing backups, mitigated by the scheduled jobs above.
 - Realtime message ceiling, mitigated by adaptive cadence and a paid plan if usage grows.
 - Client-reported speed can be spoofed or wrong; accepted, with disclaimers.
-- Device-bound accounts can be lost; accepted, with disclaimers and operator recovery.
+- Email delivery depends on an SMTP provider that is not chosen yet; confirmation and recovery do not work for real users until it is.
 - Vendor dependence on Supabase, limited by the Backend wrapper and plain Postgres.
 - Background location through cross-platform plugins is the hardest part to get reliable; it is built and tested first, with a native module as the fallback for a platform that misbehaves.
-- Issuing sessions without an email is the first build task (see the release doc); both methods are viable, so no design change is expected.
-- Anonymous endpoints (`check_invite`, `register`, `redeem-device-link`) are the attack surface; they are rate limited and use long random codes (`docs/api.md`).
+- Anonymous endpoints (`check_invite`, `register`) are the attack surface; they are rate limited and use long random codes (`docs/api.md`). Sign-in and reset are protected by Supabase Auth's own limits.
 
 ## Open
 
 - Custom domain for links (pages.dev works to start)
+- Free SMTP provider and sending domain: deferred by the owner; needed before confirmation and password reset work for real users. Resend is the leading candidate.
