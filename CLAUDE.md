@@ -1,0 +1,19 @@
+# RDV Garage Spec
+
+Spec, design, and issue tracking for https://github.com/Ahkh3e/rdv-garage. No app code here.
+
+## Product constraints
+
+- Location is shared only within crews, never publicly.
+- Not a navigation app; RDV tap hands off to the user's own maps app.
+- Referral-only; no open signup.
+- Brand: dark, minimal, exclusive; Toronto car scene.
+- "RDV" is always said R-D-V; write "an RDV".
+
+## Workflow
+
+- Specs in `docs/features/<name>.md`; every issue links its spec.
+- Work items are GitHub Issues on this repo (`gh issue ...`), using the templates in `.github/ISSUE_TEMPLATE/`.
+- Code PRs live in `Ahkh3e/rdv-garage` and reference `Ahkh3e/rdvgarage-spec#<n>`.
+- When work completes, close the issue and update `docs/roadmap.md`.
+- Spec changes that alter a decision get a record in `docs/decisions/`.
