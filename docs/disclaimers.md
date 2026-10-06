@@ -42,7 +42,7 @@ Product choices already in the spec:
 - 18 or older only, with acceptance and the terms version stored per account.
 - Crew-only location sharing, always started by the user, never public (decision 0004).
 - Speed shown after the session, never live; no prizes, rewards, or promotion of speed; the leaderboard sits behind a flag so it can be pulled at once (decision 0007).
-- Minimal personal data: handle, email, optional avatar. Passwords are handled by Supabase Auth and never seen by us (decision 0013).
+- Minimal personal data: handle, email, optional avatar. Passwords are handled by Supabase Auth and never seen by us (decision 0013). Retention is in `docs/features/privacy.md` and `docs/data-model.md`.
 - No route history stored; session summaries only (privacy.md).
 - Account and data deletion in the app.
 

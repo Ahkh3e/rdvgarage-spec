@@ -9,7 +9,9 @@ Both anonymous calls are rate limited per network address and per code, and a co
 | Name | Type | Input | Result |
 |---|---|---|---|
 | check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data |
-| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | account created and confirmation email sent, or error |
+| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | confirmation email sent, or error |
+
+On a valid invite and handle, `register` always answers the same way ("check your email") whether or not the email is already registered. If the email already has an account, the email that is sent says so and links to sign in and reset. Attempts count against the rate limit either way. Invite and handle errors stay distinct because they reveal nothing about emails.
 
 ## Accounts
 
@@ -17,7 +19,9 @@ Both anonymous calls are rate limited per network address and per code, and a co
 |---|---|---|
 | update_profile | SQL | handle (once per 30 days) and avatar path |
 | list_sessions | Edge | the user's signed-in devices |
-| revoke_session | Edge | any of the user's sessions, or all |
+| revoke_session | Edge | one session, or all others |
+| change_password | Edge | verifies the current password, sets the new one, revokes other sessions |
+| after_password_reset | Edge | called right after a successful reset; revokes the user's other sessions |
 | delete-account | Edge | full deletion path in architecture.md |
 
 ## Referral
@@ -60,9 +64,9 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_taken, password_too_short, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
 
-An email already in use returns a generic registration failure to the caller instead of confirming that the email exists; `email_taken` is for operator logs only.
+A registration for an email already in use does not return an error; see the note under Anonymous.
 
 ## Operator only (service role, operator machine)
 

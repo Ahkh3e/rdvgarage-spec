@@ -29,7 +29,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 
 1. Open the invite link, or enter the code
 2. Fill the account form: handle, email, password, optional avatar; accept the disclaimers and confirm being 18 or older (`docs/disclaimers.md`)
-3. Confirm the email, then sign in
+3. Confirm the email by tapping the link, which hands off to the app, then sign in
 4. Grant When In Use location permission (explained, not forced); the upgrade to Always happens on first Go live (privacy.md)
 5. Land on My Crews, prompted to create or join a crew
 

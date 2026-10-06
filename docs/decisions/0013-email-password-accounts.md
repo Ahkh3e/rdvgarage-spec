@@ -8,7 +8,7 @@ Users create an account with a form: handle, email, password, and a valid invite
 
 ## Rationale
 
-The owner wants familiar accounts with real recovery, so a lost phone does not mean a lost account. Recovery by email also removes operator-assisted recovery as a liability and support burden.
+The owner wants familiar accounts with real recovery, so a lost phone does not mean a lost account. Email recovery avoids operator-assisted recovery, which would need identity checks the operator cannot reliably make.
 
 ## Liability-minded choices
 
@@ -17,7 +17,7 @@ The owner wants familiar accounts with real recovery, so a lost phone does not m
 - Email confirmation is required before first sign-in, so an email really belongs to the account holder and recovery goes to the right person.
 - Account deletion removes the account and personal data (decision 0008, accounts.md).
 - Terms acceptance, the 18 or older confirmation, and the version accepted are stored with the account.
-- This reduces data-breach and recovery-dispute exposure but does not remove legal risk. A privacy policy, terms of use, and a lawyer's review are still needed (`docs/disclaimers.md`, `docs/store-submission.md`).
+- This lowers credential-handling risk because we never touch passwords. It does add breach surface compared with decision 0012: an email address and a password hash per user now exist in Supabase Auth. Mitigations are no sharing of email, minimal fields, Supabase's managed security, and deletion on request. Legal risk is not removed; a privacy policy, terms of use, and a lawyer's review are still needed (`docs/disclaimers.md`, `docs/store-submission.md`).
 
 ## Consequences
 

@@ -76,17 +76,24 @@ Decision 0004 (location only within crews) is a database rule, not a convention.
 
 1. The app opens an invite link or reads the invite code, then shows the account form: handle, email, password, optional avatar, acceptance of the disclaimers (`docs/disclaimers.md`), and confirmation of being 18 or older.
 2. The app calls the `register` Edge Function with the invite code and form values. Public signup is disabled in Supabase Auth, so this is the only way an account is created.
-3. The function validates the invite (see invites.md), creates the Supabase Auth user through the admin API with the email and password, creates the profile with the referral and terms acceptance, and triggers the confirmation email. If any step fails it undoes the earlier ones, so a failure leaves neither an auth user nor a profile.
+3. The function validates the invite (see invites.md), creates the Supabase Auth user through the admin API with the email and password, creates the profile with the referral and terms acceptance, and sends the confirmation email. If any step fails it undoes the earlier ones, so a failure leaves neither an auth user nor a profile.
 4. The user confirms the email, then signs in. The app stores the session in the platform secure store.
-5. A database scheduled job (pg_cron, no external secret) removes any auth user without a profile as a safety net, one hour after it was created.
+5. Database scheduled jobs (pg_cron, no external secret) remove any auth user without a profile one hour after it was created, and remove accounts whose email is still unconfirmed 24 hours after creation, freeing their handle. Invites have no limits, so retrying costs nothing.
 
-Confirmation and password reset emails go through an SMTP provider. The provider and sending domain are deferred (see Open); development uses Supabase's built-in sender.
+Sending the confirmation email from an admin-created user is not assumed to work out of the box; it is the first build spike. Planned method: admin create of an unconfirmed user plus a resend of the signup confirmation. Fallback: leave Supabase signup on but gate it with an Auth hook that rejects any signup without a valid invite code in its metadata.
+
+Confirmation and password reset emails go through an SMTP provider. The provider and sending domain are deferred (see Open). The development project may auto-confirm accounts; production requires confirmation. Real testers need the provider chosen first.
+
+Email links go to the link domain on Cloudflare Pages. The confirmation link completes confirmation on the page, which then says the email is confirmed and offers Open the app (universal link or App Link) and store links. The reset link opens the app's Reset password screen through the same deep links, with a web form on the page as a fallback for people without the app.
 
 ### Sign in, recovery, and devices
 
 - Sign in is email and password through Supabase Auth. Sessions stay until sign out or revoke.
-- Forgot password sends a reset link by email; setting a new password signs out other devices.
-- Settings, Devices lists active sessions with platform and last seen time; any can be revoked, or sign out everywhere.
+- Forgot password sends a reset link by email. Supabase does not sign out other devices on a reset, so right after a successful reset the app calls `after_password_reset`, which revokes the user's other sessions.
+- Change password goes through the `change_password` Edge Function, which verifies the current password, sets the new one, and revokes other sessions.
+- Settings, Devices lists active sessions with platform and last seen time; any can be revoked, or all others.
+- Suspension bans the auth user in Supabase Auth, which revokes sessions and blocks sign-in; the sign-in screen shows the `suspended` message. Policies also require an active profile.
+- Unconfirmed accounts can resend the confirmation email from the Confirm email screen.
 - Rate limits and lockout on sign-in and reset are Supabase Auth's own.
 
 ### Live location

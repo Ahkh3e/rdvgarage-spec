@@ -1,6 +1,6 @@
 # 0012 Link-based accounts: no password, no email
 
-Status: superseded by decision 0013 (email and password accounts)
+Status: superseded by decision 0013 (email and password accounts). Reason: the owner wanted familiar accounts with email recovery. The privacy benefit of holding no email or password was traded away for recovery and familiarity.
 
 ## Decision
 

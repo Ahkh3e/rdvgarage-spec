@@ -20,7 +20,8 @@ The app opens on Map when the user is live, otherwise on Crews.
 | Welcome, Sign in, Forgot password, Enter invite code | accounts | Shown with no session |
 | Invite expired | accounts | Expired, revoked, or disabled invite |
 | Create account | accounts | Handle, email, password, optional avatar, disclaimers and age acceptance; creates the account |
-| Confirm email | accounts | Shown after the form until the email is confirmed |
+| Confirm email | accounts | Shown after the form until the email is confirmed; Resend button; says unconfirmed accounts expire after 24 hours |
+| Reset password | accounts | Opened by the reset link; sets a new password |
 | My Crews | crews | List, selection toggles, live status |
 | Crew detail | crews | Members, link, owner actions |
 | Create crew, Join crew | crews | Join opens from a crew link |
@@ -37,10 +38,11 @@ Small interfaces in the core package. Modules depend only on these, never on eac
 
 ```ts
 interface Session { userId: string; handle: string; signOut(): Promise<void> }
+interface AuthApi { signIn(email: string, password: string): Promise<void>; requestPasswordReset(email: string): Promise<void>; completePasswordReset(newPassword: string): Promise<void>; changePassword(current: string, next: string): Promise<void>; resendConfirmation(email: string): Promise<void>; listSessions(): Promise<DeviceSession[]>; revokeSession(id: string | 'others'): Promise<void> }
 interface CrewContext { selected: CrewId[]; select(ids: CrewId[]): void; subscribe(fn): Unsubscribe }
 interface LocationStream { subscribe(fn: (p: MemberPosition) => void): Unsubscribe }
 interface Events { emit<T extends AppEvent>(e: T): void; on<T extends AppEvent>(type: T['type'], fn): Unsubscribe }
-interface Backend { rpc(name: string, args?: object): Promise<unknown>; invoke(name: string, body?: object): Promise<unknown>; channel(name: string): RealtimeChannel }
+interface Backend { auth: AuthApi; rpc(name: string, args?: object): Promise<unknown>; invoke(name: string, body?: object): Promise<unknown>; channel(name: string): RealtimeChannel }
 interface Module { id: string; register(shell: Shell): void }
 interface Shell { addTab(tab: Tab): void; addRoute(route: Route): void; addFlag(name: string, default: boolean): void }
 ```

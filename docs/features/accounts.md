@@ -27,15 +27,16 @@ Handle, email, password, optional avatar, plus acceptance of the disclaimers and
 |---|---|
 | Create | Open a valid invite, fill the account form, confirm the email, then sign in; invited_by stored |
 | Sign in | Email and password, then a session; the session stays until sign out or revoke |
-| Forgot password | Reset link sent by email; sets a new password and signs out other devices |
-| Change password | Me, Change password, with the current password |
+| Forgot password | Reset link sent by email; sets a new password; other devices are signed out right after |
+| Change password | Me, Change password; requires the current password; other devices are signed out |
+| Resend confirmation | The Confirm email screen can resend the email. Unconfirmed accounts are removed after 24 hours, freeing the handle, so a mistyped email is fixed by starting over |
 | Devices | Settings, Devices lists signed-in devices with platform and last seen; any can be revoked, or sign out everywhere |
 | Sign out | Revoke the current session |
 | Edit profile | Change avatar; change handle at most once per 30 days |
 | Share invite | Creates a new invite link active for 24 hours; the user can revoke it earlier |
 | Delete account | In-app, required by App Review. Removes profile details, email, sessions, and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed. All the user's active invites are revoked. Invite records are kept for the referral chain |
 
-Suspending a user also revokes all their active invites with reason suspension and signs them out everywhere. Reinstating the user does not restore invites; they create new ones. Suspending a crew owner transfers ownership the same way deletion does. Operator hard delete follows the full deletion path: ownership transfer, leaderboard purge, deletion of the auth user.
+Suspending a user bans their auth user so they are signed out everywhere and cannot sign back in, and revokes all their active invites with reason suspension. Reinstating the user does not restore invites; they create new ones. Suspending a crew owner transfers ownership the same way deletion does. Operator hard delete follows the full deletion path: ownership transfer, leaderboard purge, deletion of the auth user.
 
 ## Profile
 
