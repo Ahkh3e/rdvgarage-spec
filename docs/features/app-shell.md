@@ -51,7 +51,7 @@ App events used in 0.0.1: `session.started`, `session.ended`, `crew.selected`, `
 
 ## Flags
 
-Each module registers a flag, default on. A module with its flag off adds no tabs, routes, or handlers. Flags are read at launch from the Backend; the default is used if unreachable.
+Each module registers a flag, default on. A module with its flag off adds no tabs, routes, or handlers. In 0.0.1 flags come from the build configuration (`EXPO_PUBLIC_FLAGS`, a JSON object), with each module's default used when a flag is not set. Remote flags read from the Backend are a later option.
 
 ## Rules
 
