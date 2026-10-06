@@ -36,10 +36,11 @@ Keep it simple and consistent. One fact lives in one place; everything else link
 
 ## Superseded terms to search for
 
-Sign in with Apple, password, email, one-time code, SMTP, quota, signup limit, ETA, MapKit, Core Location, Swift package, iOS-only wording in shared specs.
+Sign in with Apple, email and password, password reset, one-time code, SMTP, quota, signup limit, active-invite limit, ETA, MapKit, Core Location, Swift package, iOS-only wording in shared specs.
 
 ```
-grep -rniE "sign in with apple|password|one-time|smtp|quota|signup limit|ETA|mapkit|core location|swift" docs CLAUDE.md README.md
+grep -rniE "sign in with apple|email and password|password reset|one-time code|smtp|quota|signup limit|active-invite|mapkit|core location|swift" docs CLAUDE.md README.md
+grep -rnwE "ETA|ETAs" docs CLAUDE.md README.md
 ```
 
 Hits are fine only where a decision record explains the removal.
@@ -60,5 +61,5 @@ Hits are fine only where a decision record explains the removal.
 ## Quality bar for a spec
 
 - States behavior, rules, platform notes, and open questions.
-- No open question that blocks a release remains when the release is declared specced.
+- No open question that blocks a release remains when the release is declared specced. A named build spike with a defined fallback is not a blocker.
 - Disclaimers and privacy impact are stated wherever location or speed appears.

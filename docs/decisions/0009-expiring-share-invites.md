@@ -1,6 +1,6 @@
 # 0009 Share invites expire after 24 hours
 
-Status: accepted
+Status: accepted, amended: the signup limit per invite and the active-invite limit per member were removed at the owner's direction; invites have no limits
 
 ## Decision
 

@@ -159,7 +159,8 @@ Removing the leaderboard means removing one module registration and dropping the
 - Device-bound accounts can be lost; accepted, with disclaimers and operator recovery.
 - Vendor dependence on Supabase, limited by the Backend wrapper and plain Postgres.
 - Background location through cross-platform plugins is the hardest part to get reliable; it is built and tested first, with a native module as the fallback for a platform that misbehaves.
-- Issuing sessions without an email must be proven during build; fallback described above.
+- Issuing sessions without an email is the first build task (see the release doc); both methods are viable, so no design change is expected.
+- Anonymous endpoints (`check_invite`, `register`, `redeem-device-link`) are the attack surface; they are rate limited and use long random codes (`docs/api.md`).
 
 ## Open
 

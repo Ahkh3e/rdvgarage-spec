@@ -1,6 +1,6 @@
 # 0007 Weekly top speed leaderboard in 0.0.1
 
-Status: accepted
+Status: accepted, amended: the original safeguards (GPS outlier discard, speed caps) were removed at the owner's direction in favor of disclaimers; see Design and disclaimers
 
 ## Decision
 

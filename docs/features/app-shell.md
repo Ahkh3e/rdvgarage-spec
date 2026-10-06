@@ -45,7 +45,7 @@ interface Module { id: string; register(shell: Shell): void }
 interface Shell { addTab(tab: Tab): void; addRoute(route: Route): void; addFlag(name: string, default: boolean): void }
 ```
 
-App events used in 0.0.1: `session.started`, `session.ended`, `crew.selected`, `account.deleted`. Modules listen for the events they need; the emitter never knows who listens.
+App events used in 0.0.1: `session.started`, `session.ended`, `crew.selected`, `account.suspended`, `account.deleted`. On `account.suspended` the live-location module ends the session and the map drops the user; the server also ends the user's sessions, so the 5-minute sweep is only the backstop. Modules listen for the events they need; the emitter never knows who listens.
 
 ## Flags
 

@@ -8,7 +8,7 @@ Postgres on Supabase. One schema per module (see `docs/architecture.md`). All ti
 
 | Column | Notes |
 |---|---|
-| id | primary key; equals the auth user id |
+| id | primary key; equals the auth user id but is not a foreign key to the auth table, so deleting the auth user never deletes or blocks the profile tombstone |
 | handle | unique, 3-20 chars, lowercase letters, numbers, underscore |
 | avatar_path | nullable; private storage path |
 | invited_by | nullable profile id (null only for the operator-created first account) |
@@ -57,6 +57,8 @@ Who joined an invite is `accounts.profiles.invite_id`.
 
 `crews.members`: `crew_id`, `user_id`, `role` (owner, member), `joined_at`; primary key (crew_id, user_id). Exactly one owner per active crew.
 
+`crews.selections`: `user_id`, `crew_id`; the crews the user has selected for the map and Board, synced across their devices.
+
 ## live
 
 `live.sessions`: `id`, `user_id`, `started_at`, `ended_at` (nullable), `last_seen_at`, `platform`. A session is live when `ended_at` is null and `last_seen_at` is within 5 minutes.
@@ -80,6 +82,7 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 | referral.invites | the inviter for their own invites | functions only |
 | crews.crews | members | owner, via function |
 | crews.members | members of the crew | functions only (join, leave, remove, transfer) |
+| crews.selections | the user | the user, via set_selected_crews |
 | live.sessions | the user | functions only |
 | live.session_crews | the user, and members of the listed crews | functions only |
 | live.segments | members of crews listed in session_crews | the session's user, via function |

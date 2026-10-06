@@ -30,7 +30,7 @@ Private groups of members who share a map and RDVs.
 ## Platform notes
 
 - Crew links are universal links on iPhone and App Links on Android. Opened by a non-member without the app, the link lands on a page that says an invite to the app is needed first and tells them to request a Share invite. There is no code-carrying fallback for crew links on either platform.
-- Crew selection is stored locally and synced to the account.
+- Crew selection is stored on the account (`set_selected_crews`) and cached locally, so it follows the user to another device.
 
 ## Open questions
 

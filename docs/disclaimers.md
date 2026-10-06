@@ -11,7 +11,7 @@ Short (used in the Go live sheet and leaderboard footer):
 Full (shown at onboarding and under Me, Legal):
 
 1. **You are responsible for your driving.** Obey traffic laws, posted speed limits, and road conditions. RDV Garage does not encourage speeding, racing, stunts, or any unsafe or illegal driving.
-2. **Don't use the app while driving.** Set up Go live before you drive. Do not look at or touch your phone while driving.
+2. **Don't operate the app while driving.** Set up Go live before you start. Once you are live, the map follows you and needs no input. Do not look at or touch your phone while driving. Passengers may use the app.
 3. **Top speed is not a contest to break the law.** Speeds are estimates measured by your phone's GPS. They can be wrong. The leaderboard is for fun and carries no prize, reward, or endorsement. Never drive unsafely to improve a ranking. If you want to test speed, use a closed course where it is legal.
 4. **Your location is shared.** When you Go live, the crews you choose can see where you are. Only share with people you trust. Anyone in a crew you choose can see your live position and your top speeds for sessions shared with that crew. You can stop at any time.
 5. **Meets and cruises are organized by users.** RDV Garage does not organize, supervise, or insure any gathering. You attend at your own risk and are responsible for your own conduct and safety.

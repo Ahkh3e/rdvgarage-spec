@@ -8,7 +8,7 @@ See crew members on a shared map as they drive; the map follows the user.
 
 - The map shows members of the selected crews (see crews.md) who are currently live.
 - Sharing is manual per session (see privacy.md). Members who aren't live do not appear.
-- Follow mode: the map centers on the user and rotates with heading while driving. Panning exits follow mode; a recenter button returns to it.
+- Follow mode: the map centers on the user and rotates with heading, with no input needed while driving. Panning exits follow mode; a recenter button returns to it.
 - Each member marker shows avatar, handle, crew color, and a car icon when car profiles ship.
 - RDV pins appear on the map for the selected crews.
 - Tapping a member shows a card: handle, crew, last update. Speed is never shown live (decision 0007).
@@ -17,7 +17,7 @@ See crew members on a shared map as they drive; the map follows the user.
 ## Rules
 
 - No ETAs, routing, or route lines (decision 0006).
-- Positions update about once per second while driving, less when stationary.
+- Positions broadcast about every 3 seconds while moving and every 15 seconds while stationary (architecture.md).
 - Stale positions fade, then drop after a timeout.
 
 ## Platform notes

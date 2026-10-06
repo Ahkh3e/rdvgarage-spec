@@ -4,6 +4,8 @@ The callable surface for 0.0.1. The app reaches all of it through the Backend co
 
 ## Anonymous
 
+All three anonymous calls are rate limited per network address and per code, and a code is locked after repeated failed attempts. Codes are random and long enough to be unguessable: invite codes are 12 characters from a 32-character alphabet, sign-in link codes are 24 characters, and sign-in link codes are stored only as hashes.
+
 | Name | Type | Input | Result |
 |---|---|---|---|
 | check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data. Rate limited |
@@ -40,7 +42,8 @@ The callable surface for 0.0.1. The app reaches all of it through the Backend co
 | transfer_ownership | SQL | owner only |
 | regenerate_crew_link | SQL | owner only; old link stops working |
 | delete_crew | SQL | owner only |
-| list_my_crews | SQL | crews, members, and who is live now |
+| list_my_crews | SQL | crews, members, who is live now, and which crews are selected |
+| set_selected_crews | SQL | the user's selected crews, synced across their devices |
 
 ## Live
 
@@ -60,7 +63,7 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, not_a_member, not_owner, link_used, link_expired, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, link_not_found, link_used, link_expired, link_revoked, session_not_found, suspended, rate_limited.
 
 ## Operator only (service role, operator machine)
 
