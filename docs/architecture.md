@@ -156,5 +156,5 @@ Removing the leaderboard means removing one module registration and dropping the
 
 ## Open
 
-- Choice of free SMTP provider (decision 0012 requires one)
+- Free SMTP provider and sending domain: deferred by the owner; needed before email confirmation and password reset work for real users. Resend is the leading candidate.
 - Custom domain for invite links
