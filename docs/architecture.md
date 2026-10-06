@@ -10,7 +10,7 @@ Goal: run 0.0.1 with as little operational work as possible, on free SaaS tiers,
 | Map | react-native-maps | Apple Maps on iPhone, Google Maps on Android; no map usage billing for display |
 | Database, auth, realtime, files | Supabase, Canada (Central) region | One free SaaS covers Postgres, Auth, Realtime, Storage, and server functions; Canadian data residency |
 | Invite landing and deep links | Cloudflare Pages (static) | Free static hosting; serves the apple-app-site-association file (iPhone), the assetlinks.json file (Android), and the expired-invite page |
-| Sign-in email | Supabase Auth with a free-tier SMTP provider | Email one-time code, no passwords (decision 0012); the built-in email sender is too limited for real use, so a separate sender is needed |
+| Auth email | Supabase Auth with a free-tier SMTP provider | Email confirmation and password reset for email and password registration (decision 0012); the built-in email sender is too limited for real use, so a separate sender is needed |
 | Code, issues, scheduled jobs | GitHub (this repo, `rdv-garage`, GitHub Actions) | Already in use |
 | Builds and distribution | EAS Build (Expo), TestFlight, later Google Play testing tracks | Free build allowance; check current limits |
 | Crash and diagnostics | App Store Connect and Play Console reports | Free, no SDK |
@@ -38,9 +38,9 @@ Decision 0008 says RDV Garage owns its user database. That still holds: users li
 Mobile app (React Native feature modules; iPhone first, Android next)
    |-- HTTPS (REST / RPC) --> Supabase Postgres  (accounts, referral, crews, live, leaderboard schemas)
    |-- Realtime Broadcast + Presence --> per-crew private channels
-   |-- Auth (email one-time code) --> Supabase Auth
+   |-- Auth (email and password; accounts created by the register function) --> Supabase Auth
    |-- Storage --> avatars
-   '-- Universal link --> Cloudflare Pages (landing, expired page, AASA)
+   '-- Universal link (iPhone) / App Link (Android) --> Cloudflare Pages (landing, expired page, AASA, assetlinks)
 GitHub Actions: scheduled keep-alive and database export
 ```
 
@@ -64,7 +64,7 @@ Privacy is enforced in the database, not the app:
 
 - A user reads another user's profile only if they share a crew and both profiles are active.
 - A suspended or deleted profile (`accounts.status`) has no access to anything; policies check for an active profile.
-- Registration, invite checks, deletion, and operator actions run as SECURITY DEFINER functions, since the invitee has no profile and no crew yet. Operator tools use the service role from the operator's machine only.
+- Invite checks and invite creation run as SECURITY DEFINER functions, and registration and deletion run as Edge Functions with the service role, since the invitee has no profile and no crew yet. Operator tools use the service role from the operator's machine only.
 - A session segment is readable only by members of the crews in `session_crews`.
 - Realtime channels are private, one per crew; authorization checks `crews.members`.
 - Everything requires an existing profile.
@@ -75,14 +75,15 @@ This is the main reason for choosing Postgres with RLS: decision 0004 (location 
 
 ### Register (referral and accounts)
 
-1. The app opens an invite link or reads the pasted code.
-2. User enters an email and confirms a one-time code through Supabase Auth, creating an auth user with no access.
-3. The app calls `register(invite_code, handle)`, one Postgres function that, in a single transaction, validates the invite (active, not expired unless already redeemed, not full, inviter active), reserves or consumes a slot, creates the profile, and records the referral.
-4. Failure leaves no profile, so no access. A database scheduled job (pg_cron, no external secret) removes auth users that never registered, after a grace period (value to be decided).
+1. The app opens an invite link or reads the code, then shows the registration form: handle, email, password.
+2. The app calls the `register` Edge Function with the invite code and form values. Public signup is disabled in Supabase Auth, so this is the only way an account is created.
+3. The function validates the invite (active, not expired unless already redeemed, not full, inviter active), reserves or consumes a slot, creates the auth user through the admin API, and creates the profile and referral record, all as one operation. If any step fails it undoes the earlier ones, so a failure leaves neither an auth user nor a profile.
+4. The app signs in with the email and password. Email confirmation and password reset go through the SMTP provider.
+5. A database scheduled job (pg_cron, no external secret) removes any auth user that has no profile, as a safety net, after a grace period (value to be decided).
 
-The invite landing page is static on Cloudflare Pages. To show the expired page it calls one anonymous-callable function, `check_invite(code)`, that returns only a status (valid, expired, revoked, full) and no inviter or user data. It is rate limited and is the only anonymous entry point.
+The `register` function runs with the service role key held in Supabase function secrets, never in CI or the app.
 
-Invite creation, revoke, and the active-invite limit are also Postgres functions. This avoids a separate server and any signup-hook dependency.
+The invite landing page is static on Cloudflare Pages. To show the expired page it calls one anonymous-callable function, `check_invite(code)`, that returns only a status (valid, expired, revoked, full) and no inviter or user data. It is rate limited and, with `register`, is one of only two anonymous entry points.
 
 ### Live location
 
@@ -103,7 +104,7 @@ Message budget, worked example: a driver broadcasting every 3 seconds sends abou
 
 ### Delete account
 
-A server function (the one place an external secret is needed) runs the full accounts.md deletion path in order:
+The `delete-account` Edge Function (service role key in function secrets) runs the full accounts.md deletion path in order:
 
 1. Transfer each owned crew to its longest-standing member, or dissolve it and kill its link if it has no other members.
 2. Revoke the user's active invites and keep the invite records.
@@ -155,5 +156,5 @@ Removing the leaderboard means removing one module registration and dropping the
 
 ## Open
 
-- Credential: email one-time code (decision 0012), pending confirmation of the free SMTP provider choice
+- Choice of free SMTP provider (decision 0012 requires one)
 - Custom domain for invite links

@@ -1,6 +1,6 @@
 # 0010 Supabase and free SaaS for 0.0.1
 
-Status: accepted
+Status: accepted, amended by decisions 0011 (cross-platform client) and 0012 (email and password registration)
 
 ## Decision
 

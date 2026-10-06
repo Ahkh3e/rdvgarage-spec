@@ -26,10 +26,11 @@ Location is shared only within crews (decision 0004), and only when the user cho
 - Distance and attendance stats are computed from sessions and RDV arrivals (stats.md).
 - Location data is never sold or sent to third parties for ads. Any processor must be vetted (decision 0004).
 
-## iOS
+## Platform notes
 
-- Location permission is two steps. Onboarding asks for When In Use with an explanation. The first time the user taps Go live, the app asks to upgrade to Always, with a clear purpose string.
-- Go live without Always is not offered; the app explains why background location is needed.
+- iPhone: location permission is two steps. Onboarding asks for When In Use with an explanation. The first time the user taps Go live, the app asks to upgrade to Always, with a clear purpose string.
+- Android: foreground location is requested in onboarding; background location is requested on first Go live, with a rationale screen. While live, a persistent notification shows who can see the user.
+- Go live without background location is not offered; the app explains why it is needed.
 - If permission is denied, the app explains how to enable it and works without sharing.
 
 ## Open questions

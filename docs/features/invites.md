@@ -6,7 +6,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 
 ## Behavior
 
-- A member invites someone with Share invite. Each tap creates a new invite link and opens the iOS share sheet.
+- A member invites someone with Share invite. Each tap creates a new invite link and opens the system share sheet.
 - An invite link is active for 24 hours from creation, then expires and cannot be used to sign up.
 - Until it expires, an invite can be used by more than one person (multi-use within the 24 hours). Each invite has a signup limit, value to be decided, after which it stops working even if unexpired.
 - A member can have only a limited number of active invites at once; the number is to be decided. At the limit, Share invite asks the member to revoke an active invite first. It never hands back an existing invite.
@@ -14,8 +14,8 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 - A typed invite code expires with its link. If the app is opened after the pasted or typed code has expired, the code-entry screen shows the same expired message and the request-a-new-invite guidance.
 - An expired, revoked, full, or disabled invite opens a landing page that says so and asks the user to request a new invite from the person who shared it.
 - An invite whose inviter is suspended or deleted stops working immediately.
-- Opening the link on iPhone goes straight into the app if installed.
-- If the app is not installed, the link opens a landing page that copies the invite code to the clipboard and sends the user to the App Store. iOS does not carry link data through an install, so on first launch the app reads the pasted code, and the user can always type the code manually.
+- Opening the link on a phone with the app installed goes straight into the app.
+- If the app is not installed, the link opens a landing page that routes by platform. iPhone: copies the invite code to the clipboard and sends the user to the App Store; iOS does not carry link data through an install, so on first launch the app reads the pasted code. Android: sends the user to the Play Store with the code in the install referrer, which the app reads on first launch. Desktop: explains that RDV Garage is a mobile app. On either platform the user can always type the code manually.
 - Onboarding includes an Enter invite code screen.
 - Signup requires a valid invite link. No link, no account.
 - Each account records who invited it. The referral chain is stored.
@@ -28,7 +28,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 ## Onboarding flow
 
 1. Open invite link
-2. Enter an email and confirm the one-time code, then register in our own user database
+2. Register with a handle, email, and password, plus the invite code
 3. Choose handle and avatar
 4. Grant When In Use location permission (explained, not forced); the upgrade to Always happens on first Go live (privacy.md)
 5. Land on My Crews, prompted to create or join a crew
@@ -39,11 +39,11 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 - Exclusivity relies on invite expiry, the signup limit per invite, the active-invite limit per member, revocation, and the referral chain. Abuse tooling is an open question.
 - Crew links cannot be used to sign up. They work only for existing app members, so signup always needs a Share invite.
 
-## iOS
+## Platform notes
 
-- Universal links for invite URLs.
-- Clipboard read on first launch needs the user's paste permission prompt; handle denial by falling back to manual code entry.
-- Sign-in is an email one-time code (decision 0012). Android parity notes are in `docs/architecture.md`.
+- iPhone: universal links for invite URLs. Clipboard read on first launch needs the user's paste permission prompt; handle denial by falling back to manual code entry.
+- Android: App Links for invite URLs and the Play Install Referrer to carry the code through install.
+- Registration is email and password (decision 0012). More platform detail is in `docs/architecture.md`.
 
 ## Open questions
 

@@ -20,12 +20,13 @@ See crew members on a shared map as they drive; the map follows the user.
 - Positions update about once per second while driving, less when stationary.
 - Stale positions fade, then drop after a timeout.
 
-## iOS
+## Platform notes
 
-- Core Location with Always authorization during a live session.
-- Background location while live; the blue status bar indicator is expected.
-- MapKit for the map surface.
-- Live Activity for an active session is a Phase 1 stretch.
+- Location comes from the cross-platform location library with a background task while live (architecture.md).
+- iPhone: Always authorization during a live session; the blue status bar indicator is expected.
+- Android: foreground and background location permission; a persistent notification shows while live and serves as the live indicator.
+- The map is react-native-maps: Apple Maps on iPhone, Google Maps on Android.
+- Live Activity (iPhone) and the Android ongoing-notification equivalent for an active session are later platform modules.
 
 ## Open questions
 

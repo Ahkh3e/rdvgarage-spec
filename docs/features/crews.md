@@ -26,9 +26,9 @@ Private groups of members who share a map and RDVs.
 - Crew membership is visible to other members of that crew only.
 - Crew size limits are open; none in v1 unless performance requires one.
 
-## iOS
+## Platform notes
 
-- Crew links are universal links. Opened by a non-member without the app, the link lands on a page that says an invite to the app is needed first and sends them to request a Share invite. There is no code-paste fallback for crew links.
+- Crew links are universal links on iPhone and App Links on Android. Opened by a non-member without the app, the link lands on a page that says an invite to the app is needed first and tells them to request a Share invite. There is no code-carrying fallback for crew links on either platform.
 - Crew selection is stored locally and synced to the account.
 
 ## Open questions

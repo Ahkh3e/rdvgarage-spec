@@ -14,10 +14,9 @@ Users, referral chains, crews, and locations are the product's core and its priv
 
 - We own the schema, the data, deletion, and backups. A managed host can run the service.
 - Apple App Review requires account deletion from within the app.
-- The credential method is an email one-time code (decision 0012).
+- The credential is email and password registered directly with us (decision 0012).
 - The Accounts module hides the user service behind an interface.
 
 ## Open
 
-- Credential method
 - Hosting and region: resolved in decision 0010 (Supabase, Canada Central)

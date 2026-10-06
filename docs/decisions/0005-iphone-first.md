@@ -1,6 +1,6 @@
 # 0005 iPhone first
 
-Status: accepted
+Status: accepted, amended by decision 0011 (Android supported from one codebase)
 
 ## Decision
 
@@ -13,7 +13,7 @@ Focused scope for the Toronto launch. Lets the product lean on iOS capabilities:
 ## Consequences
 
 - Feature specs include an iOS section covering permissions, background modes, and system integrations, and an Android note once Android work begins.
-- Location uses Core Location with Always authorization; battery and App Store review wording need design.
+- Location needs background permission on both platforms (Always on iPhone); battery and store review wording need design.
 - Maps handoff offers Apple Maps first, with Google Maps and Waze as options.
 
 ## Revisit
