@@ -20,4 +20,4 @@ Users, referral chains, crews, and locations are the product's core and its priv
 ## Open
 
 - Credential method
-- Hosting and region (Canadian residency worth considering for the Toronto launch)
+- Hosting and region: resolved in decision 0010 (Supabase, Canada Central)
