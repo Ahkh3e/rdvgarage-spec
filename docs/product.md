@@ -27,7 +27,7 @@ Platform: iPhone first, Android eventually, one codebase (decisions 0005, 0011).
 
 ## Open questions
 
-- Invite mechanics: values for the signup limit per invite and the active-invite limit per member; referral chain visibility
-- Crew size limits and membership rules
+- Referral chain visibility: who can see who invited whom
+- Crew membership rules beyond owner and member
 - Location sharing controls: pause, ghost mode, per-RDV sharing window
 - Background location and battery strategy
