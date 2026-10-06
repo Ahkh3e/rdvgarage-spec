@@ -36,8 +36,10 @@ Crew markers are the one exception to a single accent. Each crew gets one of six
 
 ## Map
 
-- Dark map on both platforms: Apple Maps dark appearance on iPhone, a dark custom style on Google Maps for Android.
-- Member markers: avatar in a circle ringed with the crew tint; your own marker uses the accent.
+- One custom map style on both platforms, "RDV Night", inspired by Waze: deep navy ground, blue water, roads that get brighter and wider as they get bigger (highways white), quiet labels, subtle 3D buildings when close in (decision 0017).
+- Follow mode is tilted about 55 degrees, close behind the person, and turns with the road. The camera keeps the last heading when they stop. Dragging the map ends follow mode; a recenter button brings it back.
+- Attribution for OpenStreetMap and OpenMapTiles stays visible.
+- Member markers: avatar in a ring and shape that tell the crew apart, with the handle underneath. Your own marker is an accent arrow while following, an accent dot otherwise.
 - Stale members fade, then disappear (architecture.md).
 - No route lines (decision 0006).
 
