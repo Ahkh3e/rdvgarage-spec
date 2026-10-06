@@ -4,7 +4,7 @@ Phase summary only. Status, progress, and completion live in GitHub issues, grou
 
 ## 0.0.1
 
-Invite link, accounts, crews, map, live location, weekly top speed leaderboard. See `docs/releases/0.0.1.md`.
+Share invites, accounts, crews, map, live location, weekly top speed leaderboard. See `docs/releases/0.0.1.md`.
 
 ## Phase 1 - MVP
 

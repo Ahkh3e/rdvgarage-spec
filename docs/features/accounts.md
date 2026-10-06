@@ -6,9 +6,16 @@ Owning the user database (decision 0008) means we build user creation and manage
 
 - id (internal, stable), handle (unique), avatar, created_at
 - credential reference (method open, see decision 0008)
-- invited_by (user id), invite link id used
+- invited_by (user id), share invite id used
 - status: active, suspended, deleted
 - no email or phone shown to other users
+
+## Invite record
+
+- id, inviter (user id), created_at, expires_at, max_signups, signups_used
+- status: active, expired, full, revoked, disabled
+- revoked_by: inviter, operator, or suspension
+- joined users are linked by invite id; records are kept while the inviter account or its tombstone exists
 
 ## Lifecycle in 0.0.1
 
@@ -19,11 +26,11 @@ Owning the user database (decision 0008) means we build user creation and manage
 | Sign out | Revoke the current session |
 | Sessions | List and revoke other devices (stretch) |
 | Edit profile | Change avatar; change handle at most once per 30 days |
-| Regenerate invite link | Old link dies immediately |
-| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed. If the credential is Sign in with Apple, the Apple token is revoked on delete |
+| Share invite | Creates a new invite link active for 24 hours; the user can revoke it earlier |
+| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed. All of the user's active invites are revoked. Invite records are kept for the referral chain. If the credential is Sign in with Apple, the Apple token is revoked on delete |
 | Recover access | Depends on credential method; Sign in with Apple needs none |
 
-Suspending a crew owner transfers ownership the same way deletion does. Operator hard delete follows the full deletion path: ownership transfer, leaderboard purge, token revocation.
+Suspending a user also revokes all their active invites with reason suspension. Reinstating the user does not restore them; they create new invites. Suspending a crew owner transfers ownership the same way deletion does. Operator hard delete follows the full deletion path: ownership transfer, leaderboard purge, token revocation.
 
 ## Operator tools in 0.0.1
 
@@ -32,6 +39,7 @@ No admin UI. A CLI or script for the operator to:
 - view a user and their referral chain
 - suspend or restore a user
 - hard delete on request
+- list a user's invites and disable any invite
 
 Suspended users are signed out everywhere and removed from live maps.
 
@@ -56,4 +64,4 @@ Admin UI, report and block users, email or phone verification, two-factor, accou
 
 - Credential method
 - Whether a deleted user's handle can be reused
-- Rate limits on registration per invite link
+- Signup limit per invite link
