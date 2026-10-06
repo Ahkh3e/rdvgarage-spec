@@ -7,6 +7,7 @@ Spec, design, and work tracking for RDV Garage. Code lives in [Ahkh3e/rdv-garage
 - `docs/product.md` - vision, users, principles, privacy model
 - `docs/features/` - one spec per feature
 - `docs/design.md` - brand and design system
+- `docs/architecture.md` - system design and stack
 - `docs/roadmap.md` - phases and status
 - `docs/decisions/` - decision records
 - Issues - all work items, tracked here, not in the code repo. Labels: `feature`, `bug`, `task`. Milestones: one per roadmap phase.
