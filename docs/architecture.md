@@ -7,7 +7,7 @@ Goal: run 0.0.1 with as little operational work as possible, on free SaaS tiers,
 | Concern | Choice | Why |
 |---|---|---|
 | Mobile app | React Native with Expo (TypeScript), one codebase for iPhone and Android, feature modules in a monorepo | iPhone first, Android follows without a rewrite (decision 0011); no cost |
-| Map | react-native-maps | Apple Maps on iPhone, Google Maps on Android; no map usage billing for display |
+| Map | MapLibre (`@maplibre/maplibre-react-native`) with OpenFreeMap tiles | One style on both platforms, no key, no usage billing, full control of the look (decision 0017) |
 | Database, auth, realtime, files | Supabase, Canada (Central) region | One free SaaS covers Postgres, Auth, Realtime, Storage, and server functions; Canadian data residency |
 | Link pages and deep links | Cloudflare Pages (static) | Free static hosting; serves the apple-app-site-association file (iPhone), the assetlinks.json file (Android), and the landing and expired pages |
 | Code and issues | GitHub (this repo, `rdv-garage`) | Already in use |

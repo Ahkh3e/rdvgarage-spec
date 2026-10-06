@@ -25,7 +25,7 @@ See crew members on a shared map as they drive; the map follows the user.
 - Location comes from the cross-platform location library with a background task while live (architecture.md).
 - iPhone: Always authorization during a live session; the blue status bar indicator is expected.
 - Android: foreground and background location permission; a persistent notification shows while live and serves as the live indicator.
-- The map is react-native-maps: Apple Maps on iPhone, Google Maps on Android.
+- The map is MapLibre with the RDV Night style and OpenFreeMap vector tiles on both platforms (decision 0017). No key is needed.
 - Live Activity (iPhone) and the Android ongoing-notification equivalent for an active session are later platform modules.
 
 ## Open questions
