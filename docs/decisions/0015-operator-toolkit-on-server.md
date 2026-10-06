@@ -16,7 +16,7 @@ A solo, fast-moving build needs to exercise the whole product, including live ma
 - Everything the toolkit creates is tagged synthetic and wipeable in one command.
 - A production guard and an audit log limit mistakes. Production use needs an explicit flag and the typed project name.
 - Because the toolkit can bypass access policies, it must never be exposed as an HTTP route or hidden app feature. That would be a real backdoor.
-- Backups use a read-only role, so a lost backup key does not grant write access.
+- Backups use a read-only role, so a lost backup key does not grant write access. A copy goes to free object storage off the server so a lost disk does not lose the only copy.
 
 ## Revisit
 

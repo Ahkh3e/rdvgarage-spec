@@ -64,7 +64,7 @@ Privacy is enforced in the database, not the app:
 
 - A user reads another user's profile only if they share a crew and both profiles are active.
 - A suspended or deleted profile has no access to anything; policies check for an active profile.
-- Invite checks and invite creation run as SECURITY DEFINER functions. Registration and deletion run as Edge Functions with the service role, since the caller has no profile or session yet. Operator tools use the service role from the operator's machine only.
+- Invite checks and invite creation run as SECURITY DEFINER functions. Registration and deletion run as Edge Functions with the service role, since the caller has no profile or session yet. Operator tools use the service role from the operator server only.
 - A segment is readable only by members of the crews in `session_crews`.
 - Realtime channels are private, one per crew; authorization checks `crews.members`.
 - Everything requires an existing active profile.
@@ -136,7 +136,7 @@ No database cascade is relied on for these steps.
 
 - The operator server (the owner's hosted Linux server) runs the operator toolkit and the scheduled jobs (`docs/ops.md`).
 - Keep-alive: a scheduled job on the server calls a database function (`ping`) so there is real database activity. Supabase does not guarantee this prevents a pause; check the current rule.
-- Backups: the free plan has none, so a scheduled job on the server exports the database using a read-only Postgres role (not the service key), encrypts the dump, rotates it, and keeps a copy off the server.
+- Backups: the free plan has none, so a scheduled job on the server exports the database using a read-only Postgres role (not the service key), encrypts the dump, rotates it, and copies it to free object storage off the server (Cloudflare R2 is the plan, since Cloudflare is already in use). The release checklist verifies that a backup restores and that the off-server copy exists.
 - Database-side jobs (orphan cleanup, unconfirmed-account cleanup, stale session sweep) use pg_cron and need no external secrets.
 - The service key lives only in Supabase function secrets and a root-readable environment file on the operator server. It is never in CI, git, or the app.
 - Operator tools: a command line toolkit on the server, no admin UI and no network endpoint (decision 0015).

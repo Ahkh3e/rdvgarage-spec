@@ -68,6 +68,6 @@ All functions return a stable error code the app maps to a message: invalid_invi
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 
-## Operator only (service role, operator machine)
+## Operator only (service role, operator server)
 
 view user and referral chain, suspend, restore, hard delete, list and disable invites, create and delete users and crews, and simulate activity. See `docs/ops.md`; none of this is exposed as an app or network endpoint.
