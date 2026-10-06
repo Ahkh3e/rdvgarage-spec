@@ -1,5 +1,9 @@
 # Stats and streaks
 
+## Scope
+
+Release 0.0.1 tracks live sessions only and shows the weekly top speed leaderboard. Meets attended, attendance, and streaks need RDVs and arrive after 0.0.1.
+
 ## Metrics
 
 - Distance driven: summed across live sessions.
@@ -17,7 +21,7 @@
 
 - Distance counts only while live, since location is only collected then.
 - A missed week resets the streak. Grace rules are open.
-- Stats are visible to the user and to their crews; crew leaderboards are open.
+- A session's stats are visible only to the crews the user shared that session with (privacy.md).
 
 ## iOS
 
@@ -27,6 +31,5 @@
 
 ## Open questions
 
-- Whether non-live driving counts toward distance (it can't if we never collect it)
 - Streak grace days
 - Leaderboards and their effect on safe driving. Release 0.0.1 adds a weekly top speed leaderboard (decision 0007); other speed-based stats are undecided

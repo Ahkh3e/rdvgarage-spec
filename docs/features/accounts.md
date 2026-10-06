@@ -20,8 +20,10 @@ Owning the user database (decision 0008) means we build user creation and manage
 | Sessions | List and revoke other devices (stretch) |
 | Edit profile | Change avatar; change handle at most once per 30 days |
 | Regenerate invite link | Old link dies immediately |
-| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed |
+| Delete account | In-app, required by App Review. Removes profile and session summaries; leaves crews; referral chain keeps a tombstone node so the chain stays intact. If the user owns a crew, ownership passes to its longest-standing member; if the crew has no other members it is dissolved and its link stops working. Leaderboard entries are removed. If the credential is Sign in with Apple, the Apple token is revoked on delete |
 | Recover access | Depends on credential method; Sign in with Apple needs none |
+
+Suspending a crew owner transfers ownership the same way deletion does. Operator hard delete follows the full deletion path: ownership transfer, leaderboard purge, token revocation.
 
 ## Operator tools in 0.0.1
 

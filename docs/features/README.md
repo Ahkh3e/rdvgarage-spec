@@ -10,12 +10,12 @@ iPhone first (see decision 0005). One spec per feature in this folder; each link
 | Accounts | accounts.md | User creation and management in our own database |
 | Profile | profile.md (planned) | Handle, avatar, home area; minimal in v1 |
 | Crews | crews.md | Create and join private crews; roles; member limits; leave and remove |
-| Live map | live-map.md | Crew members live on a shared map; follow mode while driving; pause and ghost controls |
+| Live map | live-map.md | Crew members live on a shared map; follow mode while driving |
 | RDVs | rdvs.md (planned) | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP |
 | Maps handoff | maps-handoff.md (planned) | Tap an RDV to open Apple Maps, Google Maps, or Waze |
 | Stats and streaks | stats.md | Distance driven, meets attended, streaks |
 | Notifications | notifications.md (planned) | RDV drops, RSVPs, member arriving, invites |
-| Privacy controls | privacy.md | Per-crew sharing, pause, ghost mode, sharing window per RDV |
+| Privacy controls | privacy.md | Manual live sessions with per-crew sharing; ghost mode and per-RDV windows later |
 
 ## iOS integrations
 

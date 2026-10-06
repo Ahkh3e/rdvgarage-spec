@@ -8,8 +8,9 @@ Location is shared only within crews (decision 0004), and only when the user cho
 
 - Sharing is manual per session. The user taps Go live and picks which of their crews can see them.
 - Go live is explicit each time; there is no persistent always-on mode.
-- A session ends when the user taps Stop, after 15 minutes stationary, or when the app is force-quit or location permission is revoked.
-- On session end the max speed and distance are finalized and stored. If the app is killed, the server closes the session after 5 minutes without a position and finalizes it from the last received data.
+- A session ends when the user taps Stop, when the app is force-quit, or when location permission is revoked. Being stationary does not end a session; a parked user at a meet stays live.
+- A stationary session still sends low-rate heartbeats. If heartbeats stop for longer than a grace period (value to be decided, longer than the heartbeat interval), the server closes the session and finalizes it from the last received data.
+- On session end the max speed and distance are finalized and stored.
 - While live, a persistent indicator shows who can see the user.
 - Arriving at an RDV can prompt: Go live for this RDV?
 - Stopping removes the user from the map for everyone immediately.
@@ -17,15 +18,18 @@ Location is shared only within crews (decision 0004), and only when the user cho
 ## Data
 
 - Live positions are held only as long as needed to render the map. No breadcrumb or route history is stored or shared.
-- Per completed session the server stores only: start and end time, total distance, max speed, and the time max speed was set. This feeds the leaderboard and stats.
-- Session summaries are visible to crew members only through the leaderboard and stats. Retention: weekly leaderboard data kept for 90 days, distance totals kept while the account exists.
+- Per completed session the server stores only: start and end time, total distance, max speed, the time max speed was set, and the crews the session was shared with. This feeds the leaderboard and stats.
+- A session summary is split at the leaderboard week boundary, one summary per week touched, so each week gets its own max speed and distance.
+- A session summary is visible only to the crews the user chose at Go live. A crew the user did not share with never sees it in its leaderboard or stats.
+- Retention of leaderboard data and distance totals is to be decided. Distance totals are kept while the account exists.
 - Account deletion removes all session summaries.
 - Distance and attendance stats are computed from sessions and RDV arrivals (stats.md).
 - Location data is never sold or sent to third parties for ads. Any processor must be vetted (decision 0004).
 
 ## iOS
 
-- Always authorization is requested only when the user first goes live, with a clear purpose string.
+- Location permission is two steps. Onboarding asks for When In Use with an explanation. The first time the user taps Go live, the app asks to upgrade to Always, with a clear purpose string.
+- Go live without Always is not offered; the app explains why background location is needed.
 - If permission is denied, the app explains how to enable it and works without sharing.
 
 ## Open questions

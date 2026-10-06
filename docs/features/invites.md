@@ -13,6 +13,9 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 - Signup requires a valid invite link. No link, no account.
 - Each account records who invited it. The referral chain is stored.
 - A member can regenerate their link at any time; the old link stops working.
+- A member can see who joined through their link.
+- Each link has a signup cap that the owner of the link can raise; the cap value is to be decided. The operator can disable a link.
+- A leaked link is a known risk in 0.0.1: it is limited by the cap, regeneration, and the operator CLI, and nothing more until abuse tooling ships.
 - In 0.0.1 an invited member can be suspended or deleted only by the operator (see accounts.md). In-app removal from the app is not available; crew owners can remove members from their own crew (see crews.md).
 
 ## Onboarding flow
@@ -20,7 +23,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 1. Open invite link
 2. Register an account in our own user database
 3. Choose handle and avatar
-4. Grant location permission (explained, not forced)
+4. Grant When In Use location permission (explained, not forced); the upgrade to Always happens on first Go live (privacy.md)
 5. Land on My Crews, prompted to create or join a crew
 
 ## Rules
