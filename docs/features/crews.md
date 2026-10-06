@@ -10,7 +10,7 @@ Private groups of members who share a map and RDVs.
 - Roles in 0.0.1: owner and member. An admin role is planned later. Owner can transfer ownership.
 - Join by crew link. Joining a crew requires being an app member. Admin invites arrive with the admin role.
 - Leaving is always allowed. The owner can remove members from the crew.
-- The crew link is reusable. The owner can regenerate it at any time; the old link stops working.
+- The crew link is reusable and does not expire. It works only for existing app members and cannot be used to sign up. The owner can regenerate it at any time; the old link stops working.
 - Crew has a name, avatar, and short description.
 
 ## My Crews

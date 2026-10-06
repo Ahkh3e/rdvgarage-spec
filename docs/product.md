@@ -27,7 +27,7 @@ Platform: iPhone first (decision 0005). Feature breakdown in `docs/features/READ
 
 ## Open questions
 
-- Invite mechanics: invite quota per user, revocation, referral chain visibility
+- Invite mechanics: values for the signup limit per invite and the active-invite limit per member; referral chain visibility
 - Crew size limits and membership rules
 - Location sharing controls: pause, ghost mode, per-RDV sharing window
 - Background location and battery strategy

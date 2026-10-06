@@ -12,4 +12,4 @@ Exclusivity is core to the brand and keeps crews trusted. Growth comes through t
 
 ## Consequences
 
-Invite mechanics (quota, revocation, referral chain) are open questions in `docs/product.md`.
+Invites expire after 24 hours and can be revoked (decision 0009). Remaining invite limits and referral chain visibility are open questions in `docs/product.md`.
