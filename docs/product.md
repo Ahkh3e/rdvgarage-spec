@@ -30,3 +30,4 @@ RDV Garage is a referral-only social app for car enthusiasts, built for the Toro
 - Crew size limits and membership rules
 - Location sharing controls: pause, ghost mode, per-RDV sharing window
 - Background location and battery strategy
+- ETA source: a third-party routing API would send crew locations outside the crew, which violates the privacy principle. Options: on-device estimate, self-hosted routing, or a provider with no retention. Must be decided before the ETA feature is specced.

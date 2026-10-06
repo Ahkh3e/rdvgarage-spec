@@ -1,6 +1,7 @@
 ---
 name: Feature
 about: A unit of product work
+title: "[Feature] "
 labels: feature
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: Bug
 about: Something broken in the app
+title: "[Bug] "
 labels: bug
 ---
 

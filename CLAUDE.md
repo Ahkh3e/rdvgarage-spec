@@ -15,5 +15,5 @@ Spec, design, and issue tracking for https://github.com/Ahkh3e/rdv-garage. No ap
 - Specs in `docs/features/<name>.md`; every issue links its spec.
 - Work items are GitHub Issues on this repo (`gh issue ...`), using the templates in `.github/ISSUE_TEMPLATE/`.
 - Code PRs live in `Ahkh3e/rdv-garage` and reference `Ahkh3e/rdvgarage-spec#<n>`.
-- When work completes, close the issue and update `docs/roadmap.md`.
+- When work completes, close the issue. Update `docs/roadmap.md` only if phase scope changes.
 - Spec changes that alter a decision get a record in `docs/decisions/`.
