@@ -1,6 +1,6 @@
 # 0002 Single accent color
 
-Status: accepted
+Status: accepted (principle only; the accent color itself is undecided)
 
 ## Decision
 

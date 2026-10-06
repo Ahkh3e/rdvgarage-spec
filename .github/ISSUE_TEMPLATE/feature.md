@@ -9,7 +9,7 @@ labels: feature
 
 ## Spec
 
-Link to `docs/features/<name>.md`
+Write the spec first, then link it here, e.g. `docs/features/crews.md`. Do not open this issue until the spec file exists.
 
 ## Acceptance criteria
 

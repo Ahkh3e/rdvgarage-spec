@@ -5,6 +5,10 @@ title: "[Bug] "
 labels: bug
 ---
 
+## Related spec
+
+Path to the spec this violates, e.g. `docs/features/crews.md`
+
 ## What happened
 
 ## Expected
