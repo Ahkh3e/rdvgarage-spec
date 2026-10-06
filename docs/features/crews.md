@@ -11,7 +11,8 @@ Private groups of members who share a map and RDVs.
 - Join by crew link. Joining a crew requires being an app member. Admin invites arrive with the admin role.
 - Leaving is always allowed. The owner can remove members from the crew.
 - The crew link is reusable and does not expire. It works only for existing app members and cannot be used to sign up. The owner can regenerate it at any time; the old link stops working.
-- Crew has a name, avatar, and short description.
+- Crew has a name (3-30 characters), an optional avatar, and an optional description (up to 140 characters).
+- The owner sees the member list and can remove a member, regenerate the crew link, transfer ownership, and delete the crew. A member sees the member list and can leave.
 
 ## My Crews
 
@@ -24,14 +25,14 @@ Private groups of members who share a map and RDVs.
 
 - A member visible in more than one selected crew shows once.
 - Crew membership is visible to other members of that crew only.
-- Crew size limits are open; none in v1 unless performance requires one.
+- There are no limits on crew size or on crews per user.
 
-## iOS
+## Platform notes
 
-- Crew links are universal links. Opened by a non-member without the app, the link lands on a page that says an invite to the app is needed first and sends them to request a Share invite. There is no code-paste fallback for crew links.
-- Crew selection is stored locally and synced to the account.
+- Crew links are universal links on iPhone and App Links on Android. Opened by a non-member without the app, the link lands on a page that says an invite to the app is needed first and tells them to request a Share invite. There is no code-carrying fallback for crew links on either platform.
+- Crew selection is stored on the account (`set_selected_crews`) and cached locally, so it follows the user to another device.
 
 ## Open questions
 
 - Crew discoverability: none (link only) assumed
-- Crew size limit if the combined map gets crowded
+- Map clutter handling if a combined map gets crowded

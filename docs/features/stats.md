@@ -23,11 +23,11 @@ Release 0.0.1 tracks live sessions only and shows the weekly top speed leaderboa
 - A missed week resets the streak. Grace rules are open.
 - A session's stats are visible only to the crews the user shared that session with (privacy.md).
 
-## iOS
+## Platform notes
 
-- Distance comes from Core Location during live sessions only.
-- Arrival checks use region monitoring around the RDV.
-- Needs Always authorization; same purpose strings as privacy.md.
+- Distance comes from the location library during live sessions only.
+- Arrival checks use region monitoring around the RDV on both platforms.
+- Needs background location permission; same explanations as privacy.md.
 
 ## Open questions
 

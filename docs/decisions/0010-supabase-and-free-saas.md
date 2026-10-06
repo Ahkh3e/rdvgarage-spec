@@ -1,10 +1,10 @@
 # 0010 Supabase and free SaaS for 0.0.1
 
-Status: accepted
+Status: accepted, amended by decisions 0011 (cross-platform client) and 0012 (link-based accounts)
 
 ## Decision
 
-Run 0.0.1 on free SaaS tiers: Supabase (Canada region) for Postgres, Auth, Realtime and Storage, Cloudflare Pages for invite pages, GitHub and Xcode Cloud for code and builds. MapKit for maps.
+Run 0.0.1 on free SaaS tiers: Supabase (Canada region) for Postgres, Auth, Realtime and Storage, Cloudflare Pages for invite pages, GitHub and EAS Build for code and builds. react-native-maps for maps.
 
 ## Rationale
 
