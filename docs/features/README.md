@@ -8,7 +8,7 @@ iPhone first, Android eventually, one codebase (decisions 0005, 0011). One spec 
 |---|---|---|
 | App shell | app-shell.md | Tabs, screens, core contracts, flags |
 | Invites and onboarding | invites.md | Join by invite link or code; share invites that expire after 24 hours, no limits; referral chain |
-| Accounts | accounts.md | Account creation by invite, no password or email, sign-in links, devices, deletion |
+| Accounts | accounts.md | Account creation by invite with email and password, devices, deletion |
 | Profile | profile.md (planned) | Handle, avatar, home area; minimal in v1 |
 | Crews | crews.md | Create and join private crews; roles; member limits; leave and remove |
 | Live map | live-map.md | Crew members live on a shared map; follow mode while driving |

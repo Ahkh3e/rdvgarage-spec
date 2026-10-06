@@ -24,13 +24,12 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 - Opening the link on a phone with the app installed goes straight into the app.
 - If the app is not installed, the link opens a landing page that routes by platform. iPhone: copies the invite code to the clipboard and sends the user to the App Store; on first launch the app reads the pasted code. Android: sends the user to the Play Store with the code in the install referrer, which the app reads on first launch. Desktop: explains that RDV Garage is a mobile app.
 - On either platform the user can always type the code manually on the Enter invite code screen.
-- Sign-in links (accounts.md) use the same landing page and carrying methods, distinguished by a code type.
 
 ## Onboarding flow
 
 1. Open the invite link, or enter the code
-2. Accept the disclaimers and confirm being 18 or older (`docs/disclaimers.md`)
-3. Choose a handle and optional avatar; the account is created and signed in
+2. Fill the account form: handle, email, password, optional avatar; accept the disclaimers and confirm being 18 or older (`docs/disclaimers.md`)
+3. Confirm the email by tapping the link, which hands off to the app, then sign in
 4. Grant When In Use location permission (explained, not forced); the upgrade to Always happens on first Go live (privacy.md)
 5. Land on My Crews, prompted to create or join a crew
 
@@ -44,7 +43,7 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 
 - iPhone: universal links for invite URLs. Clipboard read on first launch needs the user's paste permission prompt; handle denial by falling back to manual code entry.
 - Android: App Links for invite URLs and the Play Install Referrer to carry the code through install.
-- Accounts have no password or email (decision 0012). More platform detail is in `docs/architecture.md`.
+- Accounts are email and password (decision 0013). More platform detail is in `docs/architecture.md`.
 
 ## Open questions
 

@@ -9,7 +9,7 @@ Bottom tabs, each contributed by a module through the registry:
 | Map | map (with live-location) | Shared map of selected crews; follow mode; Go live button |
 | Crews | crews | My Crews home, crew detail, create and join |
 | Board | leaderboard | Weekly top speed per crew |
-| Me | accounts (with referral) | Profile, Share invite, Devices, Legal, Delete account |
+| Me | accounts (with referral) | Profile, Change password, Share invite, Devices, Legal, Delete account |
 
 The app opens on Map when the user is live, otherwise on Crews.
 
@@ -17,18 +17,19 @@ The app opens on Map when the user is live, otherwise on Crews.
 
 | Screen | Module | Notes |
 |---|---|---|
-| Welcome, Enter invite code | accounts | Shown with no session |
+| Welcome, Sign in, Forgot password, Enter invite code | accounts | Shown with no session |
 | Invite expired | accounts | Expired, revoked, or disabled invite |
-| Disclaimers and age | accounts | Must accept to continue |
-| Handle and avatar | accounts | Creates the account |
+| Create account | accounts | Handle, email, password, optional avatar, disclaimers and age acceptance; creates the account |
+| Confirm email | accounts | Shown after the form until the email is confirmed; Resend button; says unconfirmed accounts expire after 24 hours |
+| Reset password | accounts | Opened by the reset link; sets a new password |
 | My Crews | crews | List, selection toggles, live status |
 | Crew detail | crews | Members, link, owner actions |
 | Create crew, Join crew | crews | Join opens from a crew link |
 | Map | map | Selected crews' live members; recenter |
 | Go live sheet | live-location | Pick crews, start, stop; shows who can see you |
 | Board | leaderboard | Crew selector, ranked list, disclaimer footer |
-| Me | accounts | Profile edit, Share invite, My invites |
-| Devices | accounts | Sessions, Add a device (link and QR), revoke |
+| Me | accounts | Profile edit, Change password, Share invite, My invites |
+| Devices | accounts | Signed-in devices, revoke, sign out everywhere |
 | Legal | accounts | Full disclaimers text |
 
 ## Core contracts
@@ -37,10 +38,11 @@ Small interfaces in the core package. Modules depend only on these, never on eac
 
 ```ts
 interface Session { userId: string; handle: string; signOut(): Promise<void> }
+interface AuthApi { signIn(email: string, password: string): Promise<void>; requestPasswordReset(email: string): Promise<void>; completePasswordReset(newPassword: string): Promise<void>; changePassword(current: string, next: string): Promise<void>; resendConfirmation(email: string): Promise<void>; listSessions(): Promise<DeviceSession[]>; revokeSession(id: string | 'others'): Promise<void> }
 interface CrewContext { selected: CrewId[]; select(ids: CrewId[]): void; subscribe(fn): Unsubscribe }
 interface LocationStream { subscribe(fn: (p: MemberPosition) => void): Unsubscribe }
 interface Events { emit<T extends AppEvent>(e: T): void; on<T extends AppEvent>(type: T['type'], fn): Unsubscribe }
-interface Backend { rpc(name: string, args?: object): Promise<unknown>; invoke(name: string, body?: object): Promise<unknown>; channel(name: string): RealtimeChannel }
+interface Backend { auth: AuthApi; rpc(name: string, args?: object): Promise<unknown>; invoke(name: string, body?: object): Promise<unknown>; channel(name: string): RealtimeChannel }
 interface Module { id: string; register(shell: Shell): void }
 interface Shell { addTab(tab: Tab): void; addRoute(route: Route): void; addFlag(name: string, default: boolean): void }
 ```
