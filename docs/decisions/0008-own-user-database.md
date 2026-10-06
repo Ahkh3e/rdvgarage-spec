@@ -14,7 +14,7 @@ Users, referral chains, crews, and locations are the product's core and its priv
 
 - We own the schema, the data, deletion, and backups. A managed host can run the service.
 - Apple App Review requires account deletion from within the app.
-- The credential is email and password registered directly with us (decision 0012).
+- Accounts have no password or email; they are created by invite and signed in by link (decision 0012).
 - The Accounts module hides the user service behind an interface.
 
 ## Open
