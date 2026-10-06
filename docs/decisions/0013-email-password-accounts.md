@@ -14,7 +14,7 @@ The owner wants familiar accounts with real recovery, so a lost phone does not m
 
 - Passwords are handled entirely by Supabase Auth, which hashes them. We never see, store, or log a password.
 - We collect only what is needed: handle, email, and optional avatar. The email is never shown to other users, and no phone number or real name is collected.
-- Email confirmation is required before first sign-in, so an email really belongs to the account holder and recovery goes to the right person.
+- Email confirmation is required before first sign-in in production (test projects can auto-confirm, decision 0014), so an email really belongs to the account holder and recovery goes to the right person.
 - Account deletion removes the account and personal data (decision 0008, accounts.md).
 - Terms acceptance, the 18 or older confirmation, and the version accepted are stored with the account.
 - This lowers credential-handling risk because we never touch passwords. It does add breach surface compared with decision 0012: an email address and a password hash per user now exist in Supabase Auth. Mitigations are no sharing of email, minimal fields, Supabase's managed security, and deletion on request. Legal risk is not removed; a privacy policy, terms of use, and a lawyer's review are still needed (`docs/disclaimers.md`, `docs/store-submission.md`).
