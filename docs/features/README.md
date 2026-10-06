@@ -7,6 +7,7 @@ iPhone first (see decision 0005). One spec per feature in this folder; each link
 | Feature | Spec | Summary |
 |---|---|---|
 | Invites and onboarding | invites.md | Join by invite code or link; per-user invite quota; referral chain |
+| Accounts | accounts.md | User creation and management in our own database |
 | Profile | profile.md | Handle, avatar, home area; minimal in v1 |
 | Crews | crews.md | Create and join private crews; roles; member limits; leave and remove |
 | Live map | live-map.md | Crew members live on a shared map; follow mode while driving; pause and ghost controls |
