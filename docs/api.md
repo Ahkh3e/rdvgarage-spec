@@ -51,7 +51,7 @@ On a valid invite and handle, `register` always answers the same way ("check you
 | Name | Type | Notes |
 |---|---|---|
 | start_session | SQL | crew ids; returns session id |
-| checkpoint_session | SQL | session id and the values for the current week segment, cumulative and restarted from zero by the app when the Toronto week changes; updates last_seen_at. NaN and Infinity are rejected |
+| checkpoint_session | SQL | session id and the values for the current week segment, cumulative and restarted from zero by the app when the Toronto week changes; updates last_seen_at. An optional week start lets the app write the previous week's final values just after the week rolls over; only the current week or the one before is accepted. NaN and Infinity are rejected |
 | end_session | SQL | sets ended_at |
 
 Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id>` channels.
