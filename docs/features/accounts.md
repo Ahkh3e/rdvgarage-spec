@@ -46,12 +46,13 @@ Suspending a user bans their auth user so they are signed out everywhere and can
 
 ## Operator tools in 0.0.1
 
-No admin UI. A CLI or script for the operator to:
+No admin UI. The operator toolkit on the server (`docs/ops.md`) is the only admin surface. It lets the operator:
 
 - view a user and their referral chain
 - suspend or restore a user
 - hard delete on request
 - list a user's invites and disable any invite
+- create and delete users and crews, including synthetic ones, and simulate activity for testing
 
 Suspended users are signed out everywhere and removed from live maps.
 

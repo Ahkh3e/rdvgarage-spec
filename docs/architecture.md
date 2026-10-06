@@ -10,7 +10,8 @@ Goal: run 0.0.1 with as little operational work as possible, on free SaaS tiers,
 | Map | react-native-maps | Apple Maps on iPhone, Google Maps on Android; no map usage billing for display |
 | Database, auth, realtime, files | Supabase, Canada (Central) region | One free SaaS covers Postgres, Auth, Realtime, Storage, and server functions; Canadian data residency |
 | Link pages and deep links | Cloudflare Pages (static) | Free static hosting; serves the apple-app-site-association file (iPhone), the assetlinks.json file (Android), and the landing and expired pages |
-| Code, issues, scheduled jobs | GitHub (this repo, `rdv-garage`, GitHub Actions) | Already in use |
+| Code and issues | GitHub (this repo, `rdv-garage`) | Already in use |
+| Operator tools and scheduled jobs | The owner's hosted Linux server | Already available; runs the operator toolkit, keep-alive, and backups |
 | Builds and distribution | EAS Build (Expo), TestFlight, later Google Play testing tracks | Free build allowance; check current limits |
 | Crash and diagnostics | App Store Connect and Play Console reports | Free, no SDK |
 
@@ -40,7 +41,7 @@ Mobile app (React Native feature modules; iPhone first, Android next)
    |-- Sessions issued by Supabase Auth; accounts created only by the register function
    |-- Storage --> avatars
    '-- Universal link (iPhone) / App Link (Android) --> Cloudflare Pages (landing, expired page, AASA, assetlinks)
-GitHub Actions: scheduled keep-alive and database export
+Operator server (Linux): operator toolkit, scheduled keep-alive and database export
 ```
 
 The app talks to Supabase through one wrapper in the core package (the Backend contract, see `docs/features/app-shell.md`). No module imports the Supabase SDK directly, so the provider can change without touching feature modules.
@@ -133,13 +134,13 @@ No database cascade is relied on for these steps.
 
 ## Operations
 
-- Keep-alive: a scheduled GitHub Actions job calls a database function (`ping`) so there is real database activity. Supabase does not guarantee this prevents a pause; check the current rule.
-- Backups: the free plan has none, so a scheduled GitHub Actions job exports the database using a read-only Postgres role (not the service key), encrypts the dump, and stores it as a private workflow artifact with limited retention.
-- GitHub disables scheduled workflows after a long stretch of repo inactivity, which would silently stop both jobs. Missing recent artifacts is the signal to check.
-- Database-side jobs (orphan cleanup, stale session sweep) use pg_cron and need no external secrets.
-- The service key never goes into CI. It stays on the operator's machine and in Supabase function secrets.
-- Operator tools: SQL scripts or a small CLI run from the operator's machine; no admin UI.
-- Secrets live in GitHub Actions secrets and EAS environment secrets, never in the repo.
+- The operator server (the owner's hosted Linux server) runs the operator toolkit and the scheduled jobs (`docs/ops.md`).
+- Keep-alive: a scheduled job on the server calls a database function (`ping`) so there is real database activity. Supabase does not guarantee this prevents a pause; check the current rule.
+- Backups: the free plan has none, so a scheduled job on the server exports the database using a read-only Postgres role (not the service key), encrypts the dump, rotates it, and keeps a copy off the server.
+- Database-side jobs (orphan cleanup, unconfirmed-account cleanup, stale session sweep) use pg_cron and need no external secrets.
+- The service key lives only in Supabase function secrets and a root-readable environment file on the operator server. It is never in CI, git, or the app.
+- Operator tools: a command line toolkit on the server, no admin UI and no network endpoint (decision 0015).
+- Build secrets live in EAS environment secrets, never in the repo.
 - Environments: one Supabase project for development and one for production, within the two free projects.
 
 ## Modularity mapping

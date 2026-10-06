@@ -70,4 +70,4 @@ A registration for an email already in use does not return an error; see the not
 
 ## Operator only (service role, operator machine)
 
-view user and referral chain, suspend, restore, hard delete, list and disable invites.
+view user and referral chain, suspend, restore, hard delete, list and disable invites, create and delete users and crews, and simulate activity. See `docs/ops.md`; none of this is exposed as an app or network endpoint.
