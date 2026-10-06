@@ -6,7 +6,7 @@ iPhone first (see decision 0005). One spec per feature in this folder; each link
 
 | Feature | Spec | Summary |
 |---|---|---|
-| Invites and onboarding | invites.md | Join by invite code or link; unlimited personal link; referral chain |
+| Invites and onboarding | invites.md | Join by invite code or link; share invite links that expire after 24 hours; referral chain |
 | Accounts | accounts.md | User creation and management in our own database |
 | Profile | profile.md (planned) | Handle, avatar, home area; minimal in v1 |
 | Crews | crews.md | Create and join private crews; roles; member limits; leave and remove |
