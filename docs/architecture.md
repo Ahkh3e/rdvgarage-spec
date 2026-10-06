@@ -61,7 +61,9 @@ One Postgres schema per app module. Schemas share only identity (`accounts.profi
 
 Privacy is enforced in the database, not the app:
 
-- A user reads another user's profile only if they share a crew.
+- A user reads another user's profile only if they share a crew and both profiles are active.
+- A suspended or deleted profile (`accounts.status`) has no access to anything; policies check for an active profile.
+- Registration, invite checks, deletion, and operator actions run as SECURITY DEFINER functions, since the invitee has no profile and no crew yet. Operator tools use the service role from the operator's machine only.
 - A session segment is readable only by members of the crews in `session_crews`.
 - Realtime channels are private, one per crew; authorization checks `crews.members`.
 - Everything requires an existing profile.
@@ -75,7 +77,9 @@ This is the main reason for choosing Postgres with RLS: decision 0004 (location 
 1. The app opens an invite link or reads the pasted code.
 2. User signs in with Apple through Supabase Auth, creating an auth user with no access.
 3. The app calls `register(invite_code, handle)`, one Postgres function that, in a single transaction, validates the invite (active, not expired unless already redeemed, not full, inviter active), reserves or consumes a slot, creates the profile, and records the referral.
-4. Failure leaves no profile, so no access. Orphan auth users are removed by a scheduled cleanup.
+4. Failure leaves no profile, so no access. A database scheduled job (pg_cron, no external secret) removes auth users that never registered, after a grace period (value to be decided).
+
+The invite landing page is static on Cloudflare Pages. To show the expired page it calls one anonymous-callable function, `check_invite(code)`, that returns only a status (valid, expired, revoked, full) and no inviter or user data. It is rate limited and is the only anonymous entry point.
 
 Invite creation, revoke, and the active-invite limit are also Postgres functions. This avoids a separate server and any signup-hook dependency.
 
@@ -84,10 +88,11 @@ Invite creation, revoke, and the active-invite limit are also Postgres functions
 1. User taps Go live and picks crews. The app creates a `live_sessions` row and `session_crews` rows.
 2. The app joins each chosen crew's private channel, announces itself with Presence, and broadcasts position at an adaptive rate: faster while moving, slower when stationary, with low-rate heartbeats when parked.
 3. Positions go over Broadcast only. They are never written to the database.
-4. About once a minute the app writes a checkpoint to `live.session_segments` (max speed so far, distance, week). A session crossing the week boundary writes to two segments.
-5. Stop or presence loss ends the session. A session with no recent checkpoint is treated as ended by a query, so no server job is needed to close sessions.
+4. About once a minute the app writes a checkpoint to `live.session_segments`. Each segment is one session within one Toronto-time week. Max speed and distance are tracked per segment and start at zero when a new week begins, so a session crossing Monday 00:00 never carries last week's max into the new week.
+5. Stop sets `ended_at`. If the app is killed or loses signal, one database sweep (pg_cron) marks sessions ended when their last checkpoint is stale. Staleness is one shared constant (value to be decided) used by every query and policy, so the map, leaderboard, and policies agree. Once a session has ended, it no longer counts as live anywhere.
+6. `session_crews` grants read access to segments only for the crews chosen at Go live. Retention follows privacy.md.
 
-Message budget, roughly: one live driver broadcasting every few seconds to a five-person crew uses on the order of tens of thousands of messages per hour. The free 2 million messages per month supports on the order of tens of crew-hours of driving. Cadence is the lever; moving to the paid plan is the fallback.
+Message budget, worked example: a driver broadcasting every 3 seconds sends about 1,200 messages per hour. In a five-person crew with everyone live, that is 6,000 sent and 24,000 received per hour, about 30,000 messages per crew-hour, assuming each delivery counts as a message. The free 2 million per month then covers roughly 66 crew-hours. The assumptions, the 3-second cadence and counting deliveries, must be checked against Supabase's current rules. Cadence is the lever; moving to the paid plan is the fallback.
 
 ### Weekly top speed leaderboard
 
@@ -97,12 +102,23 @@ Message budget, roughly: one live driver broadcasting every few seconds to a fiv
 
 ### Delete account
 
-A server function (the one place a secret is needed) revokes the Apple token and then deletes the auth user, which cascades to profile, segments, and invites per accounts.md.
+A server function (the one place an external secret is needed) runs the full accounts.md deletion path in order:
+
+1. Transfer each owned crew to its longest-standing member, or dissolve it and kill its link if it has no other members.
+2. Revoke the user's active invites and keep the invite records.
+3. Delete session segments, session crews, and avatar files.
+4. Turn the profile into a tombstone (status deleted, personal fields cleared) so the referral chain stays intact. The profile row is not deleted.
+5. Revoke the Apple token and delete the auth user.
+
+No database cascade is relied on for these steps.
 
 ## Operations
 
-- Keep-alive: a scheduled GitHub Actions job calls the API so the free project does not pause from inactivity.
-- Backups: the free plan has none, so a scheduled GitHub Actions job exports the database to a private location.
+- Keep-alive: a scheduled GitHub Actions job calls a database function (`ping`) so there is real database activity. Supabase does not guarantee this prevents a pause; check the current rule.
+- Backups: the free plan has none, so a scheduled GitHub Actions job exports the database using a read-only Postgres role (not the service key), encrypts the dump, and stores it as a private workflow artifact with limited retention.
+- GitHub disables scheduled workflows after a long stretch of repo inactivity, which would silently stop both jobs. Missing recent artifacts is the signal to check.
+- Database-side jobs (orphan cleanup, stale session sweep) use pg_cron and need no external secrets.
+- The service key never goes into CI. It stays on the operator's machine.
 - Operator tools: SQL scripts or a small CLI run with the service key from the operator's machine; no admin UI.
 - Secrets live in GitHub Actions secrets and Xcode Cloud environment variables, never in the repo.
 - Environments: one Supabase project for development and one for production, within the two free projects.

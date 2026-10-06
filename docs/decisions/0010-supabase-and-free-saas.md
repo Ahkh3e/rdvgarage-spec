@@ -12,7 +12,7 @@ Minimal operations and no cost for a first release. Postgres Row Level Security 
 
 ## Relation to 0008
 
-Decision 0008 keeps user data ours. Users live in our own Postgres on Supabase, which is exportable standard Postgres. We use a managed host, not a closed identity provider that holds the only copy.
+Amends decision 0008, which is updated to allow a managed host. Data ownership is unchanged. Users live in our own Postgres on Supabase, which is exportable standard Postgres. We use a managed host, not a closed identity provider that holds the only copy.
 
 ## Consequences
 
