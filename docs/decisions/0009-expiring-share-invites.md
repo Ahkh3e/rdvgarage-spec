@@ -19,4 +19,6 @@ Refines decision 0003 by settling invite expiry and revocation. It replaces the 
 - Members create a new invite whenever they want to bring someone in.
 - Each invite is tracked, so the referral chain and who-joined list are per invite.
 - Invites are multi-use within 24 hours, bounded by a per-invite signup limit and a per-member active-invite limit (values to be decided).
+- Members can revoke an invite, and revoking or disabling stops it working for anyone who has not finished registering.
+- Suspending or deleting an inviter revokes their active invites; reinstatement does not restore them.
 - Revisit single-use if multi-use proves too loose.

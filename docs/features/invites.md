@@ -9,9 +9,9 @@ Keep access referral-only (decision 0003) while making friend-to-friend invites 
 - A member invites someone with Share invite. Each tap creates a new invite link and opens the iOS share sheet.
 - An invite link is active for 24 hours from creation, then expires and cannot be used to sign up.
 - Until it expires, an invite can be used by more than one person (multi-use within the 24 hours). Each invite has a signup limit, value to be decided, after which it stops working even if unexpired.
-- A member can have only a limited number of active invites at once; the number is to be decided. Tapping Share invite beyond it reuses or asks to revoke an existing one.
-- Validity is checked when the invite is first redeemed, by opening the link or entering the code. Once redeemed, the onboarding session holds that invite through registration, so a user who redeems near the end of the 24 hours is not rejected mid-onboarding.
-- A typed invite code expires with its link.
+- A member can have only a limited number of active invites at once; the number is to be decided. At the limit, Share invite asks the member to revoke an active invite first. It never hands back an existing invite.
+- Validity is checked when the invite is first redeemed, by opening the link or entering the code. Redeeming reserves one of the invite's signup slots; the slot is released if onboarding is abandoned, so the signup limit holds even when many people redeem at once. Once redeemed, the onboarding session holds that invite through registration, so expiry alone never rejects a user mid-onboarding. Registration still fails if the invite was revoked, disabled, or its inviter suspended or deleted in the meantime.
+- A typed invite code expires with its link. If the app is opened after the pasted or typed code has expired, the code-entry screen shows the same expired message and the request-a-new-invite guidance.
 - An expired, revoked, full, or disabled invite opens a landing page that says so and asks the user to request a new invite from the person who shared it.
 - An invite whose inviter is suspended or deleted stops working immediately.
 - Opening the link on iPhone goes straight into the app if installed.

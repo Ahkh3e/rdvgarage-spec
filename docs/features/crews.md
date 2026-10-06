@@ -28,7 +28,7 @@ Private groups of members who share a map and RDVs.
 
 ## iOS
 
-- Crew links are universal links with the same code-paste fallback as app invites.
+- Crew links are universal links. Opened by a non-member without the app, the link lands on a page that says an invite to the app is needed first and sends them to request a Share invite. There is no code-paste fallback for crew links.
 - Crew selection is stored locally and synced to the account.
 
 ## Open questions
