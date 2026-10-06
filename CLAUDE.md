@@ -7,6 +7,7 @@ Spec, design, and issue tracking for https://github.com/Ahkh3e/rdv-garage. No ap
 - Location is shared only within crews, never publicly.
 - Not a navigation app; RDV tap hands off to the user's own maps app.
 - Referral-only; no open signup.
+- iPhone-first; Android and web are out of scope until iPhone ships.
 - Brand: dark, minimal, exclusive; Toronto car scene.
 - "RDV" is always said R-D-V; write "an RDV".
 
