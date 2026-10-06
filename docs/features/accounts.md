@@ -25,7 +25,7 @@ Handle, email, password, optional avatar, plus acceptance of the disclaimers and
 
 | Operation | Behavior |
 |---|---|
-| Create | Open a valid invite, fill the account form, confirm the email, then sign in; invited_by stored |
+| Create | Open a valid invite, fill the account form, confirm the email, then sign in; invited_by stored. In the test project the server confirms the account automatically and the confirmation step is skipped |
 | Sign in | Email and password, then a session; the session stays until sign out or revoke |
 | Forgot password | Reset link sent by email; sets a new password; other devices are signed out right after |
 | Change password | Me, Change password; requires the current password; other devices are signed out |

@@ -9,7 +9,7 @@ Both anonymous calls are rate limited per network address and per code, and a co
 | Name | Type | Input | Result |
 |---|---|---|---|
 | check_invite | SQL | code | status only: valid, expired, revoked, disabled. No inviter or user data |
-| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | confirmation email sent, or error |
+| register | Edge | invite code, handle, email, password, avatar (optional), terms version, age confirmation | confirmation email sent, or error. In test mode (server setting, never in production) the account is created confirmed and no email is sent |
 
 On a valid invite and handle, `register` always answers the same way ("check your email") whether or not the email is already registered. If the email already has an account, the email that is sent says so and links to sign in and reset. Attempts count against the rate limit either way. Invite and handle errors stay distinct because they reveal nothing about emails.
 

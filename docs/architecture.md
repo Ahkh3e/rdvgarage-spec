@@ -82,7 +82,11 @@ Decision 0004 (location only within crews) is a database rule, not a convention.
 
 Sending the confirmation email from an admin-created user is not assumed to work out of the box; it is the first build spike. Planned method: admin create of an unconfirmed user plus a resend of the signup confirmation. Fallback: leave Supabase signup on but gate it with an Auth hook that rejects any signup without a valid invite code in its metadata.
 
-Confirmation and password reset emails go through an SMTP provider. The provider and sending domain are deferred (see Open). The development project may auto-confirm accounts; production requires confirmation. Real testers need the provider chosen first.
+Confirmation and password reset emails go through an SMTP provider. The provider and sending domain are deferred (see Open). ### Test mode
+
+For testing playthroughs the `register` function runs in test mode, set by a server setting (`AUTO_CONFIRM_EMAIL`) that is on in the development and test project and off in production. In test mode the function creates the user already confirmed, sends no email, and the app skips the Confirm email screen and goes straight to sign-in. Playthroughs therefore need no SMTP provider. Password reset still needs email, so it is tested in production mode once the provider exists. The setting lives only on the server; the app has no way to turn it on, and production must never ship with it on.
+
+Real testers outside the development project need the SMTP provider chosen first.
 
 Email links go to the link domain on Cloudflare Pages. The confirmation link completes confirmation on the page, which then says the email is confirmed and offers Open the app (universal link or App Link) and store links. The reset link opens the app's Reset password screen through the same deep links, with a web form on the page as a fallback for people without the app.
 
