@@ -23,4 +23,4 @@
 
 - Whether non-live driving counts toward distance (it can't if we never collect it)
 - Streak grace days
-- Leaderboards and their effect on safe driving; no speed-based stats
+- Leaderboards and their effect on safe driving. Release 0.0.1 adds a weekly top speed leaderboard (decision 0007); other speed-based stats are undecided

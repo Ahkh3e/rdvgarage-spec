@@ -2,6 +2,10 @@
 
 Phase summary only. Status, progress, and completion live in GitHub issues, grouped by milestone (one per phase).
 
+## 0.0.1
+
+Invite link, accounts, crews, map, live location, weekly top speed leaderboard. See `docs/releases/0.0.1.md`.
+
 ## Phase 1 - MVP
 
 - Invite-only onboarding
