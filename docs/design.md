@@ -14,28 +14,31 @@ Dark, minimal, exclusive. Toronto car scene.
 
 ## Direction
 
-"Instrument panel at night" (decision 0018). The map is the hero, the chrome is glass, and the one orange is a signal rather than decoration. Elevation comes from lighter surfaces, not shadows. Alignment and consistency over ornament: every border, radius and size comes from a token.
+"Instrument panel at night" (decision 0018). The map is the hero, the chrome is glass, and the one blue is a signal rather than decoration. Elevation comes from lighter surfaces, not shadows. Alignment and consistency over ornament: every border, radius and size comes from a token.
 
 ## Color tokens
 
+Black and blue, with cool neutrals. The reference for the look is a charcoal map with outlined dark cards, round badge markers and a single glowing accent.
+
 | Token | Value | Use |
 |---|---|---|
-| background | #0A0A0B | App background |
-| s1 | #101013 | Grouped list container |
-| surface | #16161A | Cards, solid fallback for glass |
-| raised | #1D1D22 | Selected rows |
-| hairline | rgba(255,255,255,0.07) | Row dividers, card outline |
-| border | rgba(255,255,255,0.12) | Input outline, glass edge, chip outline |
-| focus | rgba(255,79,31,0.60) | Focused input border only |
-| text | #F4F4F5 | Titles, values |
-| muted | #A1A1AA | Secondary lines |
-| subtle | #6E6E78 | Captions, placeholders; never essential text |
-| accent | #FF4F1F | The single accent |
-| accentPressed | #E8431A | Pressed accent fill |
-| onAccent | #0A0A0B | Label on an accent fill |
+| background | #080A0F | App background |
+| s1 | #0E1118 | Grouped containers |
+| surface | #12161E | Cards, solid fallback for glass |
+| raised | #181D27 | Selected rows |
+| hairline | rgba(150,170,210,0.10) | Row dividers |
+| border | rgba(150,170,210,0.18) | Card, input and chip outlines, glass edge |
+| focus | rgba(76,141,255,0.70) | Focused input border only |
+| text | #F2F5FA | Titles, values |
+| muted | #A3ABBA | Secondary lines |
+| subtle | #6B7385 | Captions, placeholders; never essential text |
+| accent | #2F6FF2 | Fill for the primary button and switches (white label) |
+| accentBright | #5EA0FF | Small marks: own marker, live dot, active-tab indicator, rank 1 bar, focus, links |
+| accentPressed | #2559C4 | Pressed accent fill |
+| onAccent | #FFFFFF | Label on an accent fill |
 | danger | #FF453A | Error text and destructive labels only, never a fill |
 
-Accent rules: allowed on the one primary button per screen, your own map marker, the live indicator, a small active-tab indicator, the focus ring, and the rank 1 mark on the Board. Not allowed on tab labels, list icons, section titles, links, chip borders or switches that are off. A disabled primary button is a neutral tint, never dimmed orange.
+Accent rules: one primary accent button per screen. The bright blue is for small marks only: your own map marker, the live indicator, the active-tab indicator, the focus ring, links and the rank 1 mark on the Board. Tab labels, list icons, section titles and chip borders stay neutral. A disabled primary button is a neutral tint. Secondary buttons are outlined, not filled.
 
 Crew markers are the one exception to a single accent. Each crew gets one of six fixed, desaturated tints plus a distinct shape so crews are told apart without relying on color. Tints are used only for crew markers, a small dot and crew labels, never for interface chrome.
 
@@ -51,17 +54,18 @@ Crew markers are the one exception to a single accent. Each crew gets one of six
 ## Spacing, shape, material
 
 - Spacing on a 4 and 8 grid: 4, 8, 12, 16, 20, 24, 32, 48. Screen gutter 20. Touch targets at least 44.
-- One radius family: 10 small, 14 for buttons, inputs, cards and list groups, 28 for sheets, full round for chips and the Go live button. Continuous corners.
+- One radius family: 10 small, 14 for buttons and inputs, 22 for cards and floating panels, 28 for sheets, full round for chips and the Go live button. Continuous corners.
 - Floating layers (tab bar, map sheet, map controls, modal sheets) are blurred glass with a hairline edge. Rows and cards inside them stay flat. When Reduce Transparency is on, glass becomes a solid surface.
 
 ## Map
 
-- One custom map style on both platforms, "RDV Night", inspired by Waze: deep navy ground, blue water, roads that get brighter and wider as they get bigger (highways white), quiet labels, subtle 3D buildings when close in (decision 0017).
+- One custom map style on both platforms, "RDV Night": a monochrome charcoal-blue night map with near-black ground, grey roads that get lighter and wider as they get bigger (highways near white), no coloured parks or water, quiet labels, and subtle 3D buildings when close in (decisions 0017 and 0019). The only colour on the map is the blue accent and the crew tints on markers.
 - The map takes three quarters of the screen with a crew sheet underneath. Scrolling the member list squeezes the map to a quarter; tapping a live member jumps to them and opens the map back up.
 - Buttons on the map: zoom in, zoom out, a 2D and 3D switch (flat style without extruded buildings), and a recenter button. They are glass round buttons.
 - Follow mode is tilted about 55 degrees in 3D, close behind the person, and turns with the road. The camera keeps the last heading when they stop. Dragging the map ends follow mode; the recenter button brings it back. Tapping the live pill fits everyone who is live.
 - Attribution for OpenStreetMap and OpenMapTiles stays visible.
-- Member markers: avatar in a ring and shape that tell the crew apart, with the handle underneath. Your own marker is an accent arrow while following, an accent dot with a soft halo otherwise.
+- Tapping a live member in the list or a marker opens a floating card over the map with their avatar, handle, crew and a Follow button; Follow keeps the camera on them until the map is dragged.
+- Member markers: a round avatar in a crew-tint ring, with an outlined name pill underneath (crew dot and handle). Your own marker is an accent arrow while following, an accent dot with a soft halo otherwise.
 - Stale members fade, then disappear (architecture.md).
 - No route lines (decision 0006).
 
