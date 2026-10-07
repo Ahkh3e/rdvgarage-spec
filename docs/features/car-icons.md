@@ -13,6 +13,8 @@ Each person picks a minimal racecar icon that represents them on the map. Member
 
 ## The icon set
 
+The flat silhouettes below are the picker tiles and the list glyph. On the map each model is built in 3D from the same shapes (decision 0023).
+
 Eight models, drawn as top-down silhouettes in a single weight with no brand marks, logos or real model names. Generic names only.
 
 | Key | Name | Character |
@@ -31,10 +33,10 @@ Eight models, drawn as top-down silhouettes in a single weight with no brand mar
 
 ## The marker (how a point looks)
 
-- A member on the map is their car icon seen from above, pointing the way they are travelling (heading, or the direction of travel when the phone reports none). A parked car keeps its last heading.
-- The icon is white-grey on a round dark badge. The badge has a thin ring in the crew tint, so crews can still be told apart without relying on color alone (design.md). Where a person is in more than one selected crew, the ring uses the crew that sorts first.
-- A name pill sits under the badge: a small crew-tint dot and the handle.
-- Your own marker uses your own car, the same badge, with the bright blue accent ring and a soft pulsing halo instead of a crew tint. It replaces the arrow while following.
+- A member on the map is a small 3D model of their chosen car, in the map itself like a Waze vehicle, facing the way they are travelling (heading, or the direction of travel when the phone reports none). A parked car keeps its last heading. Decision 0023.
+- The body is tinted in the crew colour, with a dark window band, a lighter roof, dark wheels, and a wing where the model has one. Where a person is in more than one selected crew, the colour is that of the crew that sorts first. Crews are also told apart by the crew dot in the name pill (design.md).
+- A name pill sits under the car: a small crew-colour dot and the handle.
+- Your own car is the bright blue accent with a soft pulsing halo under it.
 - A member who has stopped sending updates fades the whole marker, and their trail is cleared (movement trails).
 - Tapping a marker or a list row opens the member card (live-map.md). The card shows the avatar and handle, with the car icon at the right of the title row.
 - The crew list row shows the avatar photo, the handle and crew, a small glyph of their car, and their live state or speed (decision 0022).
