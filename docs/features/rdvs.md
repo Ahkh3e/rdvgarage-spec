@@ -23,7 +23,7 @@ A crew member drops an RDV: a place and a time their crews can see, plan around 
 
 ## Private events
 
-- A private event is visible in the list to members of its crews, but its exact place stays hidden until the member answers Going or Maybe. Before that they see the title, kind, time and the area name only.
+- A private event is visible in the list to members of its crews, but its exact place stays hidden until the member answers Going or Maybe. Before that they see the title, kind, time and the area name only. The host types the area name for a private event (a district or neighbourhood such as Leslieville); it cannot be the place name or the street.
 - Its map pin appears only for members who answered Going or Maybe, and the host.
 - This keeps a private place within the people who chose to come, which is narrower than the crew (decision 0004 only sets the outer limit).
 
