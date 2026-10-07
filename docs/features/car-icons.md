@@ -6,7 +6,7 @@ Each person picks a minimal racecar icon that represents them on the map. Member
 
 ## Behavior
 
-- Everyone has a car icon. The default is assigned at account creation (the first model in the set, then rotating) so nobody starts without one.
+- Everyone has a car icon. The default is the GT, so nobody starts without one.
 - The person chooses their icon in Me, Car. A picker shows every model in the set at a readable size, on a dark tile, with the current choice marked. Changing it applies at once and is visible to the crews they share with on the next position update.
 - Icon choice is a profile field, visible to members of shared crews like the handle and avatar. It is not visible to anyone else.
 - Photos (avatars) stay in lists, the member card and the Board. The map uses the car.
@@ -37,7 +37,7 @@ Eight models, drawn as top-down silhouettes in a single weight with no brand mar
 - Your own marker uses your own car, the same badge, with the bright blue accent ring and a soft pulsing halo instead of a crew tint. It replaces the arrow while following.
 - A member who has stopped sending updates fades the whole marker, and their trail is cleared (movement trails).
 - Tapping a marker or a list row opens the member card (live-map.md). The card shows the avatar and handle, with the car icon at the right of the title row.
-- The member card and the crew list show the avatar photo; the car icon is shown in the list row as a small glyph beside the live state.
+- The crew list row shows the avatar photo, the handle and crew, a small glyph of their car, and their live state or speed (decision 0022).
 
 ## Rules
 
