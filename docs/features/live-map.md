@@ -18,7 +18,7 @@ See crew members on a shared map as they drive; the map follows the user.
 
 - No ETAs, routing, or route lines (decision 0006).
 - Positions broadcast about every 3 seconds while moving and every 15 seconds while stationary (architecture.md).
-- Stale positions fade, then drop after a timeout.
+- A member who is not live has no position on the map: about 45 seconds after their last update they disappear from the map, and the crew list shows them as offline. There is no idle or dimmed state.
 
 ## Platform notes
 
