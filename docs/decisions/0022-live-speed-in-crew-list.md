@@ -4,7 +4,7 @@ Status: accepted, at the owner's request, with a per-session switch
 
 ## Decision
 
-The crew list on the map shows each live member's current speed in km/h, whole numbers, with a parked member shown as parked. At Go live there is a "Show my speed to the crew" switch, on by default, per session; when it is off the phone sends no speed and the list shows only the live state. Speed is not shown on map markers, on the member card, or in trails, and it is never stored. It travels in the same crew-only position broadcast, in memory.
+The crew list on the map shows each live member's current speed in km/h, whole numbers, and only while the member is moving (a number appears above a few km/h; a member who is stopped shows just their live state, never a "parked" label). At Go live there is a "Show my speed to the crew" switch, on by default, per session; when it is off the phone sends no speed and the list shows only the live state. Speed is not shown on map markers, on the member card, or in trails, and it is never stored. It travels in the same crew-only position broadcast, in memory.
 
 ## Rationale
 
