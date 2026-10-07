@@ -8,7 +8,7 @@ Share invites, accounts, crews, map, live location, weekly top speed leaderboard
 
 ## 0.0.2
 
-RDVs, places and pins, maps handoff, Meets attended. See `docs/releases/0.0.2.md`. Built and merged in https://github.com/Ahkh3e/rdv-garage; what remains is a real-phone test and the 0.0.4 items.
+A slice of Phase 1: RDVs with maps-app handoff, places and pins, and Meets attended. Streaks stay in Phase 1. See `docs/releases/0.0.2.md`. Built and merged in https://github.com/Ahkh3e/rdv-garage; what remains is a real-phone test and the 0.0.4 items.
 
 ## Phase 1 - MVP
 
