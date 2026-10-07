@@ -23,12 +23,12 @@ The app opens on Map when the user is live, otherwise on Crews.
 | Confirm email | accounts | Shown after the form until the email is confirmed (skipped in test mode); Resend button; says unconfirmed accounts expire after 24 hours |
 | Reset password | accounts | Opened by the reset link; sets a new password |
 | My Crews | crews | List, selection toggles, live status |
-| Crew detail | crews | Members, link, owner actions |
+| Crew detail | crews | Members, link, owner actions, the crew's upcoming RDVs |
 | Create crew, Join crew | crews | Join opens from a crew link |
 | Map | map | Selected crews' live members; recenter |
 | Go live sheet | live-location | Pick crews, start, stop; shows who can see you |
 | Board | leaderboard | Crew selector, ranked list, disclaimer footer |
-| Me | accounts | Profile edit, Change password, Share invite, My invites |
+| Me | accounts | Profile edit, Change password, Share invite, My invites, Maps app, Stats |
 | Devices | accounts | Signed-in devices, revoke, sign out everywhere |
 | Legal | accounts | Full disclaimers text |
 

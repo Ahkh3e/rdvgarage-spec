@@ -12,7 +12,8 @@ Location is shared only within crews (decision 0004), and only when the user cho
 - A stationary session still sends a heartbeat every 30 seconds. If a session has no checkpoint or heartbeat for more than 5 minutes, the server marks it ended and finalizes it from the last received data. This 5-minute value is used everywhere.
 - On session end the max speed and distance are finalized and stored.
 - While live, a persistent indicator shows who can see the user.
-- Arriving at an RDV can prompt: Go live for this RDV?
+- Arriving at an RDV can prompt: Go live for this RDV? Accepting opens the Go live sheet with that RDV's crews chosen; the person still taps Start.
+- Directions is offered for places, pins and RDVs only, never for a member: a member's live position is not handed to a maps app.
 - Stopping removes the user from the map for everyone immediately.
 
 ## Data

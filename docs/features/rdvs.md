@@ -32,7 +32,7 @@ A crew member drops an RDV: a place and a time their crews can see, plan around 
 - The Crews tab crew detail lists the crew's upcoming RDVs. A new Plans screen under the Map tab lists upcoming RDVs across the selected crews, soonest first, with a Past section.
 - A pin shows on the map for each RDV of the selected crews from the moment it is created until its window ends. The pin is a ring in the crew colour with the Feather `flag` glyph, and the title appears under it when zoomed in (design.md). A cancelled RDV has no pin.
 - Where an RDV belongs to more than one selected crew, the pin takes the colour of the crew that sorts first, as markers do (car-icons.md).
-- Tapping a pin or a list row opens the RDV detail: title, kind, host, place, time, note, RSVP control, who is going, and a Directions button (maps-handoff.md). The detail never shows an ETA or distance estimate (decision 0006).
+- Tapping a pin or a list row opens the RDV detail: title, kind, host, place, time, note, RSVP control, who is going, and a Directions button (maps-handoff.md). The detail may show the straight-line distance from the person's own position to the place, such as "1.2 km away", worked out on the device and never sent anywhere. It never shows an ETA, a driving distance or a route (decision 0006). A private event with a hidden place shows no distance.
 - An RDV that is happening now shows a Live badge in lists and on its pin.
 
 ## Arrival
@@ -43,7 +43,7 @@ Arrival marks a member as having attended and feeds Meets attended and streaks (
 - Arrival is verified by location: the member is inside the RDV radius during the window. Nothing else counts.
 - If the member is live to a crew the RDV is for, the app notices on the device that their position is inside the radius during the window and then calls record_arrival once with that reading. The server makes the real check; the device check only decides when to call.
 - If the member is not live, they can tap I'm here on the RDV detail inside the window. The app takes one position reading and calls record_arrival; the server checks it against the radius and the window, then discards the position. If the reading is outside the radius, nothing is recorded and the app says so. Nothing is collected in the background for a member who is not live.
-- On arrival a prompt can offer Go live for this RDV? (privacy.md). It is only an offer; the answer starts nothing by itself.
+- On arrival a prompt can offer Go live for this RDV? (privacy.md). Accepting opens the Go live sheet with the RDV's crews already chosen; the person still taps Start, and the offer starts nothing by itself.
 - Arrival is recorded once per member per RDV. It is visible only to members of the RDV's crews and is not removed when the RDV is later edited.
 - The host's own arrival counts the same way.
 
