@@ -86,7 +86,7 @@ Nearby is not an API call; it is read from the map tiles on the device (docs/fea
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 
