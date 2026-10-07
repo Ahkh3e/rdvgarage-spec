@@ -65,7 +65,7 @@ Crew markers are the one exception to a single accent. Each crew gets one of six
 - Follow mode is tilted about 55 degrees in 3D, close behind the person, and turns with the road. The camera keeps the last heading when they stop. Dragging the map ends follow mode; the recenter button brings it back. Tapping the live pill fits everyone who is live.
 - Attribution for OpenStreetMap and OpenMapTiles stays visible.
 - Tapping a live member in the list or a marker opens a floating card over the map with their avatar, handle, crew and a Follow button; Follow keeps the camera on them until the map is dragged.
-- Member markers: a round avatar in a crew-tint ring, with an outlined name pill underneath (crew dot and handle). Your own marker is an accent arrow while following, an accent dot with a soft halo otherwise.
+- Member markers: the member's chosen racecar icon, top-down and rotating with heading, on a round dark badge ringed in the crew tint, with an outlined name pill underneath (crew dot and handle). See `docs/features/car-icons.md`. Your own marker is an accent arrow while following, an accent dot with a soft halo otherwise.
 - Stale members fade, then disappear (architecture.md).
 - No route lines (decision 0006).
 
