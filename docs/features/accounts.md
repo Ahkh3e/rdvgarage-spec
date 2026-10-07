@@ -19,7 +19,7 @@ Owning the user data (decision 0008) means we build user creation and management
 
 ## Account form
 
-Handle, email, password, optional avatar, plus acceptance of the disclaimers and confirmation of being 18 or older. Password minimum is 8 characters, no composition rules. Email is confirmed before first sign-in.
+Handle, email, password, plus acceptance of the disclaimers and confirmation of being 18 or older. The avatar and the car icon are chosen after the first sign-in (Me, Edit profile and Your car), because a photo can only be uploaded by a signed-in, confirmed account. Password minimum is 8 characters, no composition rules. Email is confirmed before first sign-in.
 
 ## Lifecycle in 0.0.1
 

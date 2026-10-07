@@ -18,7 +18,7 @@ iPhone first, Android eventually, one codebase (decisions 0005, 0011). One spec 
 | RDVs | rdvs.md (planned) | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP |
 | Maps handoff | maps-handoff.md (planned) | Tap an RDV to open Apple Maps, Google Maps, or Waze |
 | Stats and streaks | stats.md | Distance driven, meets attended, streaks |
-| Notifications | notifications.md (planned) | RDV drops, RSVPs, member arriving, invites |
+| Notifications | notifications.md | A notification while you are live and when a friend goes live (local in 0.0.1; remote push later); RDV drops, RSVPs, invites later |
 | Privacy controls | privacy.md | Manual live sessions with per-crew sharing; ghost mode and per-RDV windows later |
 
 ## Platform integrations

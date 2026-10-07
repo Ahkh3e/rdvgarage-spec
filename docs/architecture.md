@@ -161,7 +161,7 @@ Removing the leaderboard means removing one module registration and dropping the
 - Background location: `expo-location` with a background task, in a development build (not Expo Go). iPhone needs When In Use first, then the upgrade to Always. Android needs foreground and background location permission and shows a persistent notification while live, which doubles as the live indicator.
 - Deep links: iPhone uses universal links; Android uses App Links. Android carries link codes through install with the Play Install Referrer, so the clipboard fallback is iPhone-only.
 - Push notifications, when added, go through Expo's push service over APNs and FCM.
-- iPhone-only capabilities (Live Activity and Dynamic Island, CarPlay) and Android equivalents (ongoing notification, Android Auto) are platform-specific modules added later behind the same module registry.
+- The live indicator is a Live Activity on iPhone (an expo-live-activity widget extension) and the location foreground-service notification on Android. CarPlay and Android Auto are platform-specific modules added later behind the same module registry.
 - Maps handoff offers each platform's default maps app plus Google Maps and Waze.
 
 ## Known risks
