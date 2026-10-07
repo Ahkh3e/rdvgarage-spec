@@ -30,7 +30,7 @@ Free-tier limits change. Figures below came from public pricing summaries and mu
 
 ## Decision on user data
 
-Decision 0008 says RDV Garage owns its user data. Users live in our own Postgres database on Supabase, which is standard Postgres and fully exportable. Supabase Auth issues sessions but does not hold the only copy of any user. See decisions 0010 and 0013.
+Decision 0008 says Rendezview owns its user data. Users live in our own Postgres database on Supabase, which is standard Postgres and fully exportable. Supabase Auth issues sessions but does not hold the only copy of any user. See decisions 0010 and 0013.
 
 ## System overview
 

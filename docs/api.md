@@ -56,6 +56,27 @@ On a valid invite and handle, `register` always answers the same way ("check you
 
 Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id>` channels.
 
+## RDVs
+
+| Name | Type | Notes |
+|---|---|---|
+| create_rdv | SQL | title, kind, place, start, optional end, note, crew ids (all the caller's), radius; caller becomes host; start must not be in the past |
+| update_rdv | SQL | host only; notifies people who answered going or maybe when place or time changes |
+| cancel_rdv | SQL | host or an owner of a listed crew |
+| list_rdvs | SQL | crew ids; upcoming and recent, with counts and the caller's answer; private event places withheld until going or maybe |
+| set_rsvp | SQL | rdv id and answer; allowed until the RDV ends |
+| record_arrival | Edge | rdv id and one position reading; checks radius and attendance window, stores only the arrival, discards the position. A live member's on-device arrival uses the same call |
+
+## Places
+
+| Name | Type | Notes |
+|---|---|---|
+| drop_pin | SQL | label, note, coordinates, optional address, crew ids (all the caller's); expires after 24 hours |
+| remove_pin | SQL | dropper or an owner of a listed crew |
+| list_pins | SQL | crew ids; unexpired pins |
+
+Search and nearby are not API calls (docs/features/places.md).
+
 ## Leaderboard
 
 | Name | Type | Notes |
@@ -64,7 +85,7 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 

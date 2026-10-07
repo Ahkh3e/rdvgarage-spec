@@ -15,8 +15,9 @@ iPhone first, Android eventually, one codebase (decisions 0005, 0011). One spec 
 | Movement trails | movement-trails.md | A short tail behind each live member, along the road |
 | Car icons and markers | car-icons.md | Pick a minimal racecar icon; how a point looks on the map |
 | Leaderboard | leaderboard.md | Weekly top speed per crew |
-| RDVs | rdvs.md (planned) | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP |
-| Maps handoff | maps-handoff.md (planned) | Tap an RDV to open Apple Maps, Google Maps, or Waze |
+| RDVs | rdvs.md | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP; arrival by location |
+| Places | places.md | Search an address, drop crew-visible pins, nearby places; Directions hands off |
+| Maps handoff | maps-handoff.md | Directions opens Waze by default, or Apple Maps or Google Maps |
 | Stats and streaks | stats.md | Distance driven, meets attended, streaks |
 | Notifications | notifications.md | A notification while you are live and when a friend goes live (local in 0.0.1; remote push later); RDV drops, RSVPs, invites later |
 | Privacy controls | privacy.md | Manual live sessions with per-crew sharing; ghost mode and per-RDV windows later |
@@ -44,4 +45,4 @@ iPhone first, Android eventually, one codebase (decisions 0005, 0011). One spec 
 
 ## Next
 
-Write the remaining Phase 1 specs in dependency order: rdvs, maps-handoff, notifications. Profile is covered by accounts.md in 0.0.1.
+Phase 1 specs are written; profile is covered by accounts.md in 0.0.1.
