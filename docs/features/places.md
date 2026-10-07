@@ -25,7 +25,7 @@ The map works like a normal map for finding things: search an address or place, 
 ## Nearby
 
 - A Nearby control on the map lists places around the map center by category: fuel, food, coffee, parking, car wash, EV charging. Categories come from the points of interest in the map tiles and are read on the device.
-- Picking a category lists the closest places in order of straight-line distance from the map center, and shows them on the map. No driving distance or time is shown (decision 0006).
+- Picking a category lists the closest places in order of straight-line distance from the map center, and shows them on the map. No driving distance or time is shown (decision 0006). Place cards, pin cards and the pin and RDV rows in the crew sheet also show the straight-line distance from the person's own position, worked out on the device and never sent anywhere.
 - Tapping a result opens its place card, with Directions and Drop pin.
 - Nearby is a browse by category; search is for a specific name. Both end at the same place card.
 - Nearby works with the map centered anywhere, so it never needs the person's own position or sends it anywhere.

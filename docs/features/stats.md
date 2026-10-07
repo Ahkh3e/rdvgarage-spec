@@ -4,6 +4,10 @@
 
 Release 0.0.1 tracks live sessions only and shows the weekly top speed leaderboard. Meets attended, attendance, and streaks need RDVs and arrive after 0.0.1.
 
+## Where it shows
+
+Me has a Stats row. It shows Meets attended, counted from the person's own verified arrivals (rdvs.md), including arrivals at RDVs of crews they have since left. Streaks are shown there once their grace rule is decided.
+
 ## Metrics
 
 - Distance driven: summed across live sessions.
