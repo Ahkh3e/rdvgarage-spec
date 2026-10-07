@@ -87,4 +87,5 @@ Short and functional: 100 ms press, 160 ms fades, 240 ms sheet and content, 320 
 ## Icons and marker
 
 - One icon set (Feather), outline style, single stroke weight.
-- RDV marker is defined with the RDVs feature; not needed for 0.0.1.
+- Dropped pin: a small pin glyph in the crew colour with its label when zoomed in, distinct from the RDV ring (docs/features/places.md).
+- RDV pin: a ring in the crew colour around the Feather `flag` glyph, title beneath when zoomed in, a Live badge while it is happening (docs/features/rdvs.md).

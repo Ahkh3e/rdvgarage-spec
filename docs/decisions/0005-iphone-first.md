@@ -4,7 +4,7 @@ Status: accepted, amended by decision 0011 (Android supported from one codebase)
 
 ## Decision
 
-RDV Garage ships on iPhone first and supports Android afterward from the same codebase (decision 0011). Web is out of scope.
+Rendezview ships on iPhone first and supports Android afterward from the same codebase (decision 0011). Web is out of scope.
 
 ## Rationale
 

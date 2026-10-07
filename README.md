@@ -1,6 +1,6 @@
-# RDV Garage Spec
+# Rendezview Spec
 
-Spec, design, and work tracking for RDV Garage. Code lives in [Ahkh3e/rdv-garage](https://github.com/Ahkh3e/rdv-garage).
+Spec, design, and work tracking for Rendezview. Code lives in [Ahkh3e/rdv-garage](https://github.com/Ahkh3e/rdv-garage).
 
 ## Layout
 

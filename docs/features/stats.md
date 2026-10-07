@@ -13,8 +13,8 @@ Release 0.0.1 tracks live sessions only and shows the weekly top speed leaderboa
 ## Attendance
 
 - Verified by location: the user arrives within the RDV radius during the RDV time window.
-- Radius and window are set per RDV with sensible defaults.
-- Attendance requires the user to be live, or to grant a one-time arrival check at the RDV.
+- Radius and window are defined in rdvs.md (Arrival).
+- Attendance requires the user to be live, or to tap I'm here for a one-time arrival check at the RDV.
 - RSVP alone does not count.
 
 ## Rules
@@ -26,8 +26,8 @@ Release 0.0.1 tracks live sessions only and shows the weekly top speed leaderboa
 ## Platform notes
 
 - Distance comes from the location library during live sessions only.
-- Arrival checks use region monitoring around the RDV on both platforms.
-- Needs background location permission; same explanations as privacy.md.
+- Arrival is checked on the device against live positions, or by a single reading from I'm here. There is no region monitoring for members who are not live.
+- Needs background location permission only while live; same explanations as privacy.md.
 
 ## Open questions
 

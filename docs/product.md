@@ -1,6 +1,6 @@
 # Product
 
-RDV Garage is a referral-only social app for car enthusiasts, built for the Toronto car scene. "RDV" is short for rendezvous and is always said R-D-V.
+Rendezview is a referral-only social app for car enthusiasts, built for the Toronto car scene. "RDV" is short for rendezvous and is always said R-D-V.
 
 Platform: iPhone first, Android eventually, one codebase (decisions 0005, 0011). Feature breakdown in `docs/features/README.md`.
 

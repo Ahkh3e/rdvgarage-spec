@@ -4,7 +4,7 @@ Status: accepted, amended by decision 0010 (managed host allowed; data ownership
 
 ## Decision
 
-RDV Garage owns its user data. Users register with us and live in a Postgres database we control and can export. A managed host, including its auth service, is allowed as long as it is not the only copy of the data (decision 0010).
+Rendezview owns its user data. Users register with us and live in a Postgres database we control and can export. A managed host, including its auth service, is allowed as long as it is not the only copy of the data (decision 0010).
 
 ## Rationale
 

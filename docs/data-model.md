@@ -68,6 +68,35 @@ Live positions are never stored.
 
 No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segments` joined to `live.session_crews`, `crews.members`, and `accounts.profiles`.
 
+## rdvs
+
+`rdvs.rdvs`
+
+| Column | Notes |
+|---|---|
+| id, host_id | host is a profile id |
+| title, kind | kind is meet, cruise or private_event |
+| area_name | the coarse name shown for a private event before RSVP; the only place text a member without an answer can read |
+| starts_at, ends_at | ends_at nullable; effective end is ends_at, or starts_at plus three hours when null (rdvs.md) |
+| radius_m | 50 to 500, default 150 |
+| note | nullable, up to 280 characters |
+| status | scheduled, cancelled |
+| created_at, updated_at | |
+
+`rdvs.places`: `rdv_id` (primary key), `place_name`, `lat`, `lng`. Kept apart from `rdvs.rdvs` so a policy can hide the place of a private event from members who have not answered going or maybe. These are RDV coordinates, not member positions.
+
+`rdvs.crews`: `rdv_id`, `crew_id`; the crews the RDV is for; primary key (rdv_id, crew_id).
+
+`rdvs.rsvps`: `rdv_id`, `user_id`, `answer` (going, maybe, cant), `updated_at`; primary key (rdv_id, user_id).
+
+`rdvs.arrivals`: `rdv_id`, `user_id`, `arrived_at`, `method` (live, here); primary key (rdv_id, user_id). No position is stored.
+
+## places
+
+`places.pins`: `id`, `dropper_id`, `label`, `note` (nullable), `address` (nullable), `lat`, `lng`, `expires_at` (24 hours after creation), `created_at`.
+
+`places.pin_crews`: `pin_id`, `crew_id`; primary key (pin_id, crew_id).
+
 ## Access policies
 
 | Table | Read | Write |
@@ -80,9 +109,13 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 | live.sessions | the user | functions only |
 | live.session_crews | the user, and members of the listed crews | functions only |
 | live.segments | members of crews listed in session_crews | the session's user, via function |
+| rdvs.rdvs, rdvs.crews | members of a listed crew | the host or a crew owner, via function |
+| rdvs.places | members of a listed crew, except that a private event's row is readable only by the host and members who answered going or maybe | the host, via function |
+| places.pins, places.pin_crews | members of a listed crew while not expired | the dropper or an owner of a listed crew, via function |
+| rdvs.rsvps, rdvs.arrivals | members of a crew the RDV is for; the user always reads their own rows, even after leaving the crew | the user, via function (arrivals through record_arrival) |
 
 Every policy also requires the caller's profile to be active. Realtime channel `crew:<crew_id>` is private; join requires membership in `crews.members`.
 
 ## Retention
 
-Everything above is kept while the account exists. Deleting the account removes sessions, session_crews, segments, the auth user with its email, and avatar files; invite records and the profile tombstone remain for the referral chain.
+Everything above is kept while the account exists. Deleting the account removes sessions, session_crews, segments, the user's RSVPs and arrivals, the auth user with its email, and avatar files; RDVs the user hosted that have not ended are cancelled and keep their rows, with host_id cleared, so other members' arrivals and stats stay intact; invite records and the profile tombstone remain for the referral chain.

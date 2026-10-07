@@ -1,4 +1,4 @@
-# RDV Garage Spec
+# Rendezview Spec
 
 Spec, design, and issue tracking for https://github.com/Ahkh3e/rdv-garage. No app code here.
 

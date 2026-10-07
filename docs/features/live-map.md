@@ -10,9 +10,9 @@ See crew members on a shared map as they drive; the map follows the user.
 - Sharing is manual per session (see privacy.md). Members who aren't live do not appear.
 - Follow mode: the map centers on the user and rotates with heading, with no input needed while driving. Panning exits follow mode; a recenter button returns to it.
 - Each member marker is their chosen racecar icon on a badge ringed in the crew tint, with their handle below (car-icons.md). Each live member has a short movement trail (movement-trails.md).
-- RDV pins appear on the map for the selected crews.
+- RDV pins and dropped pins appear on the map for the selected crews (rdvs.md, places.md). A search field and a Nearby control sit on the map.
 - Tapping a member shows a card: avatar, handle, crew, last update, and a Follow button. The crew list under the map shows each member with their car icon and live state, and each live member's speed in km/h when they have chosen to show it (decision 0022). Speed is not shown on markers or the card.
-- Tapping an RDV pin opens its detail with a Directions button (maps handoff).
+- Tapping an RDV pin opens its detail with a Directions button (maps-handoff.md).
 
 ## Rules
 

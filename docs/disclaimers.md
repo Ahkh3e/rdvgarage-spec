@@ -1,6 +1,6 @@
 # Disclaimers
 
-RDV Garage lets people share location and compete on top speed, so disclaimers are prominent and repeated. The wording below is a working draft. It must be reviewed by a lawyer before launch.
+Rendezview lets people share location and compete on top speed, so disclaimers are prominent and repeated. The wording below is a working draft. It must be reviewed by a lawyer before launch.
 
 ## Canonical text
 
@@ -10,16 +10,16 @@ Short (used in the Go live sheet and leaderboard footer):
 
 Full (shown at onboarding and under Me, Legal):
 
-1. **You are responsible for your driving.** Obey traffic laws, posted speed limits, and road conditions. RDV Garage does not encourage speeding, racing, stunts, or any unsafe or illegal driving.
+1. **You are responsible for your driving.** Obey traffic laws, posted speed limits, and road conditions. Rendezview does not encourage speeding, racing, stunts, or any unsafe or illegal driving.
 2. **Don't operate the app while driving.** Set up Go live before you start. Once you are live, the map follows you and needs no input. Do not look at or touch your phone while driving. Passengers may use the app.
 3. **Top speed is not a contest to break the law.** Speeds are estimates measured by your phone's GPS. They can be wrong. The leaderboard is for fun and carries no prize, reward, or endorsement. Never drive unsafely to improve a ranking. If you want to test speed, use a closed course where it is legal.
 4. **Your location is shared.** When you Go live, the crews you choose can see where you are. Only share with people you trust. Anyone in a crew you choose can see your live position and your top speeds for sessions shared with that crew. You can stop at any time.
-5. **Meets and cruises are organized by users.** RDV Garage does not organize, supervise, or insure any gathering. You attend at your own risk and are responsible for your own conduct and safety.
+5. **Meets and cruises are organized by users.** Rendezview does not organize, supervise, or insure any gathering. You attend at your own risk and are responsible for your own conduct and safety.
 6. **Accuracy is not guaranteed.** Maps, positions, and speeds may be delayed or wrong. The app is not a navigation or safety tool.
 7. **Your account is your responsibility.** Keep your password private. You are responsible for activity on your account. If you forget your password, reset it by email; if you lose access to your email, we may not be able to restore your account.
 8. **Your email is for your account only.** We use it for confirmation and recovery. We do not show it to other users.
 9. **You must be 18 or older.** Use of the app is limited to adults who are licensed to drive where they drive.
-10. **Use at your own risk.** To the extent the law allows, RDV Garage is not liable for injury, loss, fines, or damage arising from your use of the app or from the actions of other users.
+10. **Use at your own risk.** To the extent the law allows, Rendezview is not liable for injury, loss, fines, or damage arising from your use of the app or from the actions of other users.
 
 ## Placement
 
@@ -28,6 +28,7 @@ Full (shown at onboarding and under Me, Legal):
 | Onboarding, before the account is created | Full | Must accept and confirm being 18 or older; the accepted version and time are stored |
 | Go live sheet | Short | Visible every time, above the Start button |
 | Board footer | Short | Every view of the leaderboard |
+| Place card, pin sheet and RDV create screen | Short | "Places and meets are added by members. Rendezview does not check them or organize any gathering. Attend at your own risk." |
 | Me, Legal | Full | Always available |
 | Invite landing page | Short, plus a link to the full text | Footer |
 | Store listings | Summary | See `docs/store-submission.md` |
@@ -47,7 +48,7 @@ Product choices already in the spec:
 - Account and data deletion in the app.
 
 To arrange before launch:
-- Terms of use with limitation of liability, assumption of risk, indemnity by the user, governing law and venue, and a clear statement that RDV Garage organizes no events.
+- Terms of use with limitation of liability, assumption of risk, indemnity by the user, governing law and venue, and a clear statement that Rendezview organizes no events.
 - A privacy policy covering email, handle, avatar, and location summaries under Canadian privacy law (PIPEDA).
 - A breach response plan and a named contact for privacy requests.
 - Business liability and cyber insurance, and a business entity so personal assets are separate from the app.
