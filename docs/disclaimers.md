@@ -28,6 +28,7 @@ Full (shown at onboarding and under Me, Legal):
 | Onboarding, before the account is created | Full | Must accept and confirm being 18 or older; the accepted version and time are stored |
 | Go live sheet | Short | Visible every time, above the Start button |
 | Board footer | Short | Every view of the leaderboard |
+| Place card, pin sheet and RDV create screen | Short | "Places and meets are added by members. Rendezview does not check them or organize any gathering. Attend at your own risk." |
 | Me, Legal | Full | Always available |
 | Invite landing page | Short, plus a link to the full text | Footer |
 | Store listings | Summary | See `docs/store-submission.md` |

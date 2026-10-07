@@ -74,8 +74,9 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 | drop_pin | SQL | label, note, coordinates, optional address, crew ids (all the caller's); expires after 24 hours |
 | remove_pin | SQL | dropper or an owner of a listed crew |
 | list_pins | SQL | crew ids; unexpired pins |
+| search_places | Edge | text and a coarse bias point (about 1 km); calls the geocoder from the server and returns results; stores nothing; rate limited per account |
 
-Search and nearby are not API calls (docs/features/places.md).
+Nearby is not an API call; it is read from the map tiles on the device (docs/features/places.md).
 
 ## Leaderboard
 

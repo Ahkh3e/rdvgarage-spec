@@ -8,6 +8,7 @@ A crew member drops an RDV: a place and a time their crews can see, plan around 
 
 - Any member of a crew can create an RDV for one or more of their crews. The creator is the host.
 - Kinds: meet (park and hang out), cruise (a drive that starts at a point), private event.
+- An RDV ends at its end time, or three hours after its start when no end time is set. Every rule below that says the RDV ends, its window ends, or a past RDV uses this one value.
 - Fields: title (3-60 characters), kind, place, start time, optional end time, optional note (up to 280 characters), the crews it is for, and the arrival radius.
 - Place is a point picked on the map, found by search, or carried over from a pin (places.md), with a short name. A cruise has a start point only; there is no route or destination line (decision 0006).
 - The arrival radius defaults to 150 m and the host can set 50 to 500 m.
@@ -38,10 +39,10 @@ A crew member drops an RDV: a place and a time their crews can see, plan around 
 
 Arrival marks a member as having attended and feeds Meets attended and streaks (stats.md).
 
-- The attendance window starts one hour before the start time and ends at the end time. With no end time it ends three hours after the start.
+- The attendance window starts one hour before the start time and ends when the RDV ends.
 - Arrival is verified by location: the member is inside the RDV radius during the window. Nothing else counts.
-- If the member is live to a crew the RDV is for, the app checks their position against the radius on the device as positions arrive and records arrival once.
-- If the member is not live, they can tap I'm here on the RDV detail inside the window. The app takes one position reading, checks it against the radius and the window on the server, then discards the position. If the reading is outside the radius, nothing is recorded and the app says so. Nothing is collected in the background for a member who is not live.
+- If the member is live to a crew the RDV is for, the app notices on the device that their position is inside the radius during the window and then calls record_arrival once with that reading. The server makes the real check; the device check only decides when to call.
+- If the member is not live, they can tap I'm here on the RDV detail inside the window. The app takes one position reading and calls record_arrival; the server checks it against the radius and the window, then discards the position. If the reading is outside the radius, nothing is recorded and the app says so. Nothing is collected in the background for a member who is not live.
 - On arrival a prompt can offer Go live for this RDV? (privacy.md). It is only an offer; the answer starts nothing by itself.
 - Arrival is recorded once per member per RDV. It is visible only to members of the RDV's crews and is not removed when the RDV is later edited.
 - The host's own arrival counts the same way.

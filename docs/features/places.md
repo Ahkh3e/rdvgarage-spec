@@ -39,7 +39,7 @@ Directions on any place card or pin calls the maps handoff with the place coordi
 - Location is shared only within crews (decision 0004): a pin reaches only the crews its dropper chose.
 - No ETAs, routing, or route lines (decision 0006).
 - Search and nearby never send a member's precise position to anyone.
-- The place card and the pin sheet show the short line that places are user supplied and the app does not vouch for them or for any gathering at them (disclaimers.md).
+- The place card, the pin sheet and the RDV create screen show the short line in disclaimers.md (Placement).
 
 ## Platform notes
 
@@ -48,7 +48,7 @@ Directions on any place card or pin calls the maps handoff with the place coordi
 
 ## Data and API
 
-`places.pins` and `places.pin_crews` in data-model.md; `drop_pin`, `remove_pin` and `list_pins` in api.md. Search and nearby have no server call: search goes to the geocoder through the core `Geocoder` contract, and nearby is read from the loaded tiles.
+`places.pins` and `places.pin_crews` in data-model.md; `drop_pin`, `remove_pin` and `list_pins` in api.md. Search goes through the `search_places` function behind the core `Geocoder` contract; nearby has no server call and is read from the loaded tiles.
 
 ## Open questions
 
