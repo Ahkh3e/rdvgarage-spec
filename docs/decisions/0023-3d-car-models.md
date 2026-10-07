@@ -15,7 +15,8 @@ The owner asked for everyone to look like Waze's 3D cars. Building the models fr
 - Amends decision 0021: the marker is the 3D model. The flat top-down silhouettes remain as the preview tiles in the picker and as the small glyph in the crew list.
 - Crews are told apart by body colour and the dot in the name pill. The ring around a badge no longer exists.
 - Cars are drawn at a readable size when zoomed out, and life size at street level.
-- The map's extrusion layer cannot vary opacity per car, so a member who has gone quiet is dimmed through darker colours.
+- Cars are a fixed size larger than life, which never changes with zoom, so a pinch never rescales the models; when zoomed out too far to read a car, the map shows a coloured dot for it.
+- A member who is not live is not drawn at all (no dimmed or idle state).
 - The shapes are simple. Richer models (rounded bodies, lights, a different shape per brand) would need a real 3D asset pipeline and a custom renderer, which is a later step.
 
 ## Revisit

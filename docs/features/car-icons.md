@@ -37,7 +37,7 @@ Eight models, drawn as top-down silhouettes in a single weight with no brand mar
 - The body is tinted in the crew colour, with a dark window band, a lighter roof, dark wheels, and a wing where the model has one. Where a person is in more than one selected crew, the colour is that of the crew that sorts first. Crews are also told apart by the crew dot in the name pill (design.md).
 - A name pill sits under the car: a small crew-colour dot and the handle.
 - Your own car is the bright blue accent with a soft pulsing halo under it.
-- A member who has stopped sending updates fades the whole marker, and their trail is cleared (movement trails).
+- A member who is not live is not on the map at all: no car, no name pill and no trail. The crew list shows them as offline.
 - Tapping a marker or a list row opens the member card (live-map.md). The card shows the avatar and handle, with the car icon at the right of the title row.
 - The crew list row shows the avatar photo, the handle and crew, a small glyph of their car, and their live state or speed (decision 0022).
 
