@@ -12,6 +12,8 @@ iPhone first, Android eventually, one codebase (decisions 0005, 0011). One spec 
 | Profile | profile.md (planned) | Handle, avatar, home area; minimal in v1 |
 | Crews | crews.md | Create and join private crews; roles; member limits; leave and remove |
 | Live map | live-map.md | Crew members live on a shared map; follow mode while driving |
+| Movement trails | movement-trails.md | A short tail behind each live member, along the road |
+| Car icons and markers | car-icons.md | Pick a minimal racecar icon; how a point looks on the map |
 | Leaderboard | leaderboard.md | Weekly top speed per crew |
 | RDVs | rdvs.md (planned) | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP |
 | Maps handoff | maps-handoff.md (planned) | Tap an RDV to open Apple Maps, Google Maps, or Waze |
