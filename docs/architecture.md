@@ -106,7 +106,7 @@ Email links go to the link domain on Cloudflare Pages. The confirmation link com
 ### Live location
 
 1. User taps Go live and picks crews. The app creates a `live.sessions` row and `live.session_crews` rows.
-2. The app joins each chosen crew's private channel, announces itself with Presence, and broadcasts position about every 3 seconds while moving and every 15 seconds while stationary. A stationary session also sends a heartbeat every 30 seconds.
+2. The app joins each chosen crew's private channel, announces itself with Presence, and broadcasts position about every 3 seconds while moving and every 15 seconds while stationary, plus an extra position at a corner. The payload is user, position, heading, time and, once decision 0022 is confirmed, current speed in km/h; none of it is stored. A stationary session also sends a heartbeat every 30 seconds.
 3. Positions go over Broadcast only. They are never written to the database.
 4. About once a minute the app writes a checkpoint to `live.segments` and updates the session's `last_seen_at`. Each segment is one session within one Toronto-time week. Max speed and distance are tracked per segment and start at zero when a new week begins, so a session crossing Monday 00:00 never carries last week's max into the new week.
 5. Stop sets `ended_at`. If the app is killed or loses signal, one database sweep (pg_cron) marks sessions ended when `last_seen_at` is more than 5 minutes old. That 5-minute value is the single staleness constant used by every query and policy, so the map, leaderboard, and policies agree. Once a session has ended, it no longer counts as live anywhere.
