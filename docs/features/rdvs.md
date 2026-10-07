@@ -50,7 +50,7 @@ Arrival marks a member as having attended and feeds Meets attended and streaks (
 ## Rules
 
 - No ETAs, routing, or route lines (decision 0006).
-- RDVs are visible only to members of the crews they were made for. A member who leaves a crew stops seeing its RDVs and their RSVP is removed from its counts, but their recorded arrivals remain for their own stats.
+- RDVs are visible only to members of the crews they were made for. A member who leaves a crew stops seeing its RDVs and their RSVP stops counting (it returns if they rejoin), but their recorded arrivals remain for their own stats.
 - Creating an RDV is not limited in number, per the no-limits stance on invites; there is no cap per crew or per member.
 - An RDV cannot be made for a crew the member is not in. It cannot start in the past.
 - The place and its radius are stored; no member position is stored for an RDV (privacy.md).

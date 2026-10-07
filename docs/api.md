@@ -60,12 +60,13 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 | Name | Type | Notes |
 |---|---|---|
-| create_rdv | SQL | title, kind, place, start, optional end, note, crew ids (all the caller's), radius; caller becomes host; start must not be in the past |
-| update_rdv | SQL | host only; notifies people who answered going or maybe when place or time changes |
-| cancel_rdv | SQL | host or an owner of a listed crew |
-| list_rdvs | SQL | crew ids; upcoming and recent, with counts and the caller's answer; private event places withheld until going or maybe |
-| set_rsvp | SQL | rdv id and answer; allowed until the RDV ends |
-| record_arrival | Edge | rdv id and one position reading; checks radius and attendance window, stores only the arrival, discards the position. A live member's on-device arrival uses the same call |
+| create_rdv | SQL | title, kind, place, area name (always sent; for a private event it is the only place text shown before RSVP), start, optional end, note, crew ids (all the caller's), radius; caller becomes host; start must not be in the past |
+| update_rdv | SQL | host only; may change the crews (still all the caller's); an unchanged start is accepted even if now past; notifies people who answered going or maybe when place or time changes |
+| cancel_rdv | SQL | host or an owner of a listed crew; a non-host gets `not_host` on edit |
+| list_rdvs | SQL | crew ids; upcoming and recent (ended within the last 14 days; a cancelled RDV only until its window ends), with counts and the caller's answer; counts include only current crew members; private event places withheld until going or maybe |
+| list_rsvps | SQL | rdv id; members per answer, for the detail screen; members of a listed crew only |
+| set_rsvp | SQL | rdv id and answer; allowed until the RDV ends; a cancelled RDV returns `rdv_closed` |
+| record_arrival | Edge | rdv id and one position reading; checks radius and attendance window, stores only the arrival, discards the position. A live member's on-device arrival uses the same call. Returns `{recorded, already}`; `outside_radius`, `outside_window` and `rdv_closed` are 409, `rdv_not_found` is 404 (also returned to a member who cannot see a private place) |
 
 ## Places
 
@@ -86,7 +87,7 @@ Nearby is not an API call; it is read from the map tiles on the device (docs/fea
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 
