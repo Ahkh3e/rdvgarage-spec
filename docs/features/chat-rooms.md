@@ -40,6 +40,7 @@ Members talk in text, in a room for a crew or for a hand-picked group. A room is
 
 - Chat and the walkie-talkie are not safe to use while driving. The room screen shows the short line in disclaimers.md (Placement), and the product adds no lockout or speed rule (CLAUDE.md, disclaimers.md).
 - Shipping chat and voice bumps the terms version, so everyone accepts the updated disclaimers on their next open (disclaimers.md).
+- Moderation of voice is per crew, not per room: a crew owner turns a member's voice off once for all of that crew's rooms (walkie-talkie.md). Text is not affected by it.
 - Location is never part of chat: no live position, speed or route appears in a room, and nothing in a message is read for location.
 - Only members of a room can read, send or list it. Policies enforce this in the database (data-model.md).
 - A person cannot be added to a room by someone they share no crew with, and a room never reveals who else is a member to anyone outside it.

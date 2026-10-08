@@ -12,7 +12,7 @@ Private groups of members who share a map and RDVs.
 - Leaving is always allowed. The owner can remove members from the crew.
 - The crew link is reusable and does not expire. It works only for existing app members and cannot be used to sign up. The owner can regenerate it at any time; the old link stops working.
 - Crew has a name (3-30 characters), an optional avatar, and an optional description (up to 140 characters).
-- The owner sees the member list and can remove a member, regenerate the crew link, transfer ownership, and delete the crew. A member sees the member list and can leave.
+- The owner sees the member list and can remove a member, turn a member's voice off or on for the whole crew (chat-rooms.md, walkie-talkie.md), regenerate the crew link, transfer ownership, and delete the crew. A member sees the member list and can leave.
 
 ## My Crews
 

@@ -21,7 +21,7 @@ Hold a button and talk to a room, and everyone in the room hears you at once, li
 
 Live audio goes through a hosted real-time audio service, LiveKit Cloud (decision 0027), never through Supabase.
 
-- Opening a room calls the `walkie_token` function, which checks membership in the room and returns a token for that room, valid 5 minutes. It lets the person listen and publish. While in the room the app asks for a fresh token before each one expires, and the call fails once the person is no longer a member.
+- Opening a room calls the `walkie_token` function, which checks membership in the room and returns a token for that room, valid 5 minutes. It lets the person listen and publish, or listen only when their voice is off for one of the room's crews. While in the room the app asks for a fresh token before each one expires, and the call fails once the person is no longer a member.
 - The microphone is published only while Talk is held. The app never publishes silently.
 - Who is talking comes from the app, not the audio service: when Talk goes down or up the app sends a start or stop event, with the person's profile id, on a private `walkie:<room_id>` channel that members join only while in the room. Listeners show the speaker's handle, avatar and car icon from the app's own data. The level meter uses the audio level the audio service reports for the speakers.
 - The audio service's participant id is a keyed hash of the person and the room, so it is stable inside one room and cannot be linked across rooms.
@@ -33,6 +33,7 @@ Live audio goes through a hosted real-time audio service, LiveKit Cloud (decisio
 
 - Walkie-talkie is not safe to use while driving; the Talk button needs a hand, and hands-free use depends on the person's own headset. The screen shows the short line in disclaimers.md (Placement). The product adds no lockout (CLAUDE.md).
 - Only members of a room can open its channel or get a token. A moderator of the room (chat-rooms.md) can remove a member, which removes them from the channel at once.
+- Voice can be turned off for a person for a whole crew. A crew owner does it from the crew's member list, once, and it applies to every walkie channel of that crew's rooms (the crew room and the crew's RDV rooms) together. It is not set room by room. The person can still listen and use text chat; their Talk button is disabled with "Voice is off for you in <crew>". An owner can turn it back on at any time. Rooms that belong to no crew, the invite-only rooms, have no crew behind them, so only their owner removing a member applies there. An RDV room that spans several crews is voice-off for a person who is revoked in any one of those crews.
 - No audio is kept, and nothing in a channel carries location, speed or a route.
 - Every channel shows a visible On the air state so nobody is recorded without knowing; the microphone indicator of the phone is expected.
 
@@ -52,4 +53,5 @@ No tables. `walkie_token` and `walkie_kick` (Edge) in api.md; talking events go 
 - Whether a latch mode (tap to open, tap to close) should exist at all given the safety line; it is not part of this release.
 - Echo and howling when two phones are in the same room.
 - Audio service cost and limits as usage grows, tracked with moving free services to paid ones (#41); every extra talker multiplies what each listener receives.
-- Whether a moderator needs a way to silence a talker without removing them.
+- Whether a revoked person should see how long their voice has been off, and whether an owner can add a reason.
+- Whether invite-only rooms need their own voice-off control, per room.
