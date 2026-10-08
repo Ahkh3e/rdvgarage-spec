@@ -23,15 +23,16 @@ Live audio goes through a hosted real-time audio service, LiveKit Cloud (decisio
 
 - Opening a room calls the `walkie_token` function, which checks membership in the room and returns a token for that room, valid 5 minutes. It lets the person listen and publish, or listen only when their voice is off for one of the room's crews. While in the room the app asks for a fresh token before each one expires, and the call fails once the person is no longer a member.
 - The microphone is published only while Talk is held. The app never publishes silently.
-- Who is talking comes from the app, not the audio service: when Talk goes down or up the app sends a start or stop event, with the person's profile id, on a private `walkie:<room_id>` channel that members join only while in the room. Listeners show the speaker's handle, avatar and car icon from the app's own data. The level meter uses the audio level the audio service reports for the speakers.
+- Who is talking comes from the audio service's own active-speaker and audio-level reports, mapped to people with a roster the server issues: `walkie_token` also returns, for the room's current members only, a map from each participant id to the member. The app never trusts a name or id sent by another phone, so nobody can make someone else appear to be talking. Listeners show the speaker's handle, avatar and car icon from the app's own data. The roster is refreshed with each token and when the room's member list changes, so someone who has just joined or been added can take up to about 15 seconds to show by name. The people in the channel are the people connected to the audio service.
 - The audio service's participant id is a keyed hash of the person and the room, so it is stable inside one room and cannot be linked across rooms.
-- When a member is removed, leaves the crew behind a crew room, or the room is deleted or closed, a database trigger calls the `walkie_kick` function, which removes that participant from the audio service at once. The 5-minute token is the backstop if that call fails.
+- When a member is removed, leaves the crew behind a crew room, has their voice turned off, or the room is deleted or closed, a database trigger queues a `walkie_kick`, which removes that participant from the audio service at once. Because a removed phone could reconnect with the token it already holds, the kick is repeated every minute for 6 minutes, and each time only while the person is still not allowed in; if they have been legitimately restored or re-added the kick is dropped. Turning voice back on queues no kick.
 - Audio is not recorded or stored by Rendezview, and the audio service's recording options stay off.
 - The audio service sees the audio and an opaque participant id. It is never given a position, a crew or a handle.
 
 ## Rules
 
 - Walkie-talkie is not safe to use while driving; the Talk button needs a hand, and hands-free use depends on the person's own headset. The screen shows the short line in disclaimers.md (Placement). The product adds no lockout (CLAUDE.md).
+- A token request that is rate limited shows "Busy, try again shortly" and backs off to a minute rather than retrying hard. Nobody can change their own voice access, so a person whose voice was turned off cannot turn it back on.
 - Only members of a room can open its channel or get a token. A moderator of the room (chat-rooms.md) can remove a member, which removes them from the channel at once.
 - Voice can be turned off for a person for a whole crew. A crew owner or admin does it from the crew's member list, once, and it applies to every walkie channel of that crew's rooms (the crew room and the crew's RDV rooms) together. It is not set room by room. The person can still listen and use text chat; their Talk button is disabled with "Voice is off for you in <crew>". An owner can turn it back on at any time. Rooms that belong to no crew, the invite-only rooms, have no crew behind them, so only their owner removing a member applies there. An RDV room that spans several crews is voice-off for a person who is revoked in any one of those crews.
 - No audio is kept, and nothing in a channel carries location, speed or a route.
@@ -45,7 +46,7 @@ Live audio goes through a hosted real-time audio service, LiveKit Cloud (decisio
 
 ## Data and API
 
-No tables. `walkie_token` and `walkie_kick` (Edge) in api.md; talking events go over the `walkie:<room_id>` channel.
+No tables of its own. `walkie_token` and `walkie_kick` (Edge) in api.md; a private queue holds kicks until they have been sent and expired.
 
 ## Open questions
 

@@ -41,7 +41,7 @@ On a valid invite and handle, `register` always answers the same way ("check you
 | leave_crew | SQL | an owner must transfer or delete first |
 | remove_member | SQL | owner or admin; an admin cannot remove the owner or another admin |
 | promote_admin, demote_admin | SQL | crew id and user id; owner only |
-| set_voice_access | SQL | crew id, user id, allowed; owner or admin. Turning voice off for a member applies to every walkie channel of that crew's rooms at once and calls `walkie_kick` so the member reconnects listen-only; text chat is unaffected |
+| set_voice_access | SQL | crew id, user id, allowed; owner or admin, never for yourself, and only for an active member of an active crew. Turning voice off for a member applies to every walkie channel of that crew's rooms at once and calls `walkie_kick` so the member reconnects listen-only; text chat is unaffected |
 | transfer_ownership | SQL | owner only |
 | regenerate_crew_link | SQL | owner only; old link stops working |
 | delete_crew | SQL | owner only |
@@ -101,7 +101,7 @@ Messages arrive live over Realtime Broadcast on each person's private `inbox:<us
 
 | Name | Type | Notes |
 |---|---|---|
-| walkie_token | Edge | room id; checks membership and returns a LiveKit token for that room that lets the person listen and publish, valid 5 minutes, renewed while in the room; the participant id is a keyed hash of the person and the room; rate limited |
+| walkie_token | Edge | room id; checks membership and returns a LiveKit token for that room that lets the person listen and publish, valid 5 minutes, renewed while in the room; the participant id is a keyed hash of the person and the room; also returns a roster of participant ids to members, for current members only; rate limited |
 | walkie_kick | Edge | service only; called by a database trigger when a member is removed or a room is deleted or closed; removes that participant from the audio service |
 | close_rdv_rooms | SQL | service only; run by a scheduled job; closes RDV rooms whose RDV has ended or been cancelled and calls `walkie_kick` for anyone connected |
 
