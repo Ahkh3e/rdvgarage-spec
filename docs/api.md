@@ -39,8 +39,9 @@ On a valid invite and handle, `register` always answers the same way ("check you
 | create_crew | SQL | name, description, avatar; caller becomes owner |
 | join_crew | SQL | crew link code; caller must be an active member |
 | leave_crew | SQL | an owner must transfer or delete first |
-| remove_member | SQL | owner only |
-| set_voice_access | SQL | crew id, user id, allowed; owner only. Turning voice off for a member applies to every walkie channel of that crew's rooms at once and calls `walkie_kick` so the member reconnects listen-only; text chat is unaffected |
+| remove_member | SQL | owner or admin; an admin cannot remove the owner or another admin |
+| promote_admin, demote_admin | SQL | crew id and user id; owner only |
+| set_voice_access | SQL | crew id, user id, allowed; owner or admin. Turning voice off for a member applies to every walkie channel of that crew's rooms at once and calls `walkie_kick` so the member reconnects listen-only; text chat is unaffected |
 | transfer_ownership | SQL | owner only |
 | regenerate_crew_link | SQL | owner only; old link stops working |
 | delete_crew | SQL | owner only |
@@ -63,7 +64,7 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 |---|---|---|
 | create_rdv | SQL | title, kind, place, area name (required for a private event and never the place name or street, since it is the only place text shown before RSVP; the host types it), start, optional end, note, crew ids (all the caller's), radius; caller becomes host; start must not be in the past |
 | update_rdv | SQL | host only; may change the crews (still all the caller's); an unchanged start is accepted even if now past; notifies people who answered going or maybe when place or time changes |
-| cancel_rdv | SQL | host or an owner of a listed crew; a non-host gets `not_host` on edit |
+| cancel_rdv | SQL | host or an owner or admin of a listed crew; a non-host gets `not_host` on edit |
 | list_rdvs | SQL | crew ids; upcoming and recent (ended within the last 14 days; a cancelled RDV only until its window ends), with counts and the caller's answer; counts include only current crew members; private event places withheld until going or maybe |
 | list_rsvps | SQL | rdv id; members per answer, for the detail screen; members of a listed crew only |
 | set_rsvp | SQL | rdv id and answer; allowed until the RDV ends; a cancelled RDV returns `rdv_closed` |
@@ -74,7 +75,7 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 | Name | Type | Notes |
 |---|---|---|
 | drop_pin | SQL | label, note, coordinates, optional address, crew ids (all the caller's); expires after 24 hours |
-| remove_pin | SQL | dropper or an owner of a listed crew |
+| remove_pin | SQL | dropper or an owner or admin of a listed crew |
 | list_pins | SQL | crew ids; unexpired pins |
 | search_places | Edge | text and a coarse bias point (about 1 km); calls the geocoder from the server and returns results; stores nothing; rate limited per account |
 
@@ -88,8 +89,8 @@ Nearby is not an API call; it is read from the map tiles on the device (docs/fea
 | list_rooms | SQL | the caller's rooms with last message, unread count, muted flag |
 | send_message | SQL | room id and body of 1 to 1000 characters; members only; rate limited per account |
 | list_messages | SQL | room id and an optional before marker; messages after the caller joined and still kept |
-| delete_message | SQL | the sender, the owner of an invite room, an owner of the crew for a crew room, or the host or an owner of one of the RDV's crews for an RDV room |
-| add_room_member, remove_room_member | SQL | add: owner of an invite room, and the new member must share a crew with the caller. Remove: owner of an invite room, or the host or an owner of one of the RDV's crews for an RDV room, which blocks the person. Crew rooms follow the crew |
+| delete_message | SQL | the sender, the owner of an invite room, an owner or admin of the crew for a crew room, or the host or an owner or admin of one of the RDV's crews for an RDV room |
+| add_room_member, remove_room_member | SQL | add: owner of an invite room, and the new member must share a crew with the caller. Remove: owner of an invite room, or the host or an owner or admin of one of the RDV's crews for an RDV room, which blocks the person. Crew rooms follow the crew |
 | leave_room, delete_room, transfer_room | SQL | members leave an invite room; its owner deletes or transfers it; crew and RDV rooms cannot be left or deleted directly (a crew room goes with its crew, an RDV room closes with its RDV) |
 | mark_read, set_room_muted | SQL | the caller's own marker and mute flag |
 | open_rdv_room | SQL | rdv id; host only, before the RDV ends; creates the RDV's room for members who answered going or maybe |
@@ -112,7 +113,7 @@ Messages arrive live over Realtime Broadcast on each person's private `inbox:<us
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_area_required, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, voice_revoked, room_not_found, not_room_member, not_room_owner, room_name_invalid, room_description_invalid, message_invalid, no_shared_crew, room_closed, walkie_unavailable, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_area_required, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, voice_revoked, not_moderator, cannot_moderate_admin, room_not_found, not_room_member, not_room_owner, room_name_invalid, room_description_invalid, message_invalid, no_shared_crew, room_closed, walkie_unavailable, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 

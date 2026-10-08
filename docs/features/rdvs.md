@@ -12,7 +12,7 @@ A crew member drops an RDV: a place and a time their crews can see, plan around 
 - Fields: title (3-60 characters), kind, place, start time, optional end time, optional note (up to 280 characters), the crews it is for, and the arrival radius.
 - Place is a point picked on the map, found by search, or carried over from a pin (places.md), with a short name. A cruise has a start point only; there is no route or destination line (decision 0006).
 - The arrival radius defaults to 150 m and the host can set 50 to 500 m.
-- The host can edit or cancel their RDV. A crew owner can cancel any RDV for their crew. A change to the place or time notifies people who answered Going or Maybe.
+- The host can edit or cancel their RDV. A crew owner or admin can cancel any RDV for their crew. A change to the place or time notifies people who answered Going or Maybe.
 - A cancelled RDV stays visible, marked cancelled, until its window passes, so people who planned around it see why it is gone.
 
 ## RSVP

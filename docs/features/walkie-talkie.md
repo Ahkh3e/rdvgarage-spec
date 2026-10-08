@@ -33,7 +33,7 @@ Live audio goes through a hosted real-time audio service, LiveKit Cloud (decisio
 
 - Walkie-talkie is not safe to use while driving; the Talk button needs a hand, and hands-free use depends on the person's own headset. The screen shows the short line in disclaimers.md (Placement). The product adds no lockout (CLAUDE.md).
 - Only members of a room can open its channel or get a token. A moderator of the room (chat-rooms.md) can remove a member, which removes them from the channel at once.
-- Voice can be turned off for a person for a whole crew. A crew owner does it from the crew's member list, once, and it applies to every walkie channel of that crew's rooms (the crew room and the crew's RDV rooms) together. It is not set room by room. The person can still listen and use text chat; their Talk button is disabled with "Voice is off for you in <crew>". An owner can turn it back on at any time. Rooms that belong to no crew, the invite-only rooms, have no crew behind them, so only their owner removing a member applies there. An RDV room that spans several crews is voice-off for a person who is revoked in any one of those crews.
+- Voice can be turned off for a person for a whole crew. A crew owner or admin does it from the crew's member list, once, and it applies to every walkie channel of that crew's rooms (the crew room and the crew's RDV rooms) together. It is not set room by room. The person can still listen and use text chat; their Talk button is disabled with "Voice is off for you in <crew>". An owner can turn it back on at any time. Rooms that belong to no crew, the invite-only rooms, have no crew behind them, so only their owner removing a member applies there. An RDV room that spans several crews is voice-off for a person who is revoked in any one of those crews.
 - No audio is kept, and nothing in a channel carries location, speed or a route.
 - Every channel shows a visible On the air state so nobody is recorded without knowing; the microphone indicator of the phone is expected.
 
@@ -53,5 +53,5 @@ No tables. `walkie_token` and `walkie_kick` (Edge) in api.md; talking events go 
 - Whether a latch mode (tap to open, tap to close) should exist at all given the safety line; it is not part of this release.
 - Echo and howling when two phones are in the same room.
 - Audio service cost and limits as usage grows, tracked with moving free services to paid ones (#41); every extra talker multiplies what each listener receives.
-- Whether a revoked person should see how long their voice has been off, and whether an owner can add a reason.
+- Whether a revoked person should see how long their voice has been off, and whether a moderator can add a reason.
 - Whether invite-only rooms need their own voice-off control, per room.
