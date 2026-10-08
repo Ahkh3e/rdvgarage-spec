@@ -10,7 +10,7 @@ Goal: run 0.0.1 with as little operational work as possible, on free SaaS tiers,
 | Map | MapLibre (`@maplibre/maplibre-react-native`) with OpenFreeMap tiles | One style on both platforms, no key, no usage billing, full control of the look (decision 0017) |
 | Database, auth, realtime, files | Supabase, Canada (Central) region | One free SaaS covers Postgres, Auth, Realtime, Storage, and server functions; Canadian data residency |
 | Link pages and deep links | Cloudflare Pages (static) | Free static hosting; serves the apple-app-site-association file (iPhone), the assetlinks.json file (Android), and the landing and expired pages |
-| Walkie-talkie voice | LiveKit Cloud (WebRTC) behind a `Voice` contract | Free tier, React Native SDK, self-hostable later; sees audio but never location (decision 0027) |
+| Walkie-talkie voice | A small relay we run on the owner's server, WebSocket over HTTPS behind the Cloudflare Tunnel, behind a `Voice` contract | No third party hears the audio, no UDP or open ports, no per-minute fee; the home server's uptime and bandwidth are the limits (decision 0029) |
 | Code and issues | GitHub (this repo, `rdv-garage`) | Already in use |
 | Operator tools and scheduled jobs | The owner's hosted Linux server | Already available; runs the operator toolkit, keep-alive, and backups |
 | Builds and distribution | EAS Build (Expo), TestFlight, later Google Play testing tracks | Free build allowance; check current limits |

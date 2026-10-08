@@ -1,6 +1,6 @@
 # 0027 LiveKit for walkie-talkie voice
 
-Status: accepted
+Status: superseded by decision 0029
 
 ## Decision
 

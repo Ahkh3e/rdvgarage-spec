@@ -19,15 +19,15 @@ Hold a button and talk to a room, and everyone in the room hears you at once, li
 
 ## Voice transport
 
-Live audio goes through a hosted real-time audio service, LiveKit Cloud (decision 0027), never through Supabase.
+Live audio goes through a relay that Rendezview runs on its own server (decision 0029), as a WebSocket over HTTPS. It is not a third-party service, it needs no UDP and no open router ports, and it is never routed through Supabase.
 
 - Opening a room calls the `walkie_token` function, which checks membership in the room and returns a token for that room, valid 5 minutes. It lets the person listen and publish, or listen only when their voice is off for one of the room's crews. While in the room the app asks for a fresh token before each one expires, and the call fails once the person is no longer a member.
 - The microphone is published only while Talk is held. The app never publishes silently.
-- Who is talking comes from the audio service's own active-speaker and audio-level reports, mapped to people with a roster the server issues: `walkie_token` also returns, for the room's current members only, a map from each participant id to the member. The app never trusts a name or id sent by another phone, so nobody can make someone else appear to be talking. Listeners show the speaker's handle, avatar and car icon from the app's own data. The roster is refreshed with each token and when the room's member list changes, so someone who has just joined or been added can take up to about 15 seconds to show by name. The people in the channel are the people connected to the audio service.
-- The audio service's participant id is a keyed hash of the person and the room, so it is stable inside one room and cannot be linked across rooms.
-- When a member is removed, leaves the crew behind a crew room, has their voice turned off, or the room is deleted or closed, a database trigger queues a `walkie_kick`, which removes that participant from the audio service at once. Because a removed phone could reconnect with the token it already holds, the kick is repeated every minute for 6 minutes, and each time only while the person is still not allowed in; if they have been legitimately restored or re-added the kick is dropped. Turning voice back on queues no kick.
-- Audio is not recorded or stored by Rendezview, and the audio service's recording options stay off.
-- The audio service sees the audio and an opaque participant id. It is never given a position, a crew or a handle.
+- Who is talking comes from the relay. It knows who each connection is from the signed token, so it announces start and stop events itself and nobody can claim to be someone else. Listeners map the relay's participant ids to people with a roster the server issues: `walkie_token` also returns, for the room's current members only, a map from each participant id to the member. Listeners show the speaker's handle, avatar and car icon from the app's own data. The roster is refreshed with each token and when the room's member list changes, so someone who has just joined or been added can take up to about 15 seconds to show by name. The people in the channel are the people connected to the relay.
+- The participant id is a keyed hash of the person and the room, so it is stable inside one room and cannot be linked across rooms.
+- When a member is removed, leaves the crew behind a crew room, has their voice turned off, or the room is deleted or closed, a database trigger queues a `walkie_kick`, which asks the relay to disconnect that participant at once. Because a removed phone could reconnect with the token it already holds, the kick is repeated every minute for 6 minutes, and each time only while the person is still not allowed in; if they have been legitimately restored or re-added the kick is dropped. Turning voice back on queues no kick.
+- Audio is relayed in memory and is not recorded, stored or logged by Rendezview. The relay keeps only counters.
+- The relay sees the audio as it passes through, an opaque participant id and the room id. It is never given a position, a crew name or a handle.
 
 ## Rules
 
@@ -40,7 +40,7 @@ Live audio goes through a hosted real-time audio service, LiveKit Cloud (decisio
 
 ## Platform notes
 
-- The client uses the LiveKit React Native SDK with the WebRTC native modules, so it needs a new development build (not Expo Go). Android needs the foreground service and microphone permissions; iPhone needs the audio and voice-over-IP background modes and the microphone usage text.
+- The client captures the microphone and plays the mixed audio through native audio libraries and sends compressed audio frames over the WebSocket, so it needs a new development build (not Expo Go). Android needs the foreground service and microphone permissions; iPhone needs the audio background mode and the microphone usage text.
 - Routing follows the phone: speaker, a connected headset, or Bluetooth. A hardware button as the Talk control is later work.
 - CarPlay and Android Auto are later platform modules (features/README.md).
 
@@ -53,6 +53,8 @@ No tables of its own. `walkie_token` and `walkie_kick` (Edge) in api.md; a priva
 - Headset or steering-wheel button as Talk, to avoid touching the phone.
 - Whether a latch mode (tap to open, tap to close) should exist at all given the safety line; it is not part of this release.
 - Echo and howling when two phones are in the same room.
-- Audio service cost and limits as usage grows, tracked with moving free services to paid ones (#41); every extra talker multiplies what each listener receives.
+- Relay capacity and uptime on the home server: it carries every listener's copy of every talker's audio, so cost is bandwidth rather than a per-minute fee. Moving it to a cloud host is tracked with the other free-to-paid moves (#41).
+- Audio over a TCP connection stutters on a poor network, because a lost packet holds up everything behind it. A media server over UDP would avoid that (decision 0029 revisit).
+- There is no built-in echo cancellation, so the speaker is muted while Talk is held.
 - Whether a revoked person should see how long their voice has been off, and whether a moderator can add a reason.
 - Whether invite-only rooms need their own voice-off control, per room.

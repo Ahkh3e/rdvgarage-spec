@@ -25,7 +25,7 @@ Location is shared only within crews (decision 0004), and only when the user cho
 - Session summaries are kept while the account exists.
 - Account deletion removes all session summaries.
 - Distance and attendance stats are computed from sessions and RDV arrivals (stats.md).
-- Chat messages are kept for 7 days and then deleted; account deletion removes a person's messages at once (chat-rooms.md). Walkie-talkie audio is not recorded or stored by Rendezview; it passes through a third-party audio service that sees the voice and the network address but no location, crew name or handle (decision 0027).
+- Chat messages are kept for 7 days and then deleted; account deletion removes a person's messages at once (chat-rooms.md). Walkie-talkie audio is not recorded or stored by Rendezview; it passes through Rendezview's own relay in memory, which sees the voice and the network address but no location, crew name or handle (decision 0029).
 - Location data is never sold or sent to third parties for ads. Any processor must be vetted (decision 0004).
 
 ## Platform notes

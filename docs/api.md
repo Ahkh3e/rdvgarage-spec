@@ -101,8 +101,8 @@ Messages arrive live over Realtime Broadcast on each person's private `inbox:<us
 
 | Name | Type | Notes |
 |---|---|---|
-| walkie_token | Edge | room id; checks membership and returns a LiveKit token for that room that lets the person listen and publish, valid 5 minutes, renewed while in the room; the participant id is a keyed hash of the person and the room; also returns a roster of participant ids to members, for current members only; rate limited |
-| walkie_kick | Edge | service only; called by a database trigger when a member is removed or a room is deleted or closed; removes that participant from the audio service |
+| walkie_token | Edge | room id; checks membership and returns the relay address and a signed token for that room, valid 5 minutes and renewed while in the room, with whether the person may talk and a roster of participant ids to members for current members only; the participant id is a keyed hash of the person and the room; rate limited |
+| walkie_kick | Edge | service only; called by a database trigger when a member is removed, voice is turned off, or a room is deleted or closed; asks the relay to disconnect that participant |
 | close_rdv_rooms | SQL | service only; run by a scheduled job; closes RDV rooms whose RDV has ended or been cancelled and calls `walkie_kick` for anyone connected |
 
 ## Leaderboard

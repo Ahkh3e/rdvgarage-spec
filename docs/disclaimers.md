@@ -19,7 +19,7 @@ Full (shown at onboarding and under Me, Legal):
 7. **Your account is your responsibility.** Keep your password private. You are responsible for activity on your account. If you forget your password, reset it by email; if you lose access to your email, we may not be able to restore your account.
 8. **Your email is for your account only.** We use it for confirmation and recovery. We do not show it to other users.
 9. **You must be 18 or older.** Use of the app is limited to adults who are licensed to drive where they drive.
-10. **Chat and voice.** Messages in chat rooms are kept for 7 days and then deleted, and room members can read them. Walkie-talkie voice is sent through a third-party audio service and is not recorded by Rendezview; people in the channel hear you, and the service sees your voice and network address but not your location. Rooms are run by members and Rendezview does not review them.
+10. **Chat and voice.** Messages in chat rooms are kept for 7 days and then deleted, and room members can read them. Walkie-talkie voice is relayed by Rendezview's own server and is not recorded; people in the channel hear you, and the relay sees your voice and network address but not your location. Rooms are run by members and Rendezview does not review them.
 11. **Use at your own risk.** To the extent the law allows, Rendezview is not liable for injury, loss, fines, or damage arising from your use of the app or from the actions of other users.
 
 ## Placement
@@ -29,7 +29,7 @@ Full (shown at onboarding and under Me, Legal):
 | Onboarding, before the account is created | Full | Must accept and confirm being 18 or older; the accepted version and time are stored |
 | Go live sheet | Short | Visible every time, above the Start button |
 | Board footer | Short | Every view of the leaderboard |
-| Room screen and walkie channel | Short | "Don't read, type or talk on this while driving. Rooms are run by members. Voice is sent through a third-party audio service and is not recorded by Rendezview." |
+| Room screen and walkie channel | Short | "Don't read, type or talk on this while driving. Rooms are run by members. Voice is relayed by Rendezview's server and is not recorded." |
 | Place card, pin sheet and RDV create screen | Short | "Places and meets are added by members. Rendezview does not check them or organize any gathering. Attend at your own risk." |
 | Me, Legal | Full | Always available |
 | Invite landing page | Short, plus a link to the full text | Footer |
