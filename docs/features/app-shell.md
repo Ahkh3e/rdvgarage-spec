@@ -8,6 +8,7 @@ Bottom tabs, each contributed by a module through the registry:
 |---|---|---|
 | Map | map (with live-location) | Shared map of selected crews; follow mode; Go live button |
 | Crews | crews | My Crews home, crew detail, create and join |
+| Rooms | chat | Chat rooms, last message and unread count; opens a room with messages and the walkie channel |
 | Board | leaderboard | Weekly top speed per crew |
 | Me | accounts (with referral) | Profile, Change password, Share invite, Devices, Legal, Delete account |
 
@@ -26,6 +27,7 @@ The app opens on Map when the user is live, otherwise on Crews.
 | Crew detail | crews | Members, link, owner actions, the crew's upcoming RDVs |
 | Create crew, Join crew | crews | Join opens from a crew link |
 | Map | map | Selected crews' live members; recenter |
+| Room, Create room, Room members | chat | Messages and composer, the Talk button and channel state; create and manage an invite-only room |
 | Go live sheet | live-location | Pick crews, start, stop; shows who can see you |
 | Board | leaderboard | Crew selector, ranked list, disclaimer footer |
 | Me | accounts | Profile edit, Change password, Share invite, My invites, Maps app, Stats |

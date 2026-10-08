@@ -11,7 +11,7 @@ Short (used in the Go live sheet and leaderboard footer):
 Full (shown at onboarding and under Me, Legal):
 
 1. **You are responsible for your driving.** Obey traffic laws, posted speed limits, and road conditions. Rendezview does not encourage speeding, racing, stunts, or any unsafe or illegal driving.
-2. **Don't operate the app while driving.** Set up Go live before you start. Once you are live, the map follows you and needs no input. Do not look at or touch your phone while driving. Passengers may use the app.
+2. **Don't operate the app while driving.** Set up Go live before you start. Once you are live, the map follows you and needs no input. Do not look at or touch your phone while driving. Do not type, read messages, or hold a button to talk in chat rooms or the walkie-talkie while driving. Passengers may use the app.
 3. **Top speed is not a contest to break the law.** Speeds are estimates measured by your phone's GPS. They can be wrong. The leaderboard is for fun and carries no prize, reward, or endorsement. Never drive unsafely to improve a ranking. If you want to test speed, use a closed course where it is legal.
 4. **Your location is shared.** When you Go live, the crews you choose can see where you are. Only share with people you trust. Anyone in a crew you choose can see your live position and your top speeds for sessions shared with that crew. You can stop at any time.
 5. **Meets and cruises are organized by users.** Rendezview does not organize, supervise, or insure any gathering. You attend at your own risk and are responsible for your own conduct and safety.
@@ -28,6 +28,7 @@ Full (shown at onboarding and under Me, Legal):
 | Onboarding, before the account is created | Full | Must accept and confirm being 18 or older; the accepted version and time are stored |
 | Go live sheet | Short | Visible every time, above the Start button |
 | Board footer | Short | Every view of the leaderboard |
+| Room screen and walkie channel | Short | "Don't read, type or talk on this while driving. Rooms are run by members. Voice is sent through a third-party audio service and is not recorded by Rendezview." |
 | Place card, pin sheet and RDV create screen | Short | "Places and meets are added by members. Rendezview does not check them or organize any gathering. Attend at your own risk." |
 | Me, Legal | Full | Always available |
 | Invite landing page | Short, plus a link to the full text | Footer |

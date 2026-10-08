@@ -2,7 +2,7 @@
 
 ## Goal
 
-Two things matter in 0.0.1: the person always knows when they are sharing their location, and they hear when a friend goes live. RDV notifications are described in rdvs.md (local reminders now, drops and changes need remote push); RSVP and invite notifications are not specified yet.
+Two things matter in 0.0.1: the person always knows when they are sharing their location, and they hear when a friend goes live. RDV notifications are described in rdvs.md (local reminders now, drops and changes need remote push); chat message notifications are in chat-rooms.md; RSVP and invite notifications are not specified yet.
 
 ## In 0.0.1: local notifications while the app is running
 

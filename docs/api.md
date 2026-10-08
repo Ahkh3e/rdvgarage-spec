@@ -79,6 +79,31 @@ Positions are not an API call: they go over Realtime Broadcast on `crew:<crew_id
 
 Nearby is not an API call; it is read from the map tiles on the device (docs/features/places.md).
 
+## Chat
+
+| Name | Type | Notes |
+|---|---|---|
+| create_room | SQL | name, optional description, member ids (each shares a crew with the caller); caller becomes owner |
+| list_rooms | SQL | the caller's rooms with last message, unread count, muted flag |
+| send_message | SQL | room id and body of 1 to 1000 characters; members only; rate limited per account |
+| list_messages | SQL | room id and an optional before marker; messages after the caller joined and still kept |
+| delete_message | SQL | the sender, a room owner, or an owner of the room's crew |
+| add_room_member, remove_room_member | SQL | room owner; a new member must share a crew with the caller |
+| leave_room, delete_room, transfer_room | SQL | members leave; owner deletes or transfers; crew rooms cannot be left or deleted directly |
+| mark_read, set_room_muted | SQL | the caller's own marker and mute flag |
+| open_rdv_room | SQL | rdv id; host only; creates or reopens the RDV's room for members who answered going or maybe |
+
+Messages arrive live over Realtime Broadcast on a private `room:<room_id>` channel; joining it requires membership in `chat.members`.
+
+## Walkie-talkie
+
+| Name | Type | Notes |
+|---|---|---|
+| walkie_token | Edge | room id; checks membership and returns a LiveKit token for that room, valid 1 hour; listen always, talk only while the floor lease holds; rate limited |
+| take_floor | SQL | room id; grants the floor if free or the lease ended, with a 30 second lease; returns the holder otherwise |
+| release_floor | SQL | the holder releases the floor |
+| leave_walkie | SQL | ends the caller's lease and clears them from the channel |
+
 ## Leaderboard
 
 | Name | Type | Notes |
@@ -87,7 +112,7 @@ Nearby is not an API call; it is read from the map tiles on the device (docs/fea
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_area_required, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_area_required, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, room_not_found, not_room_member, not_room_owner, message_invalid, no_shared_crew, room_closed, floor_taken, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 
