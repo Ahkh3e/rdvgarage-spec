@@ -50,7 +50,7 @@ Who joined an invite is `accounts.profiles.invite_id`.
 | is_synthetic | true for crews made by the operator toolkit; default false |
 | created_at | |
 
-`crews.members`: `crew_id`, `user_id`, `role` (owner, member), `joined_at`; primary key (crew_id, user_id). Exactly one owner per active crew.
+`crews.members`: `crew_id`, `user_id`, `role` (owner, member), `joined_at`, `voice_revoked_at` (nullable; set when the owner turns the member's voice off for the crew), `voice_revoked_by`; primary key (crew_id, user_id). Exactly one owner per active crew.
 
 `crews.selections`: `user_id`, `crew_id`; the crews the user has selected for the map and Board, synced across their devices.
 

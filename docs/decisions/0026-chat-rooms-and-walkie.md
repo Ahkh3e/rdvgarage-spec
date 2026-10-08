@@ -7,6 +7,7 @@ Status: accepted
 - Rooms: every crew has a standing room, any member can create an invite-only room that can span crews, and an RDV can open a room for the members who plan to attend.
 - Text messages are kept for 7 days, then deleted by a scheduled job. Deleting an account removes the person's messages.
 - Each room has a walkie-talkie channel: hold to talk, several people can talk at once and everyone in the room hears them, not recorded.
+- A crew owner can turn a member's voice off for the whole crew, covering every walkie channel of that crew's rooms, not room by room; text stays on.
 - Inside an invite-only room members see each other's handle, avatar and car icon, even without a shared crew, and nothing more.
 
 ## Rationale
