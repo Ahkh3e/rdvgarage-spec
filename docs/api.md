@@ -99,10 +99,9 @@ Messages arrive live over Realtime Broadcast on each person's private `inbox:<us
 
 | Name | Type | Notes |
 |---|---|---|
-| walkie_token | Edge | room id; checks membership and returns a listen-only LiveKit token for that room, valid 5 minutes, renewed while joined; the participant id is a keyed hash of the person and the room; rate limited |
-| walkie_floor | Edge | room id and `take`, `release` or `leave`; `take` grants a 30 second lease if the floor is free or the lease ended and then grants publish at the audio service, revoking a stale holder first; `release` revokes it; every change is broadcast on the room's private `walkie:<room_id>` channel |
-| walkie_kick | Edge | service only; called by a database trigger when a member is removed or a room is deleted; removes that participant from the audio service |
-| walkie_sweep | Edge | service only; run every minute by a scheduled job; revokes publish for expired leases and clears them, and closes finished RDV rooms and kicks their participants |
+| walkie_token | Edge | room id; checks membership and returns a LiveKit token for that room that lets the person listen and publish, valid 5 minutes, renewed while in the room; the participant id is a keyed hash of the person and the room; rate limited |
+| walkie_kick | Edge | service only; called by a database trigger when a member is removed or a room is deleted or closed; removes that participant from the audio service |
+| close_rdv_rooms | SQL | service only; run by a scheduled job; closes RDV rooms whose RDV has ended or been cancelled and calls `walkie_kick` for anyone connected |
 
 ## Leaderboard
 
@@ -112,7 +111,7 @@ Messages arrive live over Realtime Broadcast on each person's private `inbox:<us
 
 ## Errors
 
-All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_area_required, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, room_not_found, not_room_member, not_room_owner, room_name_invalid, room_description_invalid, message_invalid, no_shared_crew, room_closed, floor_taken, not_in_channel, floor_expired, walkie_unavailable, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
+All functions return a stable error code the app maps to a message: invalid_invite, expired_invite, revoked_invite, handle_taken, handle_invalid, handle_cooldown, email_invalid, email_in_use (test mode only), invalid_checkpoint, password_too_short, wrong_password, email_unconfirmed, reset_link_invalid, terms_required, age_confirmation_required, invalid_crew_link, not_a_member, not_owner, pin_not_found, pin_label_invalid, pin_note_invalid, pin_place_invalid, pin_crew_required, invalid_query, search_unavailable, not_host, rdv_area_required, rdv_title_invalid, rdv_kind_invalid, rdv_place_invalid, rdv_note_invalid, rdv_radius_invalid, rdv_time_invalid, rdv_end_invalid, rdv_crew_required, rdv_answer_invalid, rdv_method_invalid, room_not_found, not_room_member, not_room_owner, room_name_invalid, room_description_invalid, message_invalid, no_shared_crew, room_closed, walkie_unavailable, rdv_not_found, rdv_in_past, rdv_closed, outside_radius, outside_window, owner_must_transfer, session_not_found, suspended, rate_limited.
 
 A registration for an email already in use does not return an error; see the note under Anonymous.
 
