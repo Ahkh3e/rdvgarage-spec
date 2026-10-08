@@ -7,6 +7,7 @@ Hold a button and talk to a room, and everyone who is listening hears you at onc
 ## Behavior
 
 - Being in a room is being in its walkie channel. There is no separate join step: when a member opens a room they are in the channel and hear whoever is holding Talk, with the chat on the same screen. Leaving the room (Back to the room list, the Leave control, or opening another room) leaves the channel.
+- The room screen is a text chat with a voice button: the messages fill the screen, and at the bottom the text composer sits beside a round Talk button. A strip above the composer shows who is talking while someone holds Talk.
 - To talk, the person holds the Talk button on the room screen. While held, their microphone is open and a "On the air" state shows on their phone and on every listener's. Releasing closes the microphone.
 - One person talks at a time. The first to press takes the floor; anyone else who presses while it is held sees who has it and cannot talk until it is free. A turn ends when the person releases, or after 30 seconds, whichever comes first, and the floor is then free.
 - Everyone listening sees who is talking: the speaker's handle, avatar and car icon, and a level meter. Nothing else about the speaker is shown.
