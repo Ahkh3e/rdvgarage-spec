@@ -105,9 +105,7 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 
 `chat.messages`: `id`, `room_id`, `sender_id`, `body` (1 to 1000 characters), `created_at`; deleted by a scheduled job when older than the `chat_message_ttl_days` setting (default 7).
 
-`chat.floors`: `room_id` (primary key), `holder_id`, `lease_expires_at`; one row per room that has a speaker, cleared on release or when the lease ends. This holds no audio and no position. A change to it is broadcast on the private `walkie:<room_id>` channel by `walkie_floor`.
-
-`chat.push_settings` is not added in this release; the mute flag in `chat.members` is the setting the push function reads.
+The mute flag in `chat.members` is the setting a later push function reads. There is no table for walkie-talkie: audio and talking events are not stored.
 
 ## Access policies
 
@@ -126,7 +124,6 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 | places.pins, places.pin_crews | members of a listed crew while not expired | the dropper or an owner of a listed crew, via function |
 | chat.rooms, chat.members | members of the room, and for a crew room members of the crew | functions only |
 | chat.messages | members of the room, for messages created after the member joined and not older than `chat_message_ttl_days` | functions only (send, delete) |
-| chat.floors | members of the room | functions only |
 | rdvs.rsvps, rdvs.arrivals | members of a crew the RDV is for; the user always reads their own rows, even after leaving the crew | the user, via function (arrivals through record_arrival) |
 
 Every policy also requires the caller's profile to be active. Realtime channel `crew:<crew_id>` is private; join requires membership in `crews.members`.
