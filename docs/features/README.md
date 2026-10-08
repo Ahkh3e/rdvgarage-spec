@@ -18,6 +18,8 @@ iPhone first, Android eventually, one codebase (decisions 0005, 0011). One spec 
 | RDVs | rdvs.md | Drop an RDV (meet, cruise, private event) with place, time, crew; RSVP; arrival by location |
 | Places | places.md | Search an address, drop crew-visible pins, nearby places; Directions hands off |
 | Maps handoff | maps-handoff.md | Directions opens Waze by default, or Apple Maps or Google Maps |
+| Chat rooms | chat-rooms.md | Text rooms for each crew, invite-only rooms across crews, and RDV rooms; messages kept 7 days |
+| Walkie-talkie | walkie-talkie.md | Hold to talk in a room's voice channel, one speaker at a time, not recorded |
 | Stats and streaks | stats.md | Distance driven, meets attended, streaks |
 | Notifications | notifications.md | A notification while you are live and when a friend goes live (local in 0.0.1; remote push later); RDV drops, RSVPs, invites later |
 | Privacy controls | privacy.md | Manual live sessions with per-crew sharing; ghost mode and per-RDV windows later |

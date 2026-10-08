@@ -97,6 +97,18 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 
 `places.pin_crews`: `pin_id`, `crew_id`; primary key (pin_id, crew_id).
 
+## chat
+
+`chat.rooms`: `id`, `kind` (crew, invite, rdv), `name`, `description` (nullable), `crew_id` (set for crew rooms, unique, deleted with the crew), `rdv_id` (set for RDV rooms, unique), `status` (active, closed), `created_at`. The owner of an invite room is the member whose `role` is owner; there is no second owner column. Crew rooms are moderated by their crew owner and RDV rooms by the host and the owners of the RDV's crews, read from `crews` and `rdvs`.
+
+`chat.members`: `room_id`, `user_id`, `role` (owner, member), `joined_at`, `muted` (default false), `last_read_at` (starts at `joined_at`), `blocked` (default false; set when a moderator removes someone from an RDV room); primary key (room_id, user_id). For a crew room the rows follow `crews.members`; for an RDV room they follow the going and maybe RSVPs; triggers on those tables add and remove the rows, and a returning person gets a new `joined_at`.
+
+`chat.messages`: `id`, `room_id`, `sender_id`, `body` (1 to 1000 characters), `created_at`; deleted by a scheduled job when older than the `chat_message_ttl_days` setting (default 7).
+
+`chat.floors`: `room_id` (primary key), `holder_id`, `lease_expires_at`; one row per room that has a speaker, cleared on release or when the lease ends. This holds no audio and no position. A change to it is broadcast on the private `walkie:<room_id>` channel by `walkie_floor`.
+
+`chat.push_settings` is not added in this release; the mute flag in `chat.members` is the setting the push function reads.
+
 ## Access policies
 
 | Table | Read | Write |
@@ -112,10 +124,13 @@ No tables. `leaderboard.weekly_top_speed(crew_id, week_start)` reads `live.segme
 | rdvs.rdvs, rdvs.crews | members of a listed crew | the host or a crew owner, via function |
 | rdvs.places | members of a listed crew, except that a private event's row is readable only by the host and members who answered going or maybe | the host, via function |
 | places.pins, places.pin_crews | members of a listed crew while not expired | the dropper or an owner of a listed crew, via function |
+| chat.rooms, chat.members | members of the room, and for a crew room members of the crew | functions only |
+| chat.messages | members of the room, for messages created after the member joined and not older than `chat_message_ttl_days` | functions only (send, delete) |
+| chat.floors | members of the room | functions only |
 | rdvs.rsvps, rdvs.arrivals | members of a crew the RDV is for; the user always reads their own rows, even after leaving the crew | the user, via function (arrivals through record_arrival) |
 
 Every policy also requires the caller's profile to be active. Realtime channel `crew:<crew_id>` is private; join requires membership in `crews.members`.
 
 ## Retention
 
-Everything above is kept while the account exists. Deleting the account removes sessions, session_crews, segments, the user's RSVPs and arrivals, the auth user with its email, and avatar files; RDVs the user hosted that have not ended are cancelled and keep their rows, with host_id cleared, so other members' arrivals and stats stay intact; invite records and the profile tombstone remain for the referral chain.
+Everything above is kept while the account exists, except chat messages, which are deleted after `chat_message_ttl_days`. Deleting the account removes sessions, session_crews, segments, the user's RSVPs and arrivals, the person's chat messages and room memberships (a room they own passes to its longest-standing member, or is deleted with none), the auth user with its email, and avatar files; RDVs the user hosted that have not ended are cancelled and keep their rows, with host_id cleared, so other members' arrivals and stats stay intact; invite records and the profile tombstone remain for the referral chain.

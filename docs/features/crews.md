@@ -24,7 +24,7 @@ Private groups of members who share a map and RDVs.
 ## Rules
 
 - A member visible in more than one selected crew shows once.
-- Crew membership is visible to other members of that crew only.
+- Crew membership is visible to other members of that crew only. The one exception is an invite-only chat room, where its members see each other's handle, avatar and car icon (chat-rooms.md).
 - There are no limits on crew size or on crews per user.
 
 ## Platform notes
