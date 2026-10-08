@@ -14,9 +14,9 @@ Real-time voice needs a media server; building one on Supabase Realtime is not p
 
 Decision 0004 requires any third party that could receive member locations to be vetted. This service receives audio, not location:
 
-- It is never given a position, speed, route, crew or handle. Participant ids are opaque and the display name sent is empty.
+- It is never given a position, speed, route, crew name or handle. The participant id is a keyed hash of the person and the room, so it is stable inside one room and cannot be linked across rooms, and the room id is an opaque uuid. The display name sent is empty. Who is speaking comes from the app's own floor broadcast, not from the audio service.
 - Audio is not recorded by Rendezview and recording is off in the project settings.
-- Tokens last 1 hour, name one room, and grant listen, with talk only while the floor lease holds.
+- Tokens last 5 minutes and name one room. They grant listen only; talk is granted by the server while the floor lease holds and revoked at release, at the next take, and by removal from the room.
 - The service still sees the voice of whoever talks and their network address, which the product says in disclaimers.md.
 
 ## Consequences
