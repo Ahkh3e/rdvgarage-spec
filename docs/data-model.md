@@ -50,7 +50,7 @@ Who joined an invite is `accounts.profiles.invite_id`.
 | is_synthetic | true for crews made by the operator toolkit; default false |
 | created_at | |
 
-`crews.members`: `crew_id`, `user_id`, `role` (owner, member), `joined_at`, `voice_revoked_at` (nullable; set when the owner turns the member's voice off for the crew), `voice_revoked_by`; primary key (crew_id, user_id). Exactly one owner per active crew.
+`crews.members`: `crew_id`, `user_id`, `role` (owner, admin, member), `joined_at`, `voice_revoked_at` (nullable; set when a moderator turns the member's voice off for the crew), `voice_revoked_by`; primary key (crew_id, user_id). Exactly one owner per active crew, the person who started it unless ownership was transferred; any number of admins.
 
 `crews.selections`: `user_id`, `crew_id`; the crews the user has selected for the map and Board, synced across their devices.
 
@@ -119,9 +119,9 @@ The mute flag in `chat.members` is the setting a later push function reads. Ther
 | live.sessions | the user | functions only |
 | live.session_crews | the user, and members of the listed crews | functions only |
 | live.segments | members of crews listed in session_crews | the session's user, via function |
-| rdvs.rdvs, rdvs.crews | members of a listed crew | the host or a crew owner, via function |
+| rdvs.rdvs, rdvs.crews | members of a listed crew | the host or a crew owner or admin, via function |
 | rdvs.places | members of a listed crew, except that a private event's row is readable only by the host and members who answered going or maybe | the host, via function |
-| places.pins, places.pin_crews | members of a listed crew while not expired | the dropper or an owner of a listed crew, via function |
+| places.pins, places.pin_crews | members of a listed crew while not expired | the dropper or an owner or admin of a listed crew, via function |
 | chat.rooms, chat.members | members of the room, and for a crew room members of the crew | functions only |
 | chat.messages | members of the room, for messages created after the member joined and not older than `chat_message_ttl_days` | functions only (send, delete) |
 | rdvs.rsvps, rdvs.arrivals | members of a crew the RDV is for; the user always reads their own rows, even after leaving the crew | the user, via function (arrivals through record_arrival) |

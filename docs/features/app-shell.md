@@ -24,7 +24,7 @@ The app opens on Map when the user is live, otherwise on Crews.
 | Confirm email | accounts | Shown after the form until the email is confirmed (skipped in test mode); Resend button; says unconfirmed accounts expire after 24 hours |
 | Reset password | accounts | Opened by the reset link; sets a new password |
 | My Crews | crews | List, selection toggles, live status |
-| Crew detail | crews | Members, link, owner actions, the crew's upcoming RDVs |
+| Crew detail | crews | Members, link, owner and admin actions, the crew's upcoming RDVs |
 | Create crew, Join crew | crews | Join opens from a crew link |
 | Map | map | Selected crews' live members; recenter |
 | Room, Create room, Room members | chat | Messages and composer, the Talk button and channel state; create and manage an invite-only room |

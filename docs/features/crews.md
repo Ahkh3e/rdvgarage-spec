@@ -7,12 +7,12 @@ Private groups of members who share a map and RDVs.
 ## Behavior
 
 - A user can belong to any number of crews. No cap on crew count.
-- Roles in 0.0.1: owner and member. An admin role is planned later. Owner can transfer ownership.
+- Roles: owner, admin and member. The owner is the person who started the crew. The owner can add admins from the members and take the role away again, and can transfer ownership. Admins and the owner are the crew's moderators.
 - Join by crew link. Joining a crew requires being an app member. Admin invites arrive with the admin role.
-- Leaving is always allowed. The owner can remove members from the crew.
+- Leaving is always allowed. The owner and admins can remove members from the crew; an admin cannot remove the owner or another admin.
 - The crew link is reusable and does not expire. It works only for existing app members and cannot be used to sign up. The owner can regenerate it at any time; the old link stops working.
 - Crew has a name (3-30 characters), an optional avatar, and an optional description (up to 140 characters).
-- The owner sees the member list and can remove a member, turn a member's voice off or on for the whole crew (chat-rooms.md, walkie-talkie.md), regenerate the crew link, transfer ownership, and delete the crew. A member sees the member list and can leave.
+- The owner sees the member list and can add or remove admins, remove a member, turn a member's voice off or on for the whole crew (chat-rooms.md, walkie-talkie.md), regenerate the crew link, transfer ownership, and delete the crew. An admin can remove a member, turn a member's voice off or on, and cancel RDVs and delete messages for the crew, but cannot add admins, regenerate the link, transfer ownership or delete the crew. A member sees the member list and can leave.
 
 ## My Crews
 

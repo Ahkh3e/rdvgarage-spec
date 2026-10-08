@@ -17,7 +17,7 @@ Members talk in text, in a room for a crew or for a hand-picked group. A room is
 - Text only in this release: up to 1000 characters, plain text with links shown as text. No images, files, reactions or replies.
 - Messages arrive live to members who are in the app and appear in the list for everyone else on their next load.
 - A message shows the sender's handle, avatar and car icon, and its time.
-- The sender can delete their own message. The owner of an invite room, the owner of a crew for its crew room, and the host or an owner of one of the RDV's crews for an RDV room can delete any message in that room. A deleted message disappears for everyone.
+- The sender can delete their own message. The owner of an invite room, a crew owner or admin for its crew room, and the host or an owner or admin of one of the RDV's crews for an RDV room can delete any message in that room. A deleted message disappears for everyone.
 - Messages are kept for 7 days and then deleted by a scheduled job (the value is a server setting, `chat_message_ttl_days`). There is no history beyond that and no export.
 - A member who joins sees only messages sent after they joined, and only while they are still kept. A person who leaves a crew or changes an RSVP and returns gets a new join time, so earlier messages stay hidden from them. Membership of crew rooms and RDV rooms is kept in step by database triggers on crew membership and RSVPs, so it never waits for a job.
 
@@ -26,7 +26,7 @@ Members talk in text, in a room for a crew or for a hand-picked group. A room is
 - The owner of an invite-only room can add and remove members and delete the room. Crew rooms and RDV rooms have no member management; they follow the crew or the RSVPs. An owner can transfer ownership. Members can leave at any time.
 - Added members get the room in their list at once and can leave if they did not want it. Nobody can be added who does not share a crew with the person adding them.
 - Inside an invite-only room members see each other's handle, avatar and car icon, even when they share no crew. That is all they see; crews and other profile fields stay private (crews.md).
-- A member who is removed, leaves, or is removed from the crew behind a crew room stops seeing the room and its messages at once. To remove someone from a crew room, a crew owner removes them from the crew (crews.md). In an RDV room the host or a crew owner of the RDV can remove a member, who is then blocked from the room even while their RSVP stays, so the RSVP sync does not add them back.
+- A member who is removed, leaves, or is removed from the crew behind a crew room stops seeing the room and its messages at once. To remove someone from a crew room, a crew owner or admin removes them from the crew (crews.md). In an RDV room the host or a crew owner or admin of the RDV can remove a member, who is then blocked from the room even while their RSVP stays, so the RSVP sync does not add them back.
 - Leaving a room or a crew removes only the person's membership; their earlier messages stay for the others until they expire. Deleting an account removes the person's messages and memberships. An invite room whose owner deletes their account passes to the longest-standing member, or is deleted if it has none.
 
 ## Unread and notifications
@@ -40,7 +40,7 @@ Members talk in text, in a room for a crew or for a hand-picked group. A room is
 
 - Chat and the walkie-talkie are not safe to use while driving. The room screen shows the short line in disclaimers.md (Placement), and the product adds no lockout or speed rule (CLAUDE.md, disclaimers.md).
 - Shipping chat and voice bumps the terms version, so everyone accepts the updated disclaimers on their next open (disclaimers.md).
-- Moderation of voice is per crew, not per room: a crew owner turns a member's voice off once for all of that crew's rooms (walkie-talkie.md). Text is not affected by it.
+- Moderation of voice is per crew, not per room: a crew owner or admin turns a member's voice off once for all of that crew's rooms (walkie-talkie.md). Text is not affected by it.
 - Location is never part of chat: no live position, speed or route appears in a room, and nothing in a message is read for location.
 - Only members of a room can read, send or list it. Policies enforce this in the database (data-model.md).
 - A person cannot be added to a room by someone they share no crew with, and a room never reveals who else is a member to anyone outside it.
