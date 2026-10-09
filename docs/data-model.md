@@ -12,6 +12,7 @@ Postgres on Supabase. One schema per module (see `docs/architecture.md`). All ti
 | handle | unique, 3-20 chars, lowercase letters, numbers, underscore |
 | avatar_path | nullable; private storage path |
 | car_icon | one of the icon keys in `docs/features/car-icons.md`; not null, default `gt` |
+| car_color | one of the palette keys in `docs/features/car-icons.md`; nullable, null means the crew colour |
 | invited_by | nullable profile id (null only for the operator-created first account) |
 | invite_id | nullable invite id used to join |
 | status | active, suspended, deleted |

@@ -60,12 +60,13 @@ Crew markers are the one exception to a single accent. Each crew gets one of six
 ## Map
 
 - One custom map style on both platforms, "RDV Night": a monochrome charcoal-blue night map with near-black ground, grey roads that get lighter and wider as they get bigger (highways near white), no coloured parks or water, quiet labels, and subtle 3D buildings when close in (decisions 0017 and 0019). The only colour on the map is the blue accent and the crew tints on markers.
-- The map takes three quarters of the screen with a crew sheet underneath. Scrolling the member list squeezes the map to a quarter; tapping a live member jumps to them and opens the map back up.
+- The map and the crew sheet share the screen, and the sheet has three stops: map large (the map takes three quarters), halfway (the default; the map takes half), and map small (a quarter). The handle moves between them by drag or tap, and scrolling the member list pulls the sheet up. The Go live button sits on the top edge of the sheet and rides with it at every stop, so at the halfway stop it is at the middle of the screen. Tapping a live member jumps to them and opens the map back up.
+- At the top of the map the search field comes first, with the Nearby and Plans buttons, and the live-count pill ("No one else live" or "N live") sits directly under it.
 - Buttons on the map: zoom in, zoom out, a 2D and 3D switch (flat style without extruded buildings), and a recenter button. They are glass round buttons.
 - Follow mode is tilted about 55 degrees in 3D, close behind the person, and turns with the road. The camera keeps the last heading when they stop. Dragging the map ends follow mode; the recenter button brings it back. Tapping the live pill fits everyone who is live.
 - Attribution for OpenStreetMap and OpenMapTiles stays visible.
 - Tapping a live member in the list or a marker opens a floating card over the map with their avatar, handle, crew and a Follow button; Follow keeps the camera on them until the map is dragged.
-- Member markers: a small 3D racecar model of the member's chosen car, in the map itself, tinted in the crew colour, facing its heading and gliding between updates, with an outlined name pill beneath (crew dot and handle). Your own car is the bright blue. See `docs/features/car-icons.md` and decision 0023. Your own marker is an accent arrow while following, an accent dot with a soft halo otherwise.
+\1
 - A member who is not live has no marker on the map and shows as offline in the crew list; there is no idle state (live-map.md).
 - No route lines (decision 0006).
 

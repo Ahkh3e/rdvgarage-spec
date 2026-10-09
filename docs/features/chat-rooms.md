@@ -49,6 +49,7 @@ Members talk in text, in a room for a crew or for a hand-picked group. A room is
 
 - Live delivery uses Realtime Broadcast. Sending a message writes it to the table and broadcasts a small event (room id, sender, text) to each member's private `inbox:<user_id>` channel, which only that person can join. One channel per person, however many rooms, keeps the connection count down; each message counts as one Realtime message per recipient against the free-tier monthly limit (architecture.md, #41). The room screen shows live messages from the same channel.
 - The Rooms tab, room list and room screen are the same on iPhone and Android.
+- The keyboard never covers the composer: the composer rides above it and the message list shrinks so the latest message stays visible, on both platforms and with the keyboard's own suggestions bar.
 
 ## Data and API
 
