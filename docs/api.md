@@ -17,7 +17,7 @@ On a valid invite and handle, `register` always answers the same way ("check you
 
 | Name | Type | Notes |
 |---|---|---|
-| update_profile | SQL | handle (once per 30 days), avatar path and car icon |
+| update_profile | SQL | handle (once per 30 days), avatar path, car icon and car colour |
 | list_sessions | SQL | the user's signed-in devices (reads the auth sessions table; the caller's own rows only) |
 | revoke_session | SQL | one session |
 | revoke_other_sessions | SQL | every session except the caller's; the app calls it right after a successful password reset |
